@@ -1,4 +1,4 @@
-﻿Public Class Form1
+﻿Public Class メイン画面
 
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
