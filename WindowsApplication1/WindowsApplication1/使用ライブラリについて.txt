@@ -1,0 +1,4 @@
+使用ライブラリ一覧
+
+FiddlerCore
+Json.NET
