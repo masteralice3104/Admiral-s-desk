@@ -36,7 +36,6 @@ Public Class 遠征情報表示
                 Next
             ElseIf path.StartsWith("/kcsapi/api_port/port") Then
                 For count = 1 To 3
-                    Me.遠征情報.Rows(count - 1).Cells(0).Value = Format("{0}", JSONObject("api_data")("api_deck_port")(count)("api_name"))
                     Me.遠征情報.Rows(count - 1).Cells(1).Tag = Format("{0}", JSONObject("api_data")("api_deck_port")(count)("api_mission")(2))
                 Next
 
@@ -49,7 +48,7 @@ Public Class 遠征情報表示
     Private Sub 毎秒更新()
         For count = 0 To 2
             Dim Span As TimeSpan
-            If Me.遠征情報.Rows(count).Cells(1).Tag IsNot "0" Then
+            If Me.遠征情報.Rows(count).Cells(1).Tag <> "0" Then
                 Dim Thistime As DateTimeOffset = DateTimeOffset.UtcNow
                 Span = DateTimeOffset.FromUnixTimeSeconds(Long.Parse(Me.遠征情報.Rows(count).Cells(1).Tag) / 1000) - Thistime
                 Dim Time As Long = Span.TotalSeconds
@@ -62,6 +61,10 @@ Public Class 遠征情報表示
                 Me.遠征情報.Rows(count).Cells(1).Value = ""
             End If
         Next
+        Me.遠征情報.Rows(0).Cells(0).Value = 艦隊情報一覧.艦隊名2
+        Me.遠征情報.Rows(1).Cells(0).Value = 艦隊情報一覧.艦隊名3
+        Me.遠征情報.Rows(2).Cells(0).Value = 艦隊情報一覧.艦隊名4
+
     End Sub
 
 

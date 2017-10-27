@@ -25,7 +25,7 @@
             Dim JSONData As String = JSONtemporaryData.Substring(7)
 
             'JSON文字列→JSON形式データに復元
-            Dim JSONObject As Object = Newtonsoft.Json.JsonConvert.DeserializeObject(JSONData)
+            Dim JSONObject As Newtonsoft.Json.Linq.JObject = Newtonsoft.Json.JsonConvert.DeserializeObject(JSONData)
 
             'これがJSONのデータを表示する部分だ
             If path.StartsWith("/kcsapi/api_port/port") Then

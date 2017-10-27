@@ -24,9 +24,9 @@ Partial Class 遠征情報表示
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Me.遠征情報 = New System.Windows.Forms.DataGridView()
-        Me.毎秒更新タイマー = New System.Windows.Forms.Timer(Me.components)
         Me.艦隊名 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.残り時間 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.毎秒更新タイマー = New System.Windows.Forms.Timer(Me.components)
         CType(Me.遠征情報, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -43,12 +43,8 @@ Partial Class 遠征情報表示
         Me.遠征情報.Name = "遠征情報"
         Me.遠征情報.RowHeadersVisible = False
         Me.遠征情報.RowTemplate.Height = 21
-        Me.遠征情報.Size = New System.Drawing.Size(164, 62)
+        Me.遠征情報.Size = New System.Drawing.Size(164, 86)
         Me.遠征情報.TabIndex = 0
-        '
-        '毎秒更新タイマー
-        '
-        Me.毎秒更新タイマー.Interval = 1000
         '
         '艦隊名
         '
@@ -64,11 +60,15 @@ Partial Class 遠征情報表示
         Me.残り時間.Name = "残り時間"
         Me.残り時間.Width = 80
         '
+        '毎秒更新タイマー
+        '
+        Me.毎秒更新タイマー.Interval = 1000
+        '
         '遠征情報表示
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(164, 62)
+        Me.ClientSize = New System.Drawing.Size(164, 86)
         Me.ControlBox = False
         Me.Controls.Add(Me.遠征情報)
         Me.DataBindings.Add(New System.Windows.Forms.Binding("Location", Global.Admiral_s_Desk.My.MySettings.Default, "遠征情報表示", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))

@@ -89,6 +89,18 @@ Namespace My
                 Me("遠征情報表示") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0, 0")>  _
+        Public Property 艦隊情報一覧位置() As Global.System.Drawing.Point
+            Get
+                Return CType(Me("艦隊情報一覧位置"),Global.System.Drawing.Point)
+            End Get
+            Set
+                Me("艦隊情報一覧位置") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

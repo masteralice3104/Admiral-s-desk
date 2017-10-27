@@ -24,6 +24,7 @@
         資源等管理.Show()
         艦隊情報一覧.Show()
         遠征情報表示.Show()
+        統合情報集合.Show()
     End Sub
 
     Private Sub データ検知(oSession As Nekoxy.Session)
