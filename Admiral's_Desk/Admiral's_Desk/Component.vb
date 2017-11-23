@@ -1,11 +1,11 @@
 ﻿Public Class Component
     '   Public Function KancolleReadJson(oSession As Object)
-    '   引数
-    '   oSession    Nekoxy.Session型のセッションデータ
-    '   
-    '   返値
-    '   艦これのデータ時はNewtonsoft.Json.Linq.JObject型のJSONオブジェクトデータ
-    '   異常値及び艦これのデータではないと判別したときは何も返さない
+    '   ■引数
+    '       oSession    Nekoxy.Session型のセッションデータ
+    '       PathString  String型のURLデータ。/kcsapiから始まるやつ
+    '   ■返値
+    '       艦これのデータ時はNewtonsoft.Json.Linq.JObject型のJSONオブジェクトデータ
+    '       異常値及び艦これのデータではないと判別したときは何も返さない
     '   
     Public Shared Function KancolleReadJson(oSession As Object, PathString As String) As Object
         'とりあえずNekoxyからパスを受け取る
