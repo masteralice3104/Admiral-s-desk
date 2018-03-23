@@ -132,30 +132,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="統合情報集合.Designer.vb">
-      <DependentUpon>統合情報集合.vb</DependentUpon>
-    </Compile>
-    <Compile Include="統合情報集合.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="艦隊情報一覧.Designer.vb">
-      <DependentUpon>艦隊情報一覧.vb</DependentUpon>
-    </Compile>
-    <Compile Include="艦隊情報一覧.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="資源等管理.Designer.vb">
-      <DependentUpon>資源等管理.vb</DependentUpon>
-    </Compile>
-    <Compile Include="資源等管理.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="遠征情報表示.Designer.vb">
-      <DependentUpon>遠征情報表示.vb</DependentUpon>
-    </Compile>
-    <Compile Include="遠征情報表示.vb">
-      <SubType>Form</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="メインフォーム.resx">
@@ -166,18 +142,6 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="統合情報集合.resx">
-      <DependentUpon>統合情報集合.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="艦隊情報一覧.resx">
-      <DependentUpon>艦隊情報一覧.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="資源等管理.resx">
-      <DependentUpon>資源等管理.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="遠征情報表示.resx">
-      <DependentUpon>遠征情報表示.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
