@@ -1,0 +1,88 @@
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+Partial Class 遠征情報表示
+    Inherits System.Windows.Forms.Form
+
+    'フォームがコンポーネントの一覧をクリーンアップするために dispose をオーバーライドします。
+    <System.Diagnostics.DebuggerNonUserCode()> _
+    Protected Overrides Sub Dispose(ByVal disposing As Boolean)
+        Try
+            If disposing AndAlso components IsNot Nothing Then
+                components.Dispose()
+            End If
+        Finally
+            MyBase.Dispose(disposing)
+        End Try
+    End Sub
+
+    'Windows フォーム デザイナーで必要です。
+    Private components As System.ComponentModel.IContainer
+
+    'メモ: 以下のプロシージャは Windows フォーム デザイナーで必要です。
+    'Windows フォーム デザイナーを使用して変更できます。  
+    'コード エディターを使って変更しないでください。
+    <System.Diagnostics.DebuggerStepThrough()> _
+    Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
+        Me.遠征情報 = New System.Windows.Forms.DataGridView()
+        Me.艦隊名 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.残り時間 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.毎秒更新タイマー = New System.Windows.Forms.Timer(Me.components)
+        CType(Me.遠征情報, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.SuspendLayout()
+        '
+        '遠征情報
+        '
+        Me.遠征情報.AllowUserToAddRows = False
+        Me.遠征情報.AllowUserToDeleteRows = False
+        Me.遠征情報.AllowUserToResizeColumns = False
+        Me.遠征情報.AllowUserToResizeRows = False
+        Me.遠征情報.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.遠征情報.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.艦隊名, Me.残り時間})
+        Me.遠征情報.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.遠征情報.Location = New System.Drawing.Point(0, 0)
+        Me.遠征情報.Name = "遠征情報"
+        Me.遠征情報.RowHeadersVisible = False
+        Me.遠征情報.RowTemplate.Height = 21
+        Me.遠征情報.Size = New System.Drawing.Size(164, 86)
+        Me.遠征情報.TabIndex = 0
+        '
+        '艦隊名
+        '
+        Me.艦隊名.HeaderText = "艦隊名"
+        Me.艦隊名.MaxInputLength = 12
+        Me.艦隊名.Name = "艦隊名"
+        Me.艦隊名.Width = 80
+        '
+        '残り時間
+        '
+        Me.残り時間.HeaderText = "残り時間"
+        Me.残り時間.MaxInputLength = 8
+        Me.残り時間.Name = "残り時間"
+        Me.残り時間.Width = 80
+        '
+        '毎秒更新タイマー
+        '
+        Me.毎秒更新タイマー.Interval = 1000
+        '
+        '遠征情報表示
+        '
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.ClientSize = New System.Drawing.Size(164, 86)
+        Me.ControlBox = False
+        Me.Controls.Add(Me.遠征情報)
+        Me.DataBindings.Add(New System.Windows.Forms.Binding("Location", Global.Admiral_s_Desk.My.MySettings.Default, "遠征情報表示", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.Location = Global.Admiral_s_Desk.My.MySettings.Default.遠征情報表示
+        Me.Name = "遠征情報表示"
+        Me.ShowInTaskbar = False
+        Me.Text = "遠征"
+        CType(Me.遠征情報, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.ResumeLayout(False)
+
+    End Sub
+
+    Friend WithEvents 遠征情報 As DataGridView
+    Friend WithEvents 毎秒更新タイマー As Timer
+    Friend WithEvents 艦隊名 As DataGridViewTextBoxColumn
+    Friend WithEvents 残り時間 As DataGridViewTextBoxColumn
+End Class
