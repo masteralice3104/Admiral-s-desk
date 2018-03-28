@@ -22,11 +22,13 @@ Partial Class 遠征情報
     'コード エディターを使って変更しないでください。
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.遠征情報表示 = New System.Windows.Forms.DataGridView()
         Me.艦隊名 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.遠征名 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.残り時間 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.帰還時刻 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.タイマ = New System.Windows.Forms.Timer(Me.components)
         CType(Me.遠征情報表示, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -72,6 +74,10 @@ Partial Class 遠征情報
         Me.帰還時刻.ReadOnly = True
         Me.帰還時刻.Width = 80
         '
+        'タイマ
+        '
+        Me.タイマ.Enabled = True
+        '
         '遠征情報
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -94,4 +100,5 @@ Partial Class 遠征情報
     Friend WithEvents 遠征名 As DataGridViewTextBoxColumn
     Friend WithEvents 残り時間 As DataGridViewTextBoxColumn
     Friend WithEvents 帰還時刻 As DataGridViewTextBoxColumn
+    Friend WithEvents タイマ As Timer
 End Class

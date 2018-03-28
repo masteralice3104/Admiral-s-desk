@@ -22,6 +22,7 @@ Partial Class 提督情報
     'コード エディターを使って変更しないでください。
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.提督名 = New System.Windows.Forms.Label()
         Me.表示ラベル01 = New System.Windows.Forms.Label()
         Me.母港収容状況 = New System.Windows.Forms.Label()
@@ -29,23 +30,24 @@ Partial Class 提督情報
         Me.提督Lv = New System.Windows.Forms.Label()
         Me.提督Lvアップ残経験値 = New System.Windows.Forms.Label()
         Me.Panel1 = New System.Windows.Forms.Panel()
-        Me.Panel2 = New System.Windows.Forms.Panel()
-        Me.表示ラベル02 = New System.Windows.Forms.Label()
         Me.装備数 = New System.Windows.Forms.Label()
+        Me.表示ラベル02 = New System.Windows.Forms.Label()
+        Me.Panel2 = New System.Windows.Forms.Panel()
         Me.現在資材状況 = New System.Windows.Forms.GroupBox()
-        Me.DataGridView1 = New System.Windows.Forms.DataGridView()
+        Me.資材資源量DataGridView = New System.Windows.Forms.DataGridView()
         Me.資源資材量 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.総数 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.攻略中マップ一覧 = New System.Windows.Forms.GroupBox()
-        Me.DataGridView2 = New System.Windows.Forms.DataGridView()
+        Me.マップ状態 = New System.Windows.Forms.DataGridView()
         Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.更新タイマ = New System.Windows.Forms.Timer(Me.components)
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.現在資材状況.SuspendLayout()
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.資材資源量DataGridView, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.攻略中マップ一覧.SuspendLayout()
-        CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.マップ状態, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         '提督名
@@ -115,6 +117,24 @@ Partial Class 提督情報
         Me.Panel1.Size = New System.Drawing.Size(342, 15)
         Me.Panel1.TabIndex = 6
         '
+        '装備数
+        '
+        Me.装備数.AutoSize = True
+        Me.装備数.Location = New System.Drawing.Point(219, 0)
+        Me.装備数.Name = "装備数"
+        Me.装備数.Size = New System.Drawing.Size(23, 12)
+        Me.装備数.TabIndex = 4
+        Me.装備数.Text = "0/0"
+        '
+        '表示ラベル02
+        '
+        Me.表示ラベル02.AutoSize = True
+        Me.表示ラベル02.Location = New System.Drawing.Point(184, 0)
+        Me.表示ラベル02.Name = "表示ラベル02"
+        Me.表示ラベル02.Size = New System.Drawing.Size(29, 12)
+        Me.表示ラベル02.TabIndex = 3
+        Me.表示ラベル02.Text = "装備"
+        '
         'Panel2
         '
         Me.Panel2.Controls.Add(Me.提督名)
@@ -126,47 +146,29 @@ Partial Class 提督情報
         Me.Panel2.Size = New System.Drawing.Size(342, 32)
         Me.Panel2.TabIndex = 7
         '
-        '表示ラベル02
-        '
-        Me.表示ラベル02.AutoSize = True
-        Me.表示ラベル02.Location = New System.Drawing.Point(184, 0)
-        Me.表示ラベル02.Name = "表示ラベル02"
-        Me.表示ラベル02.Size = New System.Drawing.Size(29, 12)
-        Me.表示ラベル02.TabIndex = 3
-        Me.表示ラベル02.Text = "装備"
-        '
-        '装備数
-        '
-        Me.装備数.AutoSize = True
-        Me.装備数.Location = New System.Drawing.Point(219, 0)
-        Me.装備数.Name = "装備数"
-        Me.装備数.Size = New System.Drawing.Size(23, 12)
-        Me.装備数.TabIndex = 4
-        Me.装備数.Text = "0/0"
-        '
         '現在資材状況
         '
-        Me.現在資材状況.Controls.Add(Me.DataGridView1)
+        Me.現在資材状況.Controls.Add(Me.資材資源量DataGridView)
         Me.現在資材状況.Location = New System.Drawing.Point(12, 64)
         Me.現在資材状況.Name = "現在資材状況"
-        Me.現在資材状況.Size = New System.Drawing.Size(168, 210)
+        Me.現在資材状況.Size = New System.Drawing.Size(168, 233)
         Me.現在資材状況.TabIndex = 8
         Me.現在資材状況.TabStop = False
         Me.現在資材状況.Text = "各種資材・資源量"
         '
-        'DataGridView1
+        '資材資源量DataGridView
         '
-        Me.DataGridView1.AllowUserToAddRows = False
-        Me.DataGridView1.AllowUserToDeleteRows = False
-        Me.DataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView1.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.資源資材量, Me.総数})
-        Me.DataGridView1.Location = New System.Drawing.Point(7, 19)
-        Me.DataGridView1.Name = "DataGridView1"
-        Me.DataGridView1.ReadOnly = True
-        Me.DataGridView1.RowHeadersVisible = False
-        Me.DataGridView1.RowTemplate.Height = 21
-        Me.DataGridView1.Size = New System.Drawing.Size(155, 185)
-        Me.DataGridView1.TabIndex = 0
+        Me.資材資源量DataGridView.AllowUserToAddRows = False
+        Me.資材資源量DataGridView.AllowUserToDeleteRows = False
+        Me.資材資源量DataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.資材資源量DataGridView.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.資源資材量, Me.総数})
+        Me.資材資源量DataGridView.Location = New System.Drawing.Point(7, 19)
+        Me.資材資源量DataGridView.Name = "資材資源量DataGridView"
+        Me.資材資源量DataGridView.ReadOnly = True
+        Me.資材資源量DataGridView.RowHeadersVisible = False
+        Me.資材資源量DataGridView.RowTemplate.Height = 21
+        Me.資材資源量DataGridView.Size = New System.Drawing.Size(155, 205)
+        Me.資材資源量DataGridView.TabIndex = 0
         '
         '資源資材量
         '
@@ -184,27 +186,30 @@ Partial Class 提督情報
         '
         '攻略中マップ一覧
         '
-        Me.攻略中マップ一覧.Controls.Add(Me.DataGridView2)
+        Me.攻略中マップ一覧.Controls.Add(Me.マップ状態)
         Me.攻略中マップ一覧.Location = New System.Drawing.Point(186, 64)
         Me.攻略中マップ一覧.Name = "攻略中マップ一覧"
-        Me.攻略中マップ一覧.Size = New System.Drawing.Size(168, 210)
+        Me.攻略中マップ一覧.Size = New System.Drawing.Size(168, 233)
         Me.攻略中マップ一覧.TabIndex = 9
         Me.攻略中マップ一覧.TabStop = False
         Me.攻略中マップ一覧.Text = "攻略中マップ"
         '
-        'DataGridView2
+        'マップ状態
         '
-        Me.DataGridView2.AllowUserToAddRows = False
-        Me.DataGridView2.AllowUserToDeleteRows = False
-        Me.DataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.DataGridView2.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn1, Me.DataGridViewTextBoxColumn2})
-        Me.DataGridView2.Location = New System.Drawing.Point(7, 19)
-        Me.DataGridView2.Name = "DataGridView2"
-        Me.DataGridView2.ReadOnly = True
-        Me.DataGridView2.RowHeadersVisible = False
-        Me.DataGridView2.RowTemplate.Height = 21
-        Me.DataGridView2.Size = New System.Drawing.Size(155, 185)
-        Me.DataGridView2.TabIndex = 0
+        Me.マップ状態.AllowUserToAddRows = False
+        Me.マップ状態.AllowUserToDeleteRows = False
+        Me.マップ状態.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.マップ状態.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.マップ状態.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn1, Me.DataGridViewTextBoxColumn2})
+        Me.マップ状態.Location = New System.Drawing.Point(7, 19)
+        Me.マップ状態.Name = "マップ状態"
+        Me.マップ状態.ReadOnly = True
+        Me.マップ状態.RowHeadersVisible = False
+        Me.マップ状態.RowTemplate.Height = 21
+        Me.マップ状態.Size = New System.Drawing.Size(155, 205)
+        Me.マップ状態.TabIndex = 0
         '
         'DataGridViewTextBoxColumn1
         '
@@ -220,11 +225,15 @@ Partial Class 提督情報
         Me.DataGridViewTextBoxColumn2.ReadOnly = True
         Me.DataGridViewTextBoxColumn2.Width = 60
         '
+        '更新タイマ
+        '
+        Me.更新タイマ.Enabled = True
+        '
         '提督情報
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(361, 286)
+        Me.ClientSize = New System.Drawing.Size(354, 301)
         Me.Controls.Add(Me.攻略中マップ一覧)
         Me.Controls.Add(Me.現在資材状況)
         Me.Controls.Add(Me.Panel2)
@@ -239,9 +248,9 @@ Partial Class 提督情報
         Me.Panel2.ResumeLayout(False)
         Me.Panel2.PerformLayout()
         Me.現在資材状況.ResumeLayout(False)
-        CType(Me.DataGridView1, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.資材資源量DataGridView, System.ComponentModel.ISupportInitialize).EndInit()
         Me.攻略中マップ一覧.ResumeLayout(False)
-        CType(Me.DataGridView2, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.マップ状態, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
@@ -257,11 +266,12 @@ Partial Class 提督情報
     Friend WithEvents 装備数 As Label
     Friend WithEvents 表示ラベル02 As Label
     Friend WithEvents 現在資材状況 As GroupBox
-    Friend WithEvents DataGridView1 As DataGridView
+    Friend WithEvents 資材資源量DataGridView As DataGridView
     Friend WithEvents 資源資材量 As DataGridViewTextBoxColumn
     Friend WithEvents 総数 As DataGridViewTextBoxColumn
     Friend WithEvents 攻略中マップ一覧 As GroupBox
-    Friend WithEvents DataGridView2 As DataGridView
+    Friend WithEvents マップ状態 As DataGridView
     Friend WithEvents DataGridViewTextBoxColumn1 As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn2 As DataGridViewTextBoxColumn
+    Friend WithEvents 更新タイマ As Timer
 End Class

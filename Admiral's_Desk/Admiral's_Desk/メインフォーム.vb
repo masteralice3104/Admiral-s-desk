@@ -24,24 +24,42 @@
     End Sub
 
     Private Sub データ検知(oSession As Nekoxy.Session)
-        'とりあえずNekoxyからパスを受け取る
-        Dim path As String = oSession.Request.PathAndQuery
 
-        'JSONのデータもぶち込む
-        Dim JSONtemporaryData As String = oSession.Response.BodyAsString
+        'この辺は Component.KancolleReadJson で置換されました
 
-        If (path.StartsWith("/kcsapi/api_")) Then
-            'JSONの先頭にある余計な文字を取り除く
-            Dim JSONData As String = JSONtemporaryData.Substring(7)
+        '        'とりあえずNekoxyからパスを受け取る
+        '       Dim path As String = oSession.Request.PathAndQuery
+        '
+        '       'JSONのデータもぶち込む
+        '        Dim JSONtemporaryData As String = oSession.Response.BodyAsString
 
-            'JSON文字列→JSON形式データに復元
-            Dim JSONObject As Object = Newtonsoft.Json.JsonConvert.DeserializeObject(JSONData)
+        '        If (path.StartsWith("/kcsapi/api_")) Then
+        '          'JSONの先頭にある余計な文字を取り除く
+        '           Dim JSONData As String = JSONtemporaryData.Substring(7)
+        '
+        '           'JSON文字列→JSON形式データに復元
+        '            Dim JSONObject As Object = Newtonsoft.Json.JsonConvert.DeserializeObject(JSONData)
 
+        Dim JSONObject As Object = Component.KancolleReadJson(oSession, URLDataClass.kcsapi)
+        If JSONObject IsNot Nothing Then
+            'Q: このすぐ上の2行なにやってんの？
+            'A: 受け取ったデータがJsonかどうかを判別してます
+            '   JsonであればNothingにならないはず
+            '   艦これで使われる以外のJsonは想定してないから万が一がありえます
+
+            '以後のデータ処理に必要なパスを出します。/kcsapiのアレです
+            Dim path As String = oSession.Request.PathAndQuery                   'jsonのパス
 
 
 
 #If DEBUG Then
             'ここからデバッグ用
+
+            'デバッグに必要なデータをつくる
+            Dim JSONData As String = oSession.Response.BodyAsString.Substring(7) 'JSON生データ
+
+
+            'デバッグコンソール見てね！
             Debug.Listeners.Add(New TextWriterTraceListener(Console.Out))
             Debug.WriteLine("艦これのデータを検知しました")
 
@@ -58,10 +76,19 @@
             Dim URLfilepath As String = "C:\test\URL.txt"
 
 
-            System.IO.File.WriteAllText(filePath, JSONData, enc)
-            System.IO.File.AppendAllText(URLfilepath, Format("{0}", number) & path & vbCrLf, enc)
+            IO.File.WriteAllText(filePath, JSONData, enc)
+            IO.File.AppendAllText(URLfilepath, Format("{0}", number) & path & vbCrLf, enc)
             'ここまでデバッグ用
 #End If
+
+
+            'ここから実装
+
+            '共通データの取得関数
+            StructureOperationClass.KancolleCommonDataReset(oSession)
+
+            '構造体に代入する関数
+            StructureOperationClass.JsonDataInputToStructure(JSONObject, path)
 
 
         End If

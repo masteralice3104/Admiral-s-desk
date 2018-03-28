@@ -22,8 +22,14 @@ Partial Class 艦隊情報
     'コード エディターを使って変更しないでください。
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Me.ComboBox1 = New System.Windows.Forms.ComboBox()
+        Me.components = New System.ComponentModel.Container()
+        Me.艦隊選択 = New System.Windows.Forms.ComboBox()
         Me.一艦隊情報 = New System.Windows.Forms.DataGridView()
+        Me.ラベル01 = New System.Windows.Forms.Label()
+        Me.制空値 = New System.Windows.Forms.Label()
+        Me.ラベル02 = New System.Windows.Forms.Label()
+        Me.合計索敵値 = New System.Windows.Forms.Label()
+        Me.情報更新タイマ = New System.Windows.Forms.Timer(Me.components)
         Me.艦種 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.艦娘名 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Lv = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -37,26 +43,17 @@ Partial Class 艦隊情報
         Me.装備4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.装備5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.補強増設 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ラベル01 = New System.Windows.Forms.Label()
-        Me.制空値 = New System.Windows.Forms.Label()
-        Me.ラベル02 = New System.Windows.Forms.Label()
-        Me.合計索敵値 = New System.Windows.Forms.Label()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.合計TP = New System.Windows.Forms.Label()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.対空カットイン艦数 = New System.Windows.Forms.Label()
-        Me.Label6 = New System.Windows.Forms.Label()
-        Me.先制対潜艦数 = New System.Windows.Forms.Label()
         CType(Me.一艦隊情報, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        'ComboBox1
+        '艦隊選択
         '
-        Me.ComboBox1.FormattingEnabled = True
-        Me.ComboBox1.Location = New System.Drawing.Point(13, 13)
-        Me.ComboBox1.Name = "ComboBox1"
-        Me.ComboBox1.Size = New System.Drawing.Size(187, 20)
-        Me.ComboBox1.TabIndex = 0
+        Me.艦隊選択.FormattingEnabled = True
+        Me.艦隊選択.Items.AddRange(New Object() {"艦隊情報なし"})
+        Me.艦隊選択.Location = New System.Drawing.Point(13, 13)
+        Me.艦隊選択.Name = "艦隊選択"
+        Me.艦隊選択.Size = New System.Drawing.Size(187, 20)
+        Me.艦隊選択.TabIndex = 0
         '
         '一艦隊情報
         '
@@ -72,99 +69,8 @@ Partial Class 艦隊情報
         Me.一艦隊情報.ReadOnly = True
         Me.一艦隊情報.RowHeadersVisible = False
         Me.一艦隊情報.RowTemplate.Height = 21
-        Me.一艦隊情報.Size = New System.Drawing.Size(570, 210)
+        Me.一艦隊情報.Size = New System.Drawing.Size(860, 210)
         Me.一艦隊情報.TabIndex = 1
-        '
-        '艦種
-        '
-        Me.艦種.HeaderText = "艦種"
-        Me.艦種.Name = "艦種"
-        Me.艦種.ReadOnly = True
-        Me.艦種.Width = 75
-        '
-        '艦娘名
-        '
-        Me.艦娘名.HeaderText = "艦娘名"
-        Me.艦娘名.Name = "艦娘名"
-        Me.艦娘名.ReadOnly = True
-        Me.艦娘名.Width = 120
-        '
-        'Lv
-        '
-        Me.Lv.HeaderText = "Lv"
-        Me.Lv.Name = "Lv"
-        Me.Lv.ReadOnly = True
-        Me.Lv.Width = 30
-        '
-        'HP
-        '
-        Me.HP.HeaderText = "HP"
-        Me.HP.Name = "HP"
-        Me.HP.ReadOnly = True
-        Me.HP.Width = 40
-        '
-        'cond
-        '
-        Me.cond.HeaderText = "cond."
-        Me.cond.Name = "cond"
-        Me.cond.ReadOnly = True
-        Me.cond.Width = 40
-        '
-        '燃料
-        '
-        Me.燃料.HeaderText = "燃料"
-        Me.燃料.Name = "燃料"
-        Me.燃料.ReadOnly = True
-        Me.燃料.Width = 40
-        '
-        '弾薬
-        '
-        Me.弾薬.HeaderText = "弾薬"
-        Me.弾薬.Name = "弾薬"
-        Me.弾薬.ReadOnly = True
-        Me.弾薬.Width = 40
-        '
-        '装備1
-        '
-        Me.装備1.HeaderText = "1"
-        Me.装備1.Name = "装備1"
-        Me.装備1.ReadOnly = True
-        Me.装備1.Width = 30
-        '
-        '装備2
-        '
-        Me.装備2.HeaderText = "2"
-        Me.装備2.Name = "装備2"
-        Me.装備2.ReadOnly = True
-        Me.装備2.Width = 30
-        '
-        '装備3
-        '
-        Me.装備3.HeaderText = "3"
-        Me.装備3.Name = "装備3"
-        Me.装備3.ReadOnly = True
-        Me.装備3.Width = 30
-        '
-        '装備4
-        '
-        Me.装備4.HeaderText = "4"
-        Me.装備4.Name = "装備4"
-        Me.装備4.ReadOnly = True
-        Me.装備4.Width = 30
-        '
-        '装備5
-        '
-        Me.装備5.HeaderText = "5"
-        Me.装備5.Name = "装備5"
-        Me.装備5.ReadOnly = True
-        Me.装備5.Width = 30
-        '
-        '補強増設
-        '
-        Me.補強増設.HeaderText = "増"
-        Me.補強増設.Name = "補強増設"
-        Me.補強増設.ReadOnly = True
-        Me.補強増設.Width = 30
         '
         'ラベル01
         '
@@ -202,80 +108,115 @@ Partial Class 艦隊情報
         Me.合計索敵値.TabIndex = 5
         Me.合計索敵値.Text = "0000"
         '
-        'Label3
+        '情報更新タイマ
         '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(358, 16)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(19, 12)
-        Me.Label3.TabIndex = 6
-        Me.Label3.Text = "TP"
+        Me.情報更新タイマ.Enabled = True
         '
-        '合計TP
+        '艦種
         '
-        Me.合計TP.AutoSize = True
-        Me.合計TP.Location = New System.Drawing.Point(383, 16)
-        Me.合計TP.Name = "合計TP"
-        Me.合計TP.Size = New System.Drawing.Size(29, 12)
-        Me.合計TP.TabIndex = 7
-        Me.合計TP.Text = "0000"
+        Me.艦種.HeaderText = "艦種"
+        Me.艦種.Name = "艦種"
+        Me.艦種.ReadOnly = True
+        Me.艦種.Width = 75
         '
-        'Label1
+        '艦娘名
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(418, 16)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(52, 12)
-        Me.Label1.TabIndex = 8
-        Me.Label1.Text = "対空CI艦"
+        Me.艦娘名.HeaderText = "艦娘名"
+        Me.艦娘名.Name = "艦娘名"
+        Me.艦娘名.ReadOnly = True
+        Me.艦娘名.Width = 120
         '
-        '対空カットイン艦数
+        'Lv
         '
-        Me.対空カットイン艦数.AutoSize = True
-        Me.対空カットイン艦数.Location = New System.Drawing.Point(476, 16)
-        Me.対空カットイン艦数.Name = "対空カットイン艦数"
-        Me.対空カットイン艦数.Size = New System.Drawing.Size(17, 12)
-        Me.対空カットイン艦数.TabIndex = 9
-        Me.対空カットイン艦数.Text = "00"
+        Me.Lv.HeaderText = "Lv"
+        Me.Lv.Name = "Lv"
+        Me.Lv.ReadOnly = True
+        Me.Lv.Width = 30
         '
-        'Label6
+        'HP
         '
-        Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(499, 16)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(53, 12)
-        Me.Label6.TabIndex = 10
-        Me.Label6.Text = "先制対潜"
+        Me.HP.HeaderText = "HP"
+        Me.HP.Name = "HP"
+        Me.HP.ReadOnly = True
+        Me.HP.Width = 40
         '
-        '先制対潜艦数
+        'cond
         '
-        Me.先制対潜艦数.AutoSize = True
-        Me.先制対潜艦数.Location = New System.Drawing.Point(558, 16)
-        Me.先制対潜艦数.Name = "先制対潜艦数"
-        Me.先制対潜艦数.Size = New System.Drawing.Size(17, 12)
-        Me.先制対潜艦数.TabIndex = 11
-        Me.先制対潜艦数.Text = "00"
+        Me.cond.HeaderText = "cond."
+        Me.cond.Name = "cond"
+        Me.cond.ReadOnly = True
+        Me.cond.Width = 35
+        '
+        '燃料
+        '
+        Me.燃料.HeaderText = "燃料"
+        Me.燃料.Name = "燃料"
+        Me.燃料.ReadOnly = True
+        Me.燃料.Width = 55
+        '
+        '弾薬
+        '
+        Me.弾薬.HeaderText = "弾薬"
+        Me.弾薬.Name = "弾薬"
+        Me.弾薬.ReadOnly = True
+        Me.弾薬.Width = 55
+        '
+        '装備1
+        '
+        Me.装備1.HeaderText = "1"
+        Me.装備1.Name = "装備1"
+        Me.装備1.ReadOnly = True
+        Me.装備1.Width = 74
+        '
+        '装備2
+        '
+        Me.装備2.HeaderText = "2"
+        Me.装備2.Name = "装備2"
+        Me.装備2.ReadOnly = True
+        Me.装備2.Width = 74
+        '
+        '装備3
+        '
+        Me.装備3.HeaderText = "3"
+        Me.装備3.Name = "装備3"
+        Me.装備3.ReadOnly = True
+        Me.装備3.Width = 74
+        '
+        '装備4
+        '
+        Me.装備4.HeaderText = "4"
+        Me.装備4.Name = "装備4"
+        Me.装備4.ReadOnly = True
+        Me.装備4.Width = 74
+        '
+        '装備5
+        '
+        Me.装備5.HeaderText = "5"
+        Me.装備5.Name = "装備5"
+        Me.装備5.ReadOnly = True
+        Me.装備5.Width = 74
+        '
+        '補強増設
+        '
+        Me.補強増設.HeaderText = "増設"
+        Me.補強増設.Name = "補強増設"
+        Me.補強増設.ReadOnly = True
+        Me.補強増設.Width = 74
         '
         '艦隊情報
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(594, 261)
-        Me.Controls.Add(Me.先制対潜艦数)
-        Me.Controls.Add(Me.Label6)
-        Me.Controls.Add(Me.対空カットイン艦数)
-        Me.Controls.Add(Me.Label1)
-        Me.Controls.Add(Me.合計TP)
-        Me.Controls.Add(Me.Label3)
+        Me.ClientSize = New System.Drawing.Size(884, 261)
         Me.Controls.Add(Me.合計索敵値)
         Me.Controls.Add(Me.ラベル02)
         Me.Controls.Add(Me.制空値)
         Me.Controls.Add(Me.ラベル01)
         Me.Controls.Add(Me.一艦隊情報)
-        Me.Controls.Add(Me.ComboBox1)
+        Me.Controls.Add(Me.艦隊選択)
         Me.MaximizeBox = False
         Me.MinimizeBox = False
-        Me.MinimumSize = New System.Drawing.Size(610, 50)
+        Me.MinimumSize = New System.Drawing.Size(900, 50)
         Me.Name = "艦隊情報"
         Me.Text = "艦隊情報"
         CType(Me.一艦隊情報, System.ComponentModel.ISupportInitialize).EndInit()
@@ -284,8 +225,13 @@ Partial Class 艦隊情報
 
     End Sub
 
-    Friend WithEvents ComboBox1 As ComboBox
+    Friend WithEvents 艦隊選択 As ComboBox
     Friend WithEvents 一艦隊情報 As DataGridView
+    Friend WithEvents ラベル01 As Label
+    Friend WithEvents 制空値 As Label
+    Friend WithEvents ラベル02 As Label
+    Friend WithEvents 合計索敵値 As Label
+    Friend WithEvents 情報更新タイマ As Timer
     Friend WithEvents 艦種 As DataGridViewTextBoxColumn
     Friend WithEvents 艦娘名 As DataGridViewTextBoxColumn
     Friend WithEvents Lv As DataGridViewTextBoxColumn
@@ -299,14 +245,4 @@ Partial Class 艦隊情報
     Friend WithEvents 装備4 As DataGridViewTextBoxColumn
     Friend WithEvents 装備5 As DataGridViewTextBoxColumn
     Friend WithEvents 補強増設 As DataGridViewTextBoxColumn
-    Friend WithEvents ラベル01 As Label
-    Friend WithEvents 制空値 As Label
-    Friend WithEvents ラベル02 As Label
-    Friend WithEvents 合計索敵値 As Label
-    Friend WithEvents Label3 As Label
-    Friend WithEvents 合計TP As Label
-    Friend WithEvents Label1 As Label
-    Friend WithEvents 対空カットイン艦数 As Label
-    Friend WithEvents Label6 As Label
-    Friend WithEvents 先制対潜艦数 As Label
 End Class
