@@ -234,10 +234,13 @@ Partial Class 提督情報
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(354, 301)
+        Me.ControlBox = False
         Me.Controls.Add(Me.攻略中マップ一覧)
         Me.Controls.Add(Me.現在資材状況)
         Me.Controls.Add(Me.Panel2)
         Me.Controls.Add(Me.Panel1)
+        Me.DataBindings.Add(New System.Windows.Forms.Binding("Location", Global.Admiral_s_Desk.My.MySettings.Default, "提督情報ウインドウ位置", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.Location = Global.Admiral_s_Desk.My.MySettings.Default.提督情報ウインドウ位置
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.Name = "提督情報"

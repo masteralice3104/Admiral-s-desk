@@ -10,10 +10,10 @@ Imports System.Runtime.InteropServices
 ' アセンブリ属性の値を確認します
 
 <Assembly: AssemblyTitle("Admiral's_Desk")>
-<Assembly: AssemblyDescription("")>
+<Assembly: AssemblyDescription("「艦これ」専用ブラウザ")>
 <Assembly: AssemblyCompany("masteralice3104")>
 <Assembly: AssemblyProduct("Admiral's_Desk")>
-<Assembly: AssemblyCopyright("Copyright © masteralice3104 2017")>
+<Assembly: AssemblyCopyright("Copyright © masteralice3104 2018")>
 <Assembly: AssemblyTrademark("")>
 
 <Assembly: ComVisible(False)>
@@ -32,6 +32,6 @@ Imports System.Runtime.InteropServices
 ' 既定値にすることができます:
 ' <Assembly: AssemblyVersion("1.0.*")> 
 
-<Assembly: AssemblyVersion("0.0.0.1")>
-<Assembly: AssemblyFileVersion("0.0.0.1")>
+<Assembly: AssemblyVersion("0.1.0.0")>
+<Assembly: AssemblyFileVersion("0.1.0.0")>
 <Assembly: NeutralResourcesLanguage("ja")>

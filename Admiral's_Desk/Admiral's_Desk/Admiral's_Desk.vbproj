@@ -26,7 +26,7 @@
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>0.0.2.%2a</ApplicationVersion>
+    <ApplicationVersion>0.1.0.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -66,7 +66,8 @@
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net">
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>Ex_dll\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Nekoxy">
@@ -110,6 +111,12 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="DataClass.vb" />
+    <Compile Include="オプション.Designer.vb">
+      <DependentUpon>オプション.vb</DependentUpon>
+    </Compile>
+    <Compile Include="オプション.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="メインフォーム.vb">
       <SubType>Form</SubType>
     </Compile>
@@ -152,6 +159,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="オプション.resx">
+      <DependentUpon>オプション.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="メインフォーム.resx">
       <DependentUpon>メインフォーム.vb</DependentUpon>
     </EmbeddedResource>
@@ -195,6 +205,11 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ReadMe.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

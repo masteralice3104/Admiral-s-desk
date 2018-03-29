@@ -31,7 +31,7 @@
 
 
     '母港にいる艦娘と艦隊所属艦のIDを照合し、母港IDを取得する関数
-    Public Shared Function KancollePortKanmusuSearch(ByVal PortID)
+    Public Shared Function KancollePortKanmusuSearch(ByVal PortID As Integer)
         '照合し一致するIDがあればここに収納
         Dim 一致ID As Integer = -1
 
@@ -51,7 +51,7 @@
     End Function
 
     'MyKanmusuDataから得たshipidを照合する
-    Public Shared Function KancolleShipIdSearch(ByVal MyKanmusuID)
+    Public Shared Function KancolleShipIdSearch(ByVal MyKanmusuID As Integer)
         'api_ship_idあたりと照合
         Dim 一致ID As Integer = -1
 
@@ -71,7 +71,7 @@
 
 
     '艦種検索→string型で出力
-    Public Shared Function KancolleStypeSearch(ByVal stype)
+    Public Shared Function KancolleStypeSearch(ByVal stype As Integer)
         Dim 一致艦種 As String = ""
 
         For count As Integer = 0 To CommonDataClass.ShipType.Count - 1
@@ -92,7 +92,7 @@
     '装備検索①
     '保有装備個別のID(艦娘のslotで保持されているid)が引数
     '戻値はMyDataClass.MyEquipmentの配列番号かNothing(失敗時)
-    Public Shared Function KancolleMyEquipmentIDSearch(ByVal 個別装備ID)
+    Public Shared Function KancolleMyEquipmentIDSearch(ByVal 個別装備ID As Integer)
         '装備IDを手がかりに所有装備より検索
         For count As Integer = 0 To MyDataClass.MyEquipment.Count - 1
             If MyDataClass.MyEquipment(count).api_id.Equals(個別装備ID) Then

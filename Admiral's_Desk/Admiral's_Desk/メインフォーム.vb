@@ -124,4 +124,27 @@
             遠征情報.Visible = False
         End If
     End Sub
+
+    Private Sub 更新ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 更新ToolStripMenuItem.Click
+        'メッセージボックスを表示する
+        Dim result As DialogResult = MessageBox.Show("ページを更新します", "確認", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation, MessageBoxDefaultButton.Button2)
+
+        If result = DialogResult.OK Then
+            'はい
+            ブラウザ.Refresh()
+        End If
+
+    End Sub
+
+    Private Sub 中止ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 中止ToolStripMenuItem.Click
+        ブラウザ.Stop()
+    End Sub
+
+    Private Sub オプションoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles オプションoToolStripMenuItem.Click
+        オプション.Visible = True
+    End Sub
+
+    Private Sub 終了XToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 終了XToolStripMenuItem.Click
+        Me.Close()
+    End Sub
 End Class

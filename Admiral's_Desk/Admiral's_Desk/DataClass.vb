@@ -329,7 +329,9 @@ Public Class URLDataClass
     Public Const questlist As String = "/kcsapi/api_get_member/questlist"
     Public Const start As String = "/kcsapi/api_req_quest/start"
     Public Const map_info As String = "/kcsapi/api_get_member/mapinfo"
-
+    Public Const charge As String = "/kcsapi/api_req_hokyu/charge"
+    Public Const deck As String = "/kcsapi/api_get_member/deck"
+    Public Const ship3 As String = "/kcsapi/api_get_member/ship3"
 End Class
 
 
@@ -606,9 +608,6 @@ Public Class StructureOperationClass
             'URLで大体判別
             If path = URLDataClass.port Then
 
-
-
-
                 If JsonObject("api_data")("api_material") IsNot Nothing Then
 
                     If JsonObject("api_data")("api_material")(0) IsNot Nothing Then MyDataClass.MyResource.Fuel = JsonObject("api_data")("api_material")(0)("api_value")
@@ -623,6 +622,18 @@ Public Class StructureOperationClass
                     MyDataClass.EventsEpoch.MyResource_Events()
                 End If
 
+
+            End If
+            If path = URLDataClass.charge Then
+                If JsonObject("api_data")("api_material") IsNot Nothing Then
+
+                    If JsonObject("api_data")("api_material")(0) IsNot Nothing Then MyDataClass.MyResource.Fuel = JsonObject("api_data")("api_material")(0)
+                    If JsonObject("api_data")("api_material")(1) IsNot Nothing Then MyDataClass.MyResource.Bullet = JsonObject("api_data")("api_material")(1)
+                    If JsonObject("api_data")("api_material")(2) IsNot Nothing Then MyDataClass.MyResource.Steel = JsonObject("api_data")("api_material")(2)
+                    If JsonObject("api_data")("api_material")(3) IsNot Nothing Then MyDataClass.MyResource.Bauxite = JsonObject("api_data")("api_material")(3)
+                    'この構造体が変わったよ！ってイベントを発生
+                    MyDataClass.EventsEpoch.MyResource_Events()
+                End If
 
             End If
 
@@ -659,78 +670,153 @@ Public Class StructureOperationClass
 
 
             '保有艦娘データの取得
+
+
             If path = URLDataClass.port Then
+                Dim dir As String = "api_ship"
+
+
                 'まずは艦娘データ配列の調整
                 ReDim MyDataClass.MyKanmusu(JsonObject("api_data")("api_ship").Count - 1)
-
-
                 '代入
-                For count As Int32 = 0 To JsonObject("api_data")("api_ship").Count - 1
+                For count As Int32 = 0 To JsonObject("api_data")(Dir).Count - 1
 
-                    MyDataClass.MyKanmusu(count).api_id = 1
-                    If JsonObject("api_data")("api_ship")(count)("api_id") IsNot Nothing Then MyDataClass.MyKanmusu(count).api_id = JsonObject("api_data")("api_ship")(count)("api_id")
-                    If JsonObject("api_data")("api_ship")(count)("api_sortno") IsNot Nothing Then MyDataClass.MyKanmusu(count).api_sortno = JsonObject("api_data")("api_ship")(count)("api_sortno")
-                    If JsonObject("api_data")("api_ship")(count)("api_ship_id") IsNot Nothing Then MyDataClass.MyKanmusu(count).api_ship_id = JsonObject("api_data")("api_ship")(count)("api_ship_id")
-                    If JsonObject("api_data")("api_ship")(count)("api_lv") IsNot Nothing Then MyDataClass.MyKanmusu(count).api_lv = JsonObject("api_data")("api_ship")(count)("api_lv")
+                    If JsonObject("api_data")(Dir)(count)("api_id") IsNot Nothing Then MyDataClass.MyKanmusu(count).api_id = JsonObject("api_data")(Dir)(count)("api_id")
+                    If JsonObject("api_data")(Dir)(count)("api_sortno") IsNot Nothing Then MyDataClass.MyKanmusu(count).api_sortno = JsonObject("api_data")(Dir)(count)("api_sortno")
+                    If JsonObject("api_data")(Dir)(count)("api_ship_id") IsNot Nothing Then MyDataClass.MyKanmusu(count).api_ship_id = JsonObject("api_data")(Dir)(count)("api_ship_id")
+                    If JsonObject("api_data")(Dir)(count)("api_lv") IsNot Nothing Then MyDataClass.MyKanmusu(count).api_lv = JsonObject("api_data")(Dir)(count)("api_lv")
                     ReDim Preserve MyDataClass.MyKanmusu(count).api_exp(2)
-                    If JsonObject("api_data")("api_ship")(count)("api_exp")(0) IsNot Nothing Then MyDataClass.MyKanmusu(count).api_exp(0) = JsonObject("api_data")("api_ship")(count)("api_exp")(0)
-                    If JsonObject("api_data")("api_ship")(count)("api_exp")(1) IsNot Nothing Then MyDataClass.MyKanmusu(count).api_exp(1) = JsonObject("api_data")("api_ship")(count)("api_exp")(1)
-                    If JsonObject("api_data")("api_ship")(count)("api_exp")(2) IsNot Nothing Then MyDataClass.MyKanmusu(count).api_exp(2) = JsonObject("api_data")("api_ship")(count)("api_exp")(2)
-                    If JsonObject("api_data")("api_ship")(count)("api_nowhp") IsNot Nothing Then MyDataClass.MyKanmusu(count).api_nowhp = JsonObject("api_data")("api_ship")(count)("api_nowhp")
-                    If JsonObject("api_data")("api_ship")(count)("api_maxhp") IsNot Nothing Then MyDataClass.MyKanmusu(count).api_maxhp = JsonObject("api_data")("api_ship")(count)("api_maxhp")
-                    If JsonObject("api_data")("api_ship")(count)("api_soku") IsNot Nothing Then MyDataClass.MyKanmusu(count).api_soku = JsonObject("api_data")("api_ship")(count)("api_soku")
-                    If JsonObject("api_data")("api_ship")(count)("api_leng") IsNot Nothing Then MyDataClass.MyKanmusu(count).api_leng = JsonObject("api_data")("api_ship")(count)("api_leng")
+                    If JsonObject("api_data")(Dir)(count)("api_exp")(0) IsNot Nothing Then MyDataClass.MyKanmusu(count).api_exp(0) = JsonObject("api_data")(Dir)(count)("api_exp")(0)
+                    If JsonObject("api_data")(Dir)(count)("api_exp")(1) IsNot Nothing Then MyDataClass.MyKanmusu(count).api_exp(1) = JsonObject("api_data")(Dir)(count)("api_exp")(1)
+                    If JsonObject("api_data")(Dir)(count)("api_exp")(2) IsNot Nothing Then MyDataClass.MyKanmusu(count).api_exp(2) = JsonObject("api_data")(Dir)(count)("api_exp")(2)
+                    If JsonObject("api_data")(Dir)(count)("api_nowhp") IsNot Nothing Then MyDataClass.MyKanmusu(count).api_nowhp = JsonObject("api_data")(Dir)(count)("api_nowhp")
+                    If JsonObject("api_data")(Dir)(count)("api_maxhp") IsNot Nothing Then MyDataClass.MyKanmusu(count).api_maxhp = JsonObject("api_data")(Dir)(count)("api_maxhp")
+                    If JsonObject("api_data")(Dir)(count)("api_soku") IsNot Nothing Then MyDataClass.MyKanmusu(count).api_soku = JsonObject("api_data")(Dir)(count)("api_soku")
+                    If JsonObject("api_data")(Dir)(count)("api_leng") IsNot Nothing Then MyDataClass.MyKanmusu(count).api_leng = JsonObject("api_data")(Dir)(count)("api_leng")
                     ReDim Preserve MyDataClass.MyKanmusu(count).api_slot(4)
-                    If JsonObject("api_data")("api_ship")(count)("api_slot")(0) IsNot Nothing Then MyDataClass.MyKanmusu(count).api_slot(0) = JsonObject("api_data")("api_ship")(count)("api_slot")(0)
-                    If JsonObject("api_data")("api_ship")(count)("api_slot")(1) IsNot Nothing Then MyDataClass.MyKanmusu(count).api_slot(1) = JsonObject("api_data")("api_ship")(count)("api_slot")(1)
-                    If JsonObject("api_data")("api_ship")(count)("api_slot")(2) IsNot Nothing Then MyDataClass.MyKanmusu(count).api_slot(2) = JsonObject("api_data")("api_ship")(count)("api_slot")(2)
-                    If JsonObject("api_data")("api_ship")(count)("api_slot")(3) IsNot Nothing Then MyDataClass.MyKanmusu(count).api_slot(3) = JsonObject("api_data")("api_ship")(count)("api_slot")(3)
-                    If JsonObject("api_data")("api_ship")(count)("api_slot")(4) IsNot Nothing Then MyDataClass.MyKanmusu(count).api_slot(4) = JsonObject("api_data")("api_ship")(count)("api_slot")(4)
+                    If JsonObject("api_data")(Dir)(count)("api_slot")(0) IsNot Nothing Then MyDataClass.MyKanmusu(count).api_slot(0) = JsonObject("api_data")(Dir)(count)("api_slot")(0)
+                    If JsonObject("api_data")(Dir)(count)("api_slot")(1) IsNot Nothing Then MyDataClass.MyKanmusu(count).api_slot(1) = JsonObject("api_data")(Dir)(count)("api_slot")(1)
+                    If JsonObject("api_data")(Dir)(count)("api_slot")(2) IsNot Nothing Then MyDataClass.MyKanmusu(count).api_slot(2) = JsonObject("api_data")(Dir)(count)("api_slot")(2)
+                    If JsonObject("api_data")(Dir)(count)("api_slot")(3) IsNot Nothing Then MyDataClass.MyKanmusu(count).api_slot(3) = JsonObject("api_data")(Dir)(count)("api_slot")(3)
+                    If JsonObject("api_data")(Dir)(count)("api_slot")(4) IsNot Nothing Then MyDataClass.MyKanmusu(count).api_slot(4) = JsonObject("api_data")(Dir)(count)("api_slot")(4)
                     ReDim Preserve MyDataClass.MyKanmusu(count).api_onslot(4)
-                    If JsonObject("api_data")("api_ship")(count)("api_onslot")(0) IsNot Nothing Then MyDataClass.MyKanmusu(count).api_onslot(0) = JsonObject("api_data")("api_ship")(count)("api_onslot")(0)
-                    If JsonObject("api_data")("api_ship")(count)("api_onslot")(1) IsNot Nothing Then MyDataClass.MyKanmusu(count).api_onslot(1) = JsonObject("api_data")("api_ship")(count)("api_onslot")(1)
-                    If JsonObject("api_data")("api_ship")(count)("api_onslot")(2) IsNot Nothing Then MyDataClass.MyKanmusu(count).api_onslot(2) = JsonObject("api_data")("api_ship")(count)("api_onslot")(2)
-                    If JsonObject("api_data")("api_ship")(count)("api_onslot")(3) IsNot Nothing Then MyDataClass.MyKanmusu(count).api_onslot(3) = JsonObject("api_data")("api_ship")(count)("api_onslot")(3)
-                    If JsonObject("api_data")("api_ship")(count)("api_onslot")(4) IsNot Nothing Then MyDataClass.MyKanmusu(count).api_onslot(4) = JsonObject("api_data")("api_ship")(count)("api_onslot")(4)
-                    If JsonObject("api_data")("api_ship")(count)("api_slot_ex") IsNot Nothing Then MyDataClass.MyKanmusu(count).api_slot_ex = JsonObject("api_data")("api_ship")(count)("api_slot_ex")
-                    If JsonObject("api_data")("api_ship")(count)("api_fuel") IsNot Nothing Then MyDataClass.MyKanmusu(count).api_fuel = JsonObject("api_data")("api_ship")(count)("api_fuel")
-                    If JsonObject("api_data")("api_ship")(count)("api_bull") IsNot Nothing Then MyDataClass.MyKanmusu(count).api_bull = JsonObject("api_data")("api_ship")(count)("api_bull")
-                    If JsonObject("api_data")("api_ship")(count)("api_slotnum") IsNot Nothing Then MyDataClass.MyKanmusu(count).api_slotnum = JsonObject("api_data")("api_ship")(count)("api_slotnum")
-                    If JsonObject("api_data")("api_ship")(count)("api_ndock_time") IsNot Nothing Then MyDataClass.MyKanmusu(count).api_ndock_time = JsonObject("api_data")("api_ship")(count)("api_ndock_time")
-                    If JsonObject("api_data")("api_ship")(count)("api_cond") IsNot Nothing Then MyDataClass.MyKanmusu(count).api_cond = JsonObject("api_data")("api_ship")(count)("api_cond")
+                    If JsonObject("api_data")(Dir)(count)("api_onslot")(0) IsNot Nothing Then MyDataClass.MyKanmusu(count).api_onslot(0) = JsonObject("api_data")(Dir)(count)("api_onslot")(0)
+                    If JsonObject("api_data")(Dir)(count)("api_onslot")(1) IsNot Nothing Then MyDataClass.MyKanmusu(count).api_onslot(1) = JsonObject("api_data")(Dir)(count)("api_onslot")(1)
+                    If JsonObject("api_data")(Dir)(count)("api_onslot")(2) IsNot Nothing Then MyDataClass.MyKanmusu(count).api_onslot(2) = JsonObject("api_data")(Dir)(count)("api_onslot")(2)
+                    If JsonObject("api_data")(Dir)(count)("api_onslot")(3) IsNot Nothing Then MyDataClass.MyKanmusu(count).api_onslot(3) = JsonObject("api_data")(Dir)(count)("api_onslot")(3)
+                    If JsonObject("api_data")(Dir)(count)("api_onslot")(4) IsNot Nothing Then MyDataClass.MyKanmusu(count).api_onslot(4) = JsonObject("api_data")(Dir)(count)("api_onslot")(4)
+                    If JsonObject("api_data")(Dir)(count)("api_slot_ex") IsNot Nothing Then MyDataClass.MyKanmusu(count).api_slot_ex = JsonObject("api_data")(Dir)(count)("api_slot_ex")
+                    If JsonObject("api_data")(Dir)(count)("api_fuel") IsNot Nothing Then MyDataClass.MyKanmusu(count).api_fuel = JsonObject("api_data")(Dir)(count)("api_fuel")
+                    If JsonObject("api_data")(Dir)(count)("api_bull") IsNot Nothing Then MyDataClass.MyKanmusu(count).api_bull = JsonObject("api_data")(Dir)(count)("api_bull")
+                    If JsonObject("api_data")(Dir)(count)("api_slotnum") IsNot Nothing Then MyDataClass.MyKanmusu(count).api_slotnum = JsonObject("api_data")(Dir)(count)("api_slotnum")
+                    If JsonObject("api_data")(Dir)(count)("api_ndock_time") IsNot Nothing Then MyDataClass.MyKanmusu(count).api_ndock_time = JsonObject("api_data")(Dir)(count)("api_ndock_time")
+                    If JsonObject("api_data")(Dir)(count)("api_cond") IsNot Nothing Then MyDataClass.MyKanmusu(count).api_cond = JsonObject("api_data")(Dir)(count)("api_cond")
                     ReDim Preserve MyDataClass.MyKanmusu(count).api_karyoku(1)
-                    If JsonObject("api_data")("api_ship")(count)("api_karyoku")(0) IsNot Nothing Then MyDataClass.MyKanmusu(count).api_karyoku(0) = JsonObject("api_data")("api_ship")(count)("api_karyoku")(0)
-                    If JsonObject("api_data")("api_ship")(count)("api_karyoku")(1) IsNot Nothing Then MyDataClass.MyKanmusu(count).api_karyoku(1) = JsonObject("api_data")("api_ship")(count)("api_karyoku")(1)
+                    If JsonObject("api_data")(Dir)(count)("api_karyoku")(0) IsNot Nothing Then MyDataClass.MyKanmusu(count).api_karyoku(0) = JsonObject("api_data")(Dir)(count)("api_karyoku")(0)
+                    If JsonObject("api_data")(Dir)(count)("api_karyoku")(1) IsNot Nothing Then MyDataClass.MyKanmusu(count).api_karyoku(1) = JsonObject("api_data")(Dir)(count)("api_karyoku")(1)
                     ReDim Preserve MyDataClass.MyKanmusu(count).api_raisou(1)
-                    If JsonObject("api_data")("api_ship")(count)("api_raisou")(0) IsNot Nothing Then MyDataClass.MyKanmusu(count).api_raisou(0) = JsonObject("api_data")("api_ship")(count)("api_raisou")(0)
-                    If JsonObject("api_data")("api_ship")(count)("api_raisou")(1) IsNot Nothing Then MyDataClass.MyKanmusu(count).api_raisou(1) = JsonObject("api_data")("api_ship")(count)("api_raisou")(1)
+                    If JsonObject("api_data")(Dir)(count)("api_raisou")(0) IsNot Nothing Then MyDataClass.MyKanmusu(count).api_raisou(0) = JsonObject("api_data")(Dir)(count)("api_raisou")(0)
+                    If JsonObject("api_data")(Dir)(count)("api_raisou")(1) IsNot Nothing Then MyDataClass.MyKanmusu(count).api_raisou(1) = JsonObject("api_data")(Dir)(count)("api_raisou")(1)
                     ReDim Preserve MyDataClass.MyKanmusu(count).api_taiku(1)
-                    If JsonObject("api_data")("api_ship")(count)("api_taiku")(0) IsNot Nothing Then MyDataClass.MyKanmusu(count).api_taiku(0) = JsonObject("api_data")("api_ship")(count)("api_taiku")(0)
-                    If JsonObject("api_data")("api_ship")(count)("api_taiku")(1) IsNot Nothing Then MyDataClass.MyKanmusu(count).api_taiku(1) = JsonObject("api_data")("api_ship")(count)("api_taiku")(1)
+                    If JsonObject("api_data")(Dir)(count)("api_taiku")(0) IsNot Nothing Then MyDataClass.MyKanmusu(count).api_taiku(0) = JsonObject("api_data")(Dir)(count)("api_taiku")(0)
+                    If JsonObject("api_data")(Dir)(count)("api_taiku")(1) IsNot Nothing Then MyDataClass.MyKanmusu(count).api_taiku(1) = JsonObject("api_data")(Dir)(count)("api_taiku")(1)
                     ReDim Preserve MyDataClass.MyKanmusu(count).api_soukou(1)
-                    If JsonObject("api_data")("api_ship")(count)("api_soukou")(0) IsNot Nothing Then MyDataClass.MyKanmusu(count).api_soukou(0) = JsonObject("api_data")("api_ship")(count)("api_soukou")(0)
-                    If JsonObject("api_data")("api_ship")(count)("api_soukou")(1) IsNot Nothing Then MyDataClass.MyKanmusu(count).api_soukou(1) = JsonObject("api_data")("api_ship")(count)("api_soukou")(1)
+                    If JsonObject("api_data")(Dir)(count)("api_soukou")(0) IsNot Nothing Then MyDataClass.MyKanmusu(count).api_soukou(0) = JsonObject("api_data")(Dir)(count)("api_soukou")(0)
+                    If JsonObject("api_data")(Dir)(count)("api_soukou")(1) IsNot Nothing Then MyDataClass.MyKanmusu(count).api_soukou(1) = JsonObject("api_data")(Dir)(count)("api_soukou")(1)
                     ReDim Preserve MyDataClass.MyKanmusu(count).api_kaihi(1)
-                    If JsonObject("api_data")("api_ship")(count)("api_kaihi")(0) IsNot Nothing Then MyDataClass.MyKanmusu(count).api_kaihi(0) = JsonObject("api_data")("api_ship")(count)("api_kaihi")(0)
-                    If JsonObject("api_data")("api_ship")(count)("api_kaihi")(1) IsNot Nothing Then MyDataClass.MyKanmusu(count).api_kaihi(1) = JsonObject("api_data")("api_ship")(count)("api_kaihi")(1)
+                    If JsonObject("api_data")(Dir)(count)("api_kaihi")(0) IsNot Nothing Then MyDataClass.MyKanmusu(count).api_kaihi(0) = JsonObject("api_data")(Dir)(count)("api_kaihi")(0)
+                    If JsonObject("api_data")(Dir)(count)("api_kaihi")(1) IsNot Nothing Then MyDataClass.MyKanmusu(count).api_kaihi(1) = JsonObject("api_data")(Dir)(count)("api_kaihi")(1)
                     ReDim Preserve MyDataClass.MyKanmusu(count).api_taisen(1)
-                    If JsonObject("api_data")("api_ship")(count)("api_taisen")(0) IsNot Nothing Then MyDataClass.MyKanmusu(count).api_taisen(0) = JsonObject("api_data")("api_ship")(count)("api_taisen")(0)
-                    If JsonObject("api_data")("api_ship")(count)("api_taisen")(1) IsNot Nothing Then MyDataClass.MyKanmusu(count).api_taisen(1) = JsonObject("api_data")("api_ship")(count)("api_taisen")(1)
+                    If JsonObject("api_data")(Dir)(count)("api_taisen")(0) IsNot Nothing Then MyDataClass.MyKanmusu(count).api_taisen(0) = JsonObject("api_data")(Dir)(count)("api_taisen")(0)
+                    If JsonObject("api_data")(Dir)(count)("api_taisen")(1) IsNot Nothing Then MyDataClass.MyKanmusu(count).api_taisen(1) = JsonObject("api_data")(Dir)(count)("api_taisen")(1)
                     ReDim Preserve MyDataClass.MyKanmusu(count).api_sakuteki(1)
-                    If JsonObject("api_data")("api_ship")(count)("api_sakuteki")(0) IsNot Nothing Then MyDataClass.MyKanmusu(count).api_sakuteki(0) = JsonObject("api_data")("api_ship")(count)("api_sakuteki")(0)
-                    If JsonObject("api_data")("api_ship")(count)("api_sakuteki")(1) IsNot Nothing Then MyDataClass.MyKanmusu(count).api_sakuteki(1) = JsonObject("api_data")("api_ship")(count)("api_sakuteki")(1)
+                    If JsonObject("api_data")(Dir)(count)("api_sakuteki")(0) IsNot Nothing Then MyDataClass.MyKanmusu(count).api_sakuteki(0) = JsonObject("api_data")(Dir)(count)("api_sakuteki")(0)
+                    If JsonObject("api_data")(Dir)(count)("api_sakuteki")(1) IsNot Nothing Then MyDataClass.MyKanmusu(count).api_sakuteki(1) = JsonObject("api_data")(Dir)(count)("api_sakuteki")(1)
                     ReDim Preserve MyDataClass.MyKanmusu(count).api_lucky(1)
-                    If JsonObject("api_data")("api_ship")(count)("api_lucky")(0) IsNot Nothing Then MyDataClass.MyKanmusu(count).api_lucky(0) = JsonObject("api_data")("api_ship")(count)("api_lucky")(0)
-                    If JsonObject("api_data")("api_ship")(count)("api_lucky")(1) IsNot Nothing Then MyDataClass.MyKanmusu(count).api_lucky(1) = JsonObject("api_data")("api_ship")(count)("api_lucky")(1)
-                    If JsonObject("api_data")("api_ship")(count)("api_locked") IsNot Nothing Then MyDataClass.MyKanmusu(count).api_locked = JsonObject("api_data")("api_ship")(count)("api_locked")
-                    If JsonObject("api_data")("api_ship")(count)("api_locked_equip") IsNot Nothing Then MyDataClass.MyKanmusu(count).api_locked_equip = JsonObject("api_data")("api_ship")(count)("api_locked_equip")
+                    If JsonObject("api_data")(Dir)(count)("api_lucky")(0) IsNot Nothing Then MyDataClass.MyKanmusu(count).api_lucky(0) = JsonObject("api_data")(Dir)(count)("api_lucky")(0)
+                    If JsonObject("api_data")(Dir)(count)("api_lucky")(1) IsNot Nothing Then MyDataClass.MyKanmusu(count).api_lucky(1) = JsonObject("api_data")(Dir)(count)("api_lucky")(1)
+                    If JsonObject("api_data")(Dir)(count)("api_locked") IsNot Nothing Then MyDataClass.MyKanmusu(count).api_locked = JsonObject("api_data")(Dir)(count)("api_locked")
+                    If JsonObject("api_data")(Dir)(count)("api_locked_equip") IsNot Nothing Then MyDataClass.MyKanmusu(count).api_locked_equip = JsonObject("api_data")(Dir)(count)("api_locked_equip")
 
                 Next
-
                 'イベント
-                MyDataClass.EventsEpoch.MyKanmusu_Events()
+                MyDataClass.EventsEpoch.MyPort_Events()
 
+
+            ElseIf path = URLDataClass.ship3 Then
+                Dim dir As String = "api_ship_data"
+
+                If JsonObject("api_data")(dir)(0)("api_id") IsNot Nothing Then
+                    'id一致艦娘を探す
+                    If Component.KancollePortKanmusuSearch(JsonObject("api_data")(dir)(0)("api_id")) IsNot Nothing Then
+                        Dim 艦娘配列番号 As Integer = Component.KancollePortKanmusuSearch(JsonObject("api_data")(dir)(0)("api_id"))
+
+
+                        If JsonObject("api_data")(dir)(0)("api_id") IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_id = JsonObject("api_data")(dir)(0)("api_id")
+                        If JsonObject("api_data")(dir)(0)("api_sortno") IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_sortno = JsonObject("api_data")(dir)(0)("api_sortno")
+                        If JsonObject("api_data")(dir)(0)("api_ship_id") IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_ship_id = JsonObject("api_data")(dir)(0)("api_ship_id")
+                        If JsonObject("api_data")(dir)(0)("api_lv") IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_lv = JsonObject("api_data")(dir)(0)("api_lv")
+                        ReDim Preserve MyDataClass.MyKanmusu(艦娘配列番号).api_exp(2)
+                        If JsonObject("api_data")(dir)(0)("api_exp")(0) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_exp(0) = JsonObject("api_data")(dir)(0)("api_exp")(0)
+                        If JsonObject("api_data")(dir)(0)("api_exp")(1) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_exp(1) = JsonObject("api_data")(dir)(0)("api_exp")(1)
+                        If JsonObject("api_data")(dir)(0)("api_exp")(2) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_exp(2) = JsonObject("api_data")(dir)(0)("api_exp")(2)
+                        If JsonObject("api_data")(dir)(0)("api_nowhp") IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_nowhp = JsonObject("api_data")(dir)(0)("api_nowhp")
+                        If JsonObject("api_data")(dir)(0)("api_maxhp") IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_maxhp = JsonObject("api_data")(dir)(0)("api_maxhp")
+                        If JsonObject("api_data")(dir)(0)("api_soku") IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_soku = JsonObject("api_data")(dir)(0)("api_soku")
+                        If JsonObject("api_data")(dir)(0)("api_leng") IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_leng = JsonObject("api_data")(dir)(0)("api_leng")
+                        ReDim Preserve MyDataClass.MyKanmusu(艦娘配列番号).api_slot(4)
+                        If JsonObject("api_data")(dir)(0)("api_slot")(0) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_slot(0) = JsonObject("api_data")(dir)(0)("api_slot")(0)
+                        If JsonObject("api_data")(dir)(0)("api_slot")(1) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_slot(1) = JsonObject("api_data")(dir)(0)("api_slot")(1)
+                        If JsonObject("api_data")(dir)(0)("api_slot")(2) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_slot(2) = JsonObject("api_data")(dir)(0)("api_slot")(2)
+                        If JsonObject("api_data")(dir)(0)("api_slot")(3) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_slot(3) = JsonObject("api_data")(dir)(0)("api_slot")(3)
+                        If JsonObject("api_data")(dir)(0)("api_slot")(4) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_slot(4) = JsonObject("api_data")(dir)(0)("api_slot")(4)
+                        ReDim Preserve MyDataClass.MyKanmusu(艦娘配列番号).api_onslot(4)
+                        If JsonObject("api_data")(dir)(0)("api_onslot")(0) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_onslot(0) = JsonObject("api_data")(dir)(0)("api_onslot")(0)
+                        If JsonObject("api_data")(dir)(0)("api_onslot")(1) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_onslot(1) = JsonObject("api_data")(dir)(0)("api_onslot")(1)
+                        If JsonObject("api_data")(dir)(0)("api_onslot")(2) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_onslot(2) = JsonObject("api_data")(dir)(0)("api_onslot")(2)
+                        If JsonObject("api_data")(dir)(0)("api_onslot")(3) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_onslot(3) = JsonObject("api_data")(dir)(0)("api_onslot")(3)
+                        If JsonObject("api_data")(dir)(0)("api_onslot")(4) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_onslot(4) = JsonObject("api_data")(dir)(0)("api_onslot")(4)
+                        If JsonObject("api_data")(dir)(0)("api_slot_ex") IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_slot_ex = JsonObject("api_data")(dir)(0)("api_slot_ex")
+                        If JsonObject("api_data")(dir)(0)("api_fuel") IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_fuel = JsonObject("api_data")(dir)(0)("api_fuel")
+                        If JsonObject("api_data")(dir)(0)("api_bull") IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_bull = JsonObject("api_data")(dir)(0)("api_bull")
+                        If JsonObject("api_data")(dir)(0)("api_slotnum") IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_slotnum = JsonObject("api_data")(dir)(0)("api_slotnum")
+                        If JsonObject("api_data")(dir)(0)("api_ndock_time") IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_ndock_time = JsonObject("api_data")(dir)(0)("api_ndock_time")
+                        If JsonObject("api_data")(dir)(0)("api_cond") IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_cond = JsonObject("api_data")(dir)(0)("api_cond")
+                        ReDim Preserve MyDataClass.MyKanmusu(艦娘配列番号).api_karyoku(1)
+                        If JsonObject("api_data")(dir)(0)("api_karyoku")(0) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_karyoku(0) = JsonObject("api_data")(dir)(0)("api_karyoku")(0)
+                        If JsonObject("api_data")(dir)(0)("api_karyoku")(1) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_karyoku(1) = JsonObject("api_data")(dir)(0)("api_karyoku")(1)
+                        ReDim Preserve MyDataClass.MyKanmusu(艦娘配列番号).api_raisou(1)
+                        If JsonObject("api_data")(dir)(0)("api_raisou")(0) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_raisou(0) = JsonObject("api_data")(dir)(0)("api_raisou")(0)
+                        If JsonObject("api_data")(dir)(0)("api_raisou")(1) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_raisou(1) = JsonObject("api_data")(dir)(0)("api_raisou")(1)
+                        ReDim Preserve MyDataClass.MyKanmusu(艦娘配列番号).api_taiku(1)
+                        If JsonObject("api_data")(dir)(0)("api_taiku")(0) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_taiku(0) = JsonObject("api_data")(dir)(0)("api_taiku")(0)
+                        If JsonObject("api_data")(dir)(0)("api_taiku")(1) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_taiku(1) = JsonObject("api_data")(dir)(0)("api_taiku")(1)
+                        ReDim Preserve MyDataClass.MyKanmusu(艦娘配列番号).api_soukou(1)
+                        If JsonObject("api_data")(dir)(0)("api_soukou")(0) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_soukou(0) = JsonObject("api_data")(dir)(0)("api_soukou")(0)
+                        If JsonObject("api_data")(dir)(0)("api_soukou")(1) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_soukou(1) = JsonObject("api_data")(dir)(0)("api_soukou")(1)
+                        ReDim Preserve MyDataClass.MyKanmusu(艦娘配列番号).api_kaihi(1)
+                        If JsonObject("api_data")(dir)(0)("api_kaihi")(0) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_kaihi(0) = JsonObject("api_data")(dir)(0)("api_kaihi")(0)
+                        If JsonObject("api_data")(dir)(0)("api_kaihi")(1) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_kaihi(1) = JsonObject("api_data")(dir)(0)("api_kaihi")(1)
+                        ReDim Preserve MyDataClass.MyKanmusu(艦娘配列番号).api_taisen(1)
+                        If JsonObject("api_data")(dir)(0)("api_taisen")(0) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_taisen(0) = JsonObject("api_data")(dir)(0)("api_taisen")(0)
+                        If JsonObject("api_data")(dir)(0)("api_taisen")(1) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_taisen(1) = JsonObject("api_data")(dir)(0)("api_taisen")(1)
+                        ReDim Preserve MyDataClass.MyKanmusu(艦娘配列番号).api_sakuteki(1)
+                        If JsonObject("api_data")(dir)(0)("api_sakuteki")(0) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_sakuteki(0) = JsonObject("api_data")(dir)(0)("api_sakuteki")(0)
+                        If JsonObject("api_data")(dir)(0)("api_sakuteki")(1) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_sakuteki(1) = JsonObject("api_data")(dir)(0)("api_sakuteki")(1)
+                        ReDim Preserve MyDataClass.MyKanmusu(艦娘配列番号).api_lucky(1)
+                        If JsonObject("api_data")(dir)(0)("api_lucky")(0) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_lucky(0) = JsonObject("api_data")(dir)(0)("api_lucky")(0)
+                        If JsonObject("api_data")(dir)(0)("api_lucky")(1) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_lucky(1) = JsonObject("api_data")(dir)(0)("api_lucky")(1)
+                        If JsonObject("api_data")(dir)(0)("api_locked") IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_locked = JsonObject("api_data")(dir)(0)("api_locked")
+                        If JsonObject("api_data")(dir)(0)("api_locked_equip") IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_locked_equip = JsonObject("api_data")(dir)(0)("api_locked_equip")
+                        'イベント
+                        MyDataClass.EventsEpoch.MyPort_Events()
+                    End If
+
+                End If
             End If
+
+
+
 
             '保有艦隊データの取得
             If path = URLDataClass.port Then
@@ -756,6 +842,22 @@ Public Class StructureOperationClass
                     MyDataClass.EventsEpoch.MyPort_Events()
                 End If
             End If
+            If path = URLDataClass.deck Then
+                If JsonObject("api_data")(0) IsNot Nothing Then
+                    For count As Integer = 0 To 3
+                        If JsonObject("api_data")(count)("api_mission") IsNot Nothing Then
+                            ReDim MyDataClass.MyPort(count).api_mission(3)
+                            For cnt As Integer = 0 To 3
+                                MyDataClass.MyPort(count).api_mission(cnt) = JsonObject("api_data")(count)("api_mission")(cnt)
+                            Next
+                        End If
+                    Next
+
+                    'イベント
+                    MyDataClass.EventsEpoch.MyPort_Events()
+                End If
+            End If
+
 
             'require_infoであることを確認する
             If path = URLDataClass.require_info Then

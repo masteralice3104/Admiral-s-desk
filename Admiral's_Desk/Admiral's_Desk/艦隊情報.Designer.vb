@@ -227,6 +227,7 @@ Partial Class 艦隊情報
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(884, 261)
+        Me.ControlBox = False
         Me.Controls.Add(Me.ラベル03)
         Me.Controls.Add(Me.分岐点係数)
         Me.Controls.Add(Me.合計索敵値)
@@ -235,6 +236,8 @@ Partial Class 艦隊情報
         Me.Controls.Add(Me.ラベル01)
         Me.Controls.Add(Me.一艦隊情報)
         Me.Controls.Add(Me.艦隊選択)
+        Me.DataBindings.Add(New System.Windows.Forms.Binding("Location", Global.Admiral_s_Desk.My.MySettings.Default, "艦隊情報ウインドウ位置", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.Location = Global.Admiral_s_Desk.My.MySettings.Default.艦隊情報ウインドウ位置
         Me.MaximizeBox = False
         Me.MinimizeBox = False
         Me.MinimumSize = New System.Drawing.Size(900, 50)

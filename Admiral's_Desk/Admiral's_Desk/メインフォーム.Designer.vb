@@ -24,9 +24,15 @@ Partial Class メインフォーム
     Private Sub InitializeComponent()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.ファイルFToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.エクスポートEToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.終了XToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.表示VToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.更新ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.中止ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ツールTToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.オプションoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ヘルプHToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ヘルプHToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.ブラウザ = New System.Windows.Forms.WebBrowser()
         Me.Panel1 = New System.Windows.Forms.Panel()
         Me.遠征情報アクセス = New System.Windows.Forms.CheckBox()
@@ -51,31 +57,75 @@ Partial Class メインフォーム
         '
         'ファイルFToolStripMenuItem
         '
+        Me.ファイルFToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.エクスポートEToolStripMenuItem, Me.終了XToolStripMenuItem})
         Me.ファイルFToolStripMenuItem.Name = "ファイルFToolStripMenuItem"
         Me.ファイルFToolStripMenuItem.Size = New System.Drawing.Size(67, 20)
         Me.ファイルFToolStripMenuItem.Text = "ファイル(&F)"
         '
+        'エクスポートEToolStripMenuItem
+        '
+        Me.エクスポートEToolStripMenuItem.Enabled = False
+        Me.エクスポートEToolStripMenuItem.Name = "エクスポートEToolStripMenuItem"
+        Me.エクスポートEToolStripMenuItem.Size = New System.Drawing.Size(146, 22)
+        Me.エクスポートEToolStripMenuItem.Text = "エクスポート(&M)"
+        '
+        '終了XToolStripMenuItem
+        '
+        Me.終了XToolStripMenuItem.Name = "終了XToolStripMenuItem"
+        Me.終了XToolStripMenuItem.Size = New System.Drawing.Size(146, 22)
+        Me.終了XToolStripMenuItem.Text = "終了(&X)"
+        '
         '表示VToolStripMenuItem
         '
+        Me.表示VToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.更新ToolStripMenuItem, Me.中止ToolStripMenuItem})
         Me.表示VToolStripMenuItem.Name = "表示VToolStripMenuItem"
         Me.表示VToolStripMenuItem.Size = New System.Drawing.Size(58, 20)
         Me.表示VToolStripMenuItem.Text = "表示(&V)"
         '
+        '更新ToolStripMenuItem
+        '
+        Me.更新ToolStripMenuItem.Name = "更新ToolStripMenuItem"
+        Me.更新ToolStripMenuItem.Size = New System.Drawing.Size(113, 22)
+        Me.更新ToolStripMenuItem.Text = "更新(&R)"
+        '
+        '中止ToolStripMenuItem
+        '
+        Me.中止ToolStripMenuItem.Name = "中止ToolStripMenuItem"
+        Me.中止ToolStripMenuItem.Size = New System.Drawing.Size(113, 22)
+        Me.中止ToolStripMenuItem.Text = "中止(&P)"
+        '
         'ツールTToolStripMenuItem
         '
+        Me.ツールTToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.オプションoToolStripMenuItem})
         Me.ツールTToolStripMenuItem.Name = "ツールTToolStripMenuItem"
         Me.ツールTToolStripMenuItem.Size = New System.Drawing.Size(60, 20)
         Me.ツールTToolStripMenuItem.Text = "ツール(&T)"
         '
+        'オプションoToolStripMenuItem
+        '
+        Me.オプションoToolStripMenuItem.Name = "オプションoToolStripMenuItem"
+        Me.オプションoToolStripMenuItem.Size = New System.Drawing.Size(135, 22)
+        Me.オプションoToolStripMenuItem.Text = "オプション(&O)"
+        '
         'ヘルプHToolStripMenuItem
         '
+        Me.ヘルプHToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ヘルプHToolStripMenuItem1})
         Me.ヘルプHToolStripMenuItem.Name = "ヘルプHToolStripMenuItem"
         Me.ヘルプHToolStripMenuItem.Size = New System.Drawing.Size(65, 20)
         Me.ヘルプHToolStripMenuItem.Text = "ヘルプ(&H)"
         '
+        'ヘルプHToolStripMenuItem1
+        '
+        Me.ヘルプHToolStripMenuItem1.Enabled = False
+        Me.ヘルプHToolStripMenuItem1.Name = "ヘルプHToolStripMenuItem1"
+        Me.ヘルプHToolStripMenuItem1.Size = New System.Drawing.Size(120, 22)
+        Me.ヘルプHToolStripMenuItem1.Text = "ヘルプ(&H)"
+        '
         'ブラウザ
         '
-        Me.ブラウザ.Dock = System.Windows.Forms.DockStyle.Top
+        Me.ブラウザ.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ブラウザ.Location = New System.Drawing.Point(0, 24)
         Me.ブラウザ.MaximumSize = New System.Drawing.Size(802, 482)
         Me.ブラウザ.MinimumSize = New System.Drawing.Size(800, 482)
@@ -104,6 +154,8 @@ Partial Class メインフォーム
         '遠征情報アクセス
         '
         Me.遠征情報アクセス.AutoSize = True
+        Me.遠征情報アクセス.Checked = Global.Admiral_s_Desk.My.MySettings.Default.遠征ウインドウ表示
+        Me.遠征情報アクセス.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.Admiral_s_Desk.My.MySettings.Default, "遠征ウインドウ表示", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.遠征情報アクセス.Location = New System.Drawing.Point(309, 16)
         Me.遠征情報アクセス.Name = "遠征情報アクセス"
         Me.遠征情報アクセス.Size = New System.Drawing.Size(48, 16)
@@ -114,6 +166,8 @@ Partial Class メインフォーム
         '任務情報アクセス
         '
         Me.任務情報アクセス.AutoSize = True
+        Me.任務情報アクセス.Checked = Global.Admiral_s_Desk.My.MySettings.Default.任務ウインドウ表示
+        Me.任務情報アクセス.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.Admiral_s_Desk.My.MySettings.Default, "任務ウインドウ表示", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.任務情報アクセス.Enabled = False
         Me.任務情報アクセス.Location = New System.Drawing.Point(255, 16)
         Me.任務情報アクセス.Name = "任務情報アクセス"
@@ -125,6 +179,8 @@ Partial Class メインフォーム
         '工廠情報アクセス
         '
         Me.工廠情報アクセス.AutoSize = True
+        Me.工廠情報アクセス.Checked = Global.Admiral_s_Desk.My.MySettings.Default.工廠ウインドウ表示
+        Me.工廠情報アクセス.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.Admiral_s_Desk.My.MySettings.Default, "工廠ウインドウ表示", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.工廠情報アクセス.Enabled = False
         Me.工廠情報アクセス.Location = New System.Drawing.Point(201, 15)
         Me.工廠情報アクセス.Name = "工廠情報アクセス"
@@ -136,6 +192,8 @@ Partial Class メインフォーム
         '基地航空隊情報アクセス
         '
         Me.基地航空隊情報アクセス.AutoSize = True
+        Me.基地航空隊情報アクセス.Checked = Global.Admiral_s_Desk.My.MySettings.Default.基地航空隊ウインドウ表示
+        Me.基地航空隊情報アクセス.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.Admiral_s_Desk.My.MySettings.Default, "基地航空隊ウインドウ表示", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.基地航空隊情報アクセス.Enabled = False
         Me.基地航空隊情報アクセス.Location = New System.Drawing.Point(111, 15)
         Me.基地航空隊情報アクセス.Name = "基地航空隊情報アクセス"
@@ -147,6 +205,8 @@ Partial Class メインフォーム
         '艦隊情報アクセス
         '
         Me.艦隊情報アクセス.AutoSize = True
+        Me.艦隊情報アクセス.Checked = Global.Admiral_s_Desk.My.MySettings.Default.艦隊ウインドウ表示
+        Me.艦隊情報アクセス.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.Admiral_s_Desk.My.MySettings.Default, "艦隊ウインドウ表示", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.艦隊情報アクセス.Location = New System.Drawing.Point(57, 15)
         Me.艦隊情報アクセス.Name = "艦隊情報アクセス"
         Me.艦隊情報アクセス.Size = New System.Drawing.Size(48, 16)
@@ -157,6 +217,8 @@ Partial Class メインフォーム
         '提督情報アクセス
         '
         Me.提督情報アクセス.AutoSize = True
+        Me.提督情報アクセス.Checked = Global.Admiral_s_Desk.My.MySettings.Default.提督ウインドウ表示
+        Me.提督情報アクセス.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.Admiral_s_Desk.My.MySettings.Default, "提督ウインドウ表示", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.提督情報アクセス.Location = New System.Drawing.Point(3, 16)
         Me.提督情報アクセス.Name = "提督情報アクセス"
         Me.提督情報アクセス.Size = New System.Drawing.Size(48, 16)
@@ -183,8 +245,11 @@ Partial Class メインフォーム
         Me.Controls.Add(Me.MenuStrip1)
         Me.DataBindings.Add(New System.Windows.Forms.Binding("Location", Global.Admiral_s_Desk.My.MySettings.Default, "KancolleFormLocation", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.Location = Global.Admiral_s_Desk.My.MySettings.Default.KancolleFormLocation
+        Me.MaximizeBox = False
+        Me.MaximumSize = New System.Drawing.Size(820, 589)
+        Me.MinimumSize = New System.Drawing.Size(820, 589)
         Me.Name = "メインフォーム"
-        Me.Text = "Admiral's desk"
+        Me.Text = "Admiral's desk アルファ版"
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         Me.Panel1.ResumeLayout(False)
@@ -208,4 +273,10 @@ Partial Class メインフォーム
     Friend WithEvents 基地航空隊情報アクセス As CheckBox
     Friend WithEvents 艦隊情報アクセス As CheckBox
     Friend WithEvents 提督情報アクセス As CheckBox
+    Friend WithEvents 更新ToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents 中止ToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents エクスポートEToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents 終了XToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents オプションoToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ヘルプHToolStripMenuItem1 As ToolStripMenuItem
 End Class

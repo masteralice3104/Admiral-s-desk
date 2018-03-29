@@ -83,7 +83,10 @@ Partial Class 遠征情報
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(384, 111)
+        Me.ControlBox = False
         Me.Controls.Add(Me.遠征情報表示)
+        Me.DataBindings.Add(New System.Windows.Forms.Binding("Location", Global.Admiral_s_Desk.My.MySettings.Default, "遠征情報ウインドウ位置", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.Location = Global.Admiral_s_Desk.My.MySettings.Default.遠征情報ウインドウ位置
         Me.MaximizeBox = False
         Me.MaximumSize = New System.Drawing.Size(400, 150)
         Me.MinimizeBox = False
