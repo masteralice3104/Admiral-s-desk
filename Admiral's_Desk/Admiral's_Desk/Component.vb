@@ -285,4 +285,153 @@
         Next
         Return Nothing
     End Function
+
+
+    '33式計算
+    Public Structure 艦これ索敵スコア
+        Public Shared 分岐点係数 As Integer = 1
+        Public Shared 装備単体索敵値総和 As Double = 0
+        Public Shared 艦娘索敵値平方根総和 As Integer = 0
+        Public Shared 司令部レベル As Integer = 0
+        Public Shared 出撃艦数 As Integer = 0
+
+        Public Shared Function 装備単体索敵値(ByVal 個別装備ID)
+            '装備ごとの倍率は以下の通り。
+            '装備分類    倍率	        装備分類	    倍率
+            '艦上爆撃機   0.6	        艦上戦闘機   	0.6
+            '艦上攻撃機   0.8	        水上戦闘機   	0.6
+            '艦上偵察機   1.0	        大型飛行艇   	0.6
+            '水上偵察機   1.2	        ソナー	        0.6
+            '水上爆撃機   1.1	        水上艦要員	    0.6
+            '電探(大型 / 小型)	0.6	    対潜哨戒機	    0.6
+            '探照灯 0.6                 艦隊司令部施設	0.6
+            '噴式戦闘爆撃機 0.6         潜水艦装備	    0.6
+            'http://wikiwiki.jp/kancolle/?%C6%EE%C0%BE%BD%F4%C5%E7%B3%A4%B0%E8#area5
+
+
+            '予め用意しておく変数
+            Dim 所有装備配列番号 As Integer
+            Dim 装備一覧配列番号 As Integer
+            Dim 装備索敵値 As Double = 0.0
+            Dim 装備倍率 As Double = 0.0
+
+
+            '①で検索
+            If KancolleMyEquipmentIDSearch(個別装備ID) IsNot Nothing Then
+                所有装備配列番号 = KancolleMyEquipmentIDSearch(個別装備ID)
+            Else
+                Return Nothing
+            End If
+
+            '②で検索
+            If KancolleAllEquipmentIDSearch(MyDataClass.MyEquipment(所有装備配列番号).api_slotitem_id) IsNot Nothing Then
+                装備一覧配列番号 = KancolleAllEquipmentIDSearch(MyDataClass.MyEquipment(所有装備配列番号).api_slotitem_id)
+            Else
+                Return Nothing
+            End If
+
+            '照合する
+            '■倍率0.6群
+            '   艦戦          06
+            '   艦爆          07
+            '   水戦          45
+            '   大型飛行艇    41
+            '   ソナー        14  40?
+            '   水上艦要員    39
+            '   電探          12  13
+            '   対潜哨戒機    26
+            '   探照灯        29  42
+            '   司令部施設    34
+            '   噴式戦闘爆撃機57
+            '   潜水艦装備    49
+            Dim 倍率6割群() As Integer = {6, 7, 45, 41, 14, 40, 39, 12, 13, 26, 29, 42, 34, 57, 49}
+
+            For count As Integer = 0 To 倍率6割群.Count - 1
+                If CommonDataClass.AllEquipmentData(装備一覧配列番号).api_type(2).Equals(倍率6割群(count)) Then
+                    装備倍率 = 0.6
+                    Exit For
+                End If
+            Next
+
+
+            '■倍率0.8群
+            '   艦攻          08
+            Dim 倍率8割群() As Integer = {8}
+            For count As Integer = 0 To 倍率8割群.Count - 1
+                If CommonDataClass.AllEquipmentData(装備一覧配列番号).api_type(2).Equals(倍率8割群(count)) Then
+                    装備倍率 = 0.8
+                    Exit For
+                End If
+            Next
+
+            '■倍率1.0群
+            '   艦偵          09
+            Dim 倍率10割群() As Integer = {9}
+            For count As Integer = 0 To 倍率10割群.Count - 1
+                If CommonDataClass.AllEquipmentData(装備一覧配列番号).api_type(2).Equals(倍率10割群(count)) Then
+                    装備倍率 = 1.0
+                    Exit For
+                End If
+            Next
+
+
+            '■倍率1.1群
+            '   水爆          11
+            Dim 倍率11割群() As Integer = {11}
+            For count As Integer = 0 To 倍率11割群.Count - 1
+                If CommonDataClass.AllEquipmentData(装備一覧配列番号).api_type(2).Equals(倍率11割群(count)) Then
+                    装備倍率 = 1.1
+                    Exit For
+                End If
+            Next
+
+
+            '■倍率1.2群
+            '   水偵          10
+            Dim 倍率12割群() As Integer = {10}
+            For count As Integer = 0 To 倍率12割群.Count - 1
+                If CommonDataClass.AllEquipmentData(装備一覧配列番号).api_type(2).Equals(倍率12割群(count)) Then
+                    装備倍率 = 1.2
+                    Exit For
+                End If
+            Next
+
+            '装備素索敵
+            装備索敵値 = CommonDataClass.AllEquipmentData(装備一覧配列番号).api_saku
+
+            '改修度を考慮に入れる
+            If MyDataClass.MyEquipment(所有装備配列番号).api_level <> 0 And MyDataClass.MyEquipment(所有装備配列番号).api_level.ToString <> "0" Then
+                If CommonDataClass.AllEquipmentData(装備一覧配列番号).api_type(2).Equals(9) Then
+                    '艦偵
+                    装備索敵値 += 1.2 * MyDataClass.MyEquipment(所有装備配列番号).api_level
+                ElseIf CommonDataClass.AllEquipmentData(装備一覧配列番号).api_type(2).Equals(10) Then
+                    '水偵
+                    装備索敵値 += 1.2 * MyDataClass.MyEquipment(所有装備配列番号).api_level
+                ElseIf CommonDataClass.AllEquipmentData(装備一覧配列番号).api_type(2).Equals(12) Then
+                    '小型電探
+                    装備索敵値 += 1.25 * MyDataClass.MyEquipment(所有装備配列番号).api_level
+                ElseIf CommonDataClass.AllEquipmentData(装備一覧配列番号).api_type(2).Equals(13) Then
+                    '大型電探
+                    装備索敵値 += 1.4 * MyDataClass.MyEquipment(所有装備配列番号).api_level
+                End If
+            End If
+
+            '最後に出力
+            Dim 出力 As Double = 装備倍率 * 装備索敵値
+            Return 出力
+
+        End Function
+
+        Public Shared Function 判定式33計算()
+            '以下の式は2016年10月現在推定されている索敵判定の式です(引用元、通称判定式(33) )。
+            '索敵スコア=分岐点係数×(装備倍率×装備索敵値)の和+√(各艦娘の素索敵)の和-[0.4×司令部レベル(端数切り上げ)]+2×(6-出撃艦数)
+            'http://wikiwiki.jp/kancolle/?%C6%EE%C0%BE%BD%F4%C5%E7%B3%A4%B0%E8#area5
+
+            Dim 索敵スコア As Double = 分岐点係数 * 装備単体索敵値総和 + 艦娘索敵値平方根総和 - Math.Ceiling(0.4 * 司令部レベル) + 2 * (6 - 出撃艦数)
+
+            Return 索敵スコア
+
+        End Function
+    End Structure
+
 End Class

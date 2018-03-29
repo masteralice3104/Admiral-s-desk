@@ -25,11 +25,6 @@ Partial Class 艦隊情報
         Me.components = New System.ComponentModel.Container()
         Me.艦隊選択 = New System.Windows.Forms.ComboBox()
         Me.一艦隊情報 = New System.Windows.Forms.DataGridView()
-        Me.ラベル01 = New System.Windows.Forms.Label()
-        Me.制空値 = New System.Windows.Forms.Label()
-        Me.ラベル02 = New System.Windows.Forms.Label()
-        Me.合計索敵値 = New System.Windows.Forms.Label()
-        Me.情報更新タイマ = New System.Windows.Forms.Timer(Me.components)
         Me.艦種 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.艦娘名 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Lv = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -43,6 +38,13 @@ Partial Class 艦隊情報
         Me.装備4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.装備5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.補強増設 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.ラベル01 = New System.Windows.Forms.Label()
+        Me.制空値 = New System.Windows.Forms.Label()
+        Me.ラベル02 = New System.Windows.Forms.Label()
+        Me.合計索敵値 = New System.Windows.Forms.Label()
+        Me.情報更新タイマ = New System.Windows.Forms.Timer(Me.components)
+        Me.分岐点係数 = New System.Windows.Forms.TextBox()
+        Me.ラベル03 = New System.Windows.Forms.Label()
         CType(Me.一艦隊情報, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -71,46 +73,6 @@ Partial Class 艦隊情報
         Me.一艦隊情報.RowTemplate.Height = 21
         Me.一艦隊情報.Size = New System.Drawing.Size(860, 210)
         Me.一艦隊情報.TabIndex = 1
-        '
-        'ラベル01
-        '
-        Me.ラベル01.AutoSize = True
-        Me.ラベル01.Location = New System.Drawing.Point(206, 16)
-        Me.ラベル01.Name = "ラベル01"
-        Me.ラベル01.Size = New System.Drawing.Size(41, 12)
-        Me.ラベル01.TabIndex = 2
-        Me.ラベル01.Text = "制空値"
-        '
-        '制空値
-        '
-        Me.制空値.AutoSize = True
-        Me.制空値.Location = New System.Drawing.Point(253, 16)
-        Me.制空値.Name = "制空値"
-        Me.制空値.Size = New System.Drawing.Size(29, 12)
-        Me.制空値.TabIndex = 3
-        Me.制空値.Text = "0000"
-        '
-        'ラベル02
-        '
-        Me.ラベル02.AutoSize = True
-        Me.ラベル02.Location = New System.Drawing.Point(288, 16)
-        Me.ラベル02.Name = "ラベル02"
-        Me.ラベル02.Size = New System.Drawing.Size(29, 12)
-        Me.ラベル02.TabIndex = 4
-        Me.ラベル02.Text = "索敵"
-        '
-        '合計索敵値
-        '
-        Me.合計索敵値.AutoSize = True
-        Me.合計索敵値.Location = New System.Drawing.Point(323, 16)
-        Me.合計索敵値.Name = "合計索敵値"
-        Me.合計索敵値.Size = New System.Drawing.Size(29, 12)
-        Me.合計索敵値.TabIndex = 5
-        Me.合計索敵値.Text = "0000"
-        '
-        '情報更新タイマ
-        '
-        Me.情報更新タイマ.Enabled = True
         '
         '艦種
         '
@@ -203,11 +165,70 @@ Partial Class 艦隊情報
         Me.補強増設.ReadOnly = True
         Me.補強増設.Width = 74
         '
+        'ラベル01
+        '
+        Me.ラベル01.AutoSize = True
+        Me.ラベル01.Location = New System.Drawing.Point(206, 16)
+        Me.ラベル01.Name = "ラベル01"
+        Me.ラベル01.Size = New System.Drawing.Size(41, 12)
+        Me.ラベル01.TabIndex = 2
+        Me.ラベル01.Text = "制空値"
+        '
+        '制空値
+        '
+        Me.制空値.AutoSize = True
+        Me.制空値.Location = New System.Drawing.Point(253, 16)
+        Me.制空値.Name = "制空値"
+        Me.制空値.Size = New System.Drawing.Size(29, 12)
+        Me.制空値.TabIndex = 3
+        Me.制空値.Text = "0000"
+        '
+        'ラベル02
+        '
+        Me.ラベル02.AutoSize = True
+        Me.ラベル02.Location = New System.Drawing.Point(385, 16)
+        Me.ラベル02.Name = "ラベル02"
+        Me.ラベル02.Size = New System.Drawing.Size(29, 12)
+        Me.ラベル02.TabIndex = 4
+        Me.ラベル02.Text = "33式"
+        '
+        '合計索敵値
+        '
+        Me.合計索敵値.AutoSize = True
+        Me.合計索敵値.Location = New System.Drawing.Point(420, 15)
+        Me.合計索敵値.Name = "合計索敵値"
+        Me.合計索敵値.Size = New System.Drawing.Size(25, 12)
+        Me.合計索敵値.TabIndex = 5
+        Me.合計索敵値.Text = "00.0"
+        '
+        '情報更新タイマ
+        '
+        Me.情報更新タイマ.Enabled = True
+        '
+        '分岐点係数
+        '
+        Me.分岐点係数.Location = New System.Drawing.Point(359, 12)
+        Me.分岐点係数.Name = "分岐点係数"
+        Me.分岐点係数.Size = New System.Drawing.Size(20, 19)
+        Me.分岐点係数.TabIndex = 6
+        Me.分岐点係数.Text = "1"
+        '
+        'ラベル03
+        '
+        Me.ラベル03.AutoSize = True
+        Me.ラベル03.Location = New System.Drawing.Point(288, 16)
+        Me.ラベル03.Name = "ラベル03"
+        Me.ラベル03.Size = New System.Drawing.Size(65, 12)
+        Me.ラベル03.TabIndex = 7
+        Me.ラベル03.Text = "分岐点係数"
+        '
         '艦隊情報
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(884, 261)
+        Me.Controls.Add(Me.ラベル03)
+        Me.Controls.Add(Me.分岐点係数)
         Me.Controls.Add(Me.合計索敵値)
         Me.Controls.Add(Me.ラベル02)
         Me.Controls.Add(Me.制空値)
@@ -245,4 +266,6 @@ Partial Class 艦隊情報
     Friend WithEvents 装備4 As DataGridViewTextBoxColumn
     Friend WithEvents 装備5 As DataGridViewTextBoxColumn
     Friend WithEvents 補強増設 As DataGridViewTextBoxColumn
+    Friend WithEvents 分岐点係数 As TextBox
+    Friend WithEvents ラベル03 As Label
 End Class

@@ -65,9 +65,16 @@
             'ここで必要な値を用意
             Dim 制空値 As Long = 0
 
-
-
-
+            '変数を初期化
+            If 分岐点係数.Text <> "" Then
+                Component.艦これ索敵スコア.分岐点係数 = Integer.Parse(分岐点係数.Text)
+            Else
+                Component.艦これ索敵スコア.分岐点係数 = 0
+            End If
+            Component.艦これ索敵スコア.出撃艦数 = 0
+            Component.艦これ索敵スコア.艦娘索敵値平方根総和 = 0
+            Component.艦これ索敵スコア.司令部レベル = MyDataClass.Admiral.api_level
+            Component.艦これ索敵スコア.装備単体索敵値総和 = 0
 
             '一行一行追加していく
             For count As Integer = 0 To MyDataClass.MyPort(選択艦隊).api_ship.Count - 1
@@ -153,16 +160,49 @@
 
                         Next
 
+                        '装備索敵値を出す
+                        For cnt As Integer = 0 To 4
+                            Component.艦これ索敵スコア.装備単体索敵値総和 += Component.艦これ索敵スコア.装備単体索敵値(MyDataClass.MyKanmusu(母港配列ID).api_slot(cnt))
+                        Next
+
+                        '素索敵を出す
+                        Dim 素索敵 As Integer = MyDataClass.MyKanmusu(母港配列ID).api_sakuteki(0)
+                        For cnt As Integer = 0 To 4
+                            If Component.KancolleMyEquipmentIDSearch(MyDataClass.MyKanmusu(母港配列ID).api_slot(cnt)) IsNot Nothing Then
+                                Dim 所有装備配列番号 As Long = Component.KancolleMyEquipmentIDSearch(MyDataClass.MyKanmusu(母港配列ID).api_slot(cnt))
+
+                                If Component.KancolleAllEquipmentIDSearch(MyDataClass.MyEquipment(所有装備配列番号).api_slotitem_id) IsNot Nothing Then
+                                        Dim 装備一覧配列番号 As Long = Component.KancolleAllEquipmentIDSearch(MyDataClass.MyEquipment(所有装備配列番号).api_slotitem_id)
+                                        素索敵 -= CommonDataClass.AllEquipmentData(装備一覧配列番号).api_saku
+                                    End If
+
+                            End If
+                        Next
+
+
+                        '補強増設も忘れずに
+                        If Component.KancolleEquipmentNameSearch(MyDataClass.MyKanmusu(母港配列ID).api_slot_ex) IsNot Nothing Then
+                            If Component.KancolleMyEquipmentIDSearch(MyDataClass.MyKanmusu(母港配列ID).api_slot_ex) IsNot Nothing Then
+                                Dim 所有装備配列番号 As Long = Component.KancolleMyEquipmentIDSearch(MyDataClass.MyKanmusu(母港配列ID).api_slot_ex)
+                                If Component.KancolleAllEquipmentIDSearch(MyDataClass.MyEquipment(所有装備配列番号).api_slotitem_id) IsNot Nothing Then
+                                    Dim 装備一覧配列番号 As Long = Component.KancolleAllEquipmentIDSearch(MyDataClass.MyEquipment(所有装備配列番号).api_slotitem_id)
+                                    素索敵 -= CommonDataClass.AllEquipmentData(装備一覧配列番号).api_saku
+                                End If
+
+                            End If
+                        End If
+
+
+
+                        Component.艦これ索敵スコア.艦娘索敵値平方根総和 += Math.Sqrt(素索敵)
+
+                        '出撃艦数は数える
+                        Component.艦これ索敵スコア.出撃艦数 += 1
+
 
                         'ここで出力！
+                        '艦隊情報
                         一艦隊情報.Rows.Add(艦種, 艦娘名, Lv, HP, cond, 燃料, 弾薬, 装備(0), 装備(1), 装備(2), 装備(3), 装備(4), 装備(5))
-                        Me.制空値.Text = 制空値.ToString
-
-
-
-
-
-
 
                     End If
 
@@ -172,6 +212,18 @@
                     '表示しないため何も処理しない
                 End If
             Next
+
+
+            'ここで出力！
+
+            '制空値
+            Me.制空値.Text = 制空値.ToString
+
+            '索敵スコア
+            Me.合計索敵値.Text = Component.艦これ索敵スコア.判定式33計算()
+
+
+            'DebugWindow.Text = "分岐点係数" + Component.艦これ索敵スコア.分岐点係数.ToString + "装備単体索敵値総和" + Component.艦これ索敵スコア.装備単体索敵値総和.ToString + "艦娘索敵値平方根総和" + Component.艦これ索敵スコア.艦娘索敵値平方根総和.ToString + "司令部レベル" + Component.艦これ索敵スコア.司令部レベル.ToString + "出撃艦数" + Component.艦これ索敵スコア.出撃艦数.ToString
         End If
     End Sub
 
