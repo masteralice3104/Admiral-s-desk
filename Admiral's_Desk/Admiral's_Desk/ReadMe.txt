@@ -43,7 +43,7 @@
 
 
 【２．インストール・動作環境について】
-　　　インストールの方法は、お好きなフォルダに"Admiral_s_Desk.exe"を解凍するだけです。
+　　　インストールの方法は、お好きな場所に"Admiral_s_Desk"フォルダを解凍するだけです。
 
 　　　起動には.NET Framework 4.6.1が必要です。
 　　　起動できなかった場合はインストールされているかどうかを確認してください。
@@ -145,7 +145,7 @@
 
 【８．ライセンス】
 
-< Nekoxy >(　←依存：ソフト本体　)（ソースコードはNekoxy-master.zip）
+< Nekoxy >(　←依存：ソフト本体　)
 
 The MIT License (MIT)
 
@@ -169,7 +169,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-< TrotiNet > (　←依存：Nekoxy　) (ソースコードはNekoxy-master.zip内)
+< TrotiNet > (　←依存：Nekoxy　) (ソースコードはソースコードzip内のNekoxy-master.zip)
 
 Copyright (c) TrotiNet Team 2011-2013
 
