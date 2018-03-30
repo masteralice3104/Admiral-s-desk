@@ -66,7 +66,16 @@
             Dim 制空値 As Long = 0
 
             '変数を初期化
-            If 分岐点係数.Text <> "" Then
+            If 分岐点係数.Text = "0" Or
+              分岐点係数.Text = "1" Or
+              分岐点係数.Text = "2" Or
+              分岐点係数.Text = "3" Or
+              分岐点係数.Text = "4" Or
+              分岐点係数.Text = "5" Or
+              分岐点係数.Text = "6" Or
+              分岐点係数.Text = "7" Or
+              分岐点係数.Text = "8" Or
+              分岐点係数.Text = "9" Then
                 Component.艦これ索敵スコア.分岐点係数 = Integer.Parse(分岐点係数.Text)
             Else
                 Component.艦これ索敵スコア.分岐点係数 = 0

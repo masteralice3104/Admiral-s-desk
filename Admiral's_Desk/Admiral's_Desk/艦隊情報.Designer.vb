@@ -208,7 +208,9 @@ Partial Class 艦隊情報
         '
         '分岐点係数
         '
+        Me.分岐点係数.ImeMode = System.Windows.Forms.ImeMode.Disable
         Me.分岐点係数.Location = New System.Drawing.Point(359, 12)
+        Me.分岐点係数.MaxLength = 1
         Me.分岐点係数.Name = "分岐点係数"
         Me.分岐点係数.Size = New System.Drawing.Size(20, 19)
         Me.分岐点係数.TabIndex = 6
