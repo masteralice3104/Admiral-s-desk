@@ -10,15 +10,12 @@
 
     Private Sub 提督情報_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'ハンドラを設定
-        'AddHandler MyDataClass.Events.Admiral, AddressOf 提督情報更新
-        'AddHandler MyDataClass.Events.MyResource, AddressOf 資材資源量変更
+        AddHandler MyDataClass.Events.Info_Refresh, AddressOf 提督情報等更新
 
-        '提督情報更新()
-        '資材資源量変更()
     End Sub
 
     '提督情報更新
-    Private Sub 提督情報更新()
+    Private Sub 提督情報等更新()
         'あんまり良くないけど有効ではないスレッド間の操作が発生するのでこれを言っておく
         DataGridView.CheckForIllegalCrossThreadCalls = False
 
@@ -31,12 +28,19 @@
         母港及装備状態表示()
         マップ状態表示()
 
+
+
+        '資材資源量変更()
+        'ここで上記関数を動かすとSystem.NullReferenceExceptionが出る
+        '代わりにタイマーで一回限り動かせるようにする
+        資材資源量更新タイマー.Enabled = True
+        資材資源量更新タイマー.Start()
     End Sub
 
 
     '提督名の変更
     Public Sub 提督名変更()
-        If MyDataClass.Admiral.api_nickname IsNot Nothing Then
+        If MyDataClass.Admiral.api_nickname <> "" Then
             提督名.Text = MyDataClass.Admiral.api_nickname.ToString
         End If
     End Sub
@@ -44,14 +48,14 @@
 
     '提督レベルの変更
     Public Sub 提督レベル変更()
-        If MyDataClass.Admiral.api_level.ToString IsNot Nothing Then
+        If MyDataClass.Admiral.api_level.ToString <> "0" Then
             提督Lv.Text = "Lv." + MyDataClass.Admiral.api_level.ToString
         End If
     End Sub
 
     '提督レベルがUPするまでの経験値
     Public Sub 提督レベル残り()
-        If MyDataClass.Admiral.api_experience.ToString Is Nothing Then
+        If MyDataClass.Admiral.api_experience.ToString = "0" Then
             Exit Sub
         End If
         '経験値しかないので残りを計算する他ない
@@ -112,7 +116,7 @@
     '提督階級の変更
     Public Sub 提督階級変更()
 
-        If MyDataClass.Admiral.api_rank.ToString IsNot Nothing Then
+        If MyDataClass.Admiral.api_rank.ToString <> "0" Then
             Dim 提督階級番号 As Integer = Integer.Parse(MyDataClass.Admiral.api_rank.ToString)
             Dim 表示名 As String = ""
 
@@ -146,9 +150,7 @@
 
 
 
-        If MyDataClass.MyResource.Fuel.ToString Is Nothing Then
-            Exit Sub
-        End If
+
 
         '右寄せにする
         資材資源量DataGridView.Columns(1).DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight
@@ -168,9 +170,7 @@
     End Sub
 
     Private Sub 資材資源量行追加(ByVal 名称 As String, ByVal 量 As String)
-        資材資源量DataGridView.Rows.Add()
-        資材資源量DataGridView.Rows(資材資源量DataGridView.Rows.Count - 1).Cells(0).Value = 名称
-        資材資源量DataGridView.Rows(資材資源量DataGridView.Rows.Count - 1).Cells(1).Value = 量
+        資材資源量DataGridView.Rows.Add(名称, 量)
     End Sub
 
     Private Sub 母港及装備状態表示()
@@ -187,7 +187,7 @@
         End If
 
         '追加欄
-        If MyDataClass.MapInfo IsNot Nothing Then
+        If MyDataClass.MapInfo.Count <> 128 Then
             For count As Integer = 0 To MyDataClass.MapInfo.Count - 1
                 If MyDataClass.MapInfo(count).api_cleared = 0 Then
                     Dim マップ名 As String = ""
@@ -219,8 +219,7 @@
 
     End Sub
 
-    Private Sub 更新タイマ_Tick(sender As Object, e As EventArgs) Handles 更新タイマ.Tick
-        提督情報更新()
+    Private Sub 資材資源量更新タイマー_Tick(sender As Object, e As EventArgs) Handles 資材資源量更新タイマー.Tick
         資材資源量変更()
     End Sub
 End Class

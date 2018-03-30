@@ -263,7 +263,7 @@ Public Class CommonDataClass
     Public Shared AllEquipmentData(4096) As DataClass.CommonData.Equipment     '装備の基本データとりあえず(4096)
     Public Shared ShipType(21) As DataClass.CommonData.ShipType                '艦種データ
     Public Shared Mission(50) As DataClass.CommonData.Mission                  '遠征データ
-    Public Shared MapInfo(50) As DataClass.CommonData.MapInfo                  'マップデータ
+    Public Shared MapInfo(127) As DataClass.CommonData.MapInfo                  'マップデータ
 End Class
 
 Public Class MyDataClass
@@ -281,34 +281,13 @@ Public Class MyDataClass
     'イベントフラグのためのクラス
     'このへんから→http://rucio.a.la9.jp/main/dotnet/shokyu/standard49.htm
     Public Class Events
-        Public Shared Event Admiral(ByVal sender As Object, ByVal e As EventArgs)
-        Public Shared Event MyResource(ByVal sender As Object, ByVal e As EventArgs)
-        Public Shared Event MyKanmusu(ByVal sender As Object, ByVal e As EventArgs)
-        Public Shared Event MyEquipment(ByVal sender As Object, ByVal e As EventArgs)
-        Public Shared Event MyPort(ByVal sender As Object, ByVal e As EventArgs)
-        Public Shared Event RepairingDock(ByVal sender As Object, ByVal e As EventArgs)
 
-        Public Sub Admiral_Events()
-            RaiseEvent Admiral(Me, New EventArgs)
-        End Sub
-        Public Sub MyResource_Events()
-            RaiseEvent MyResource(Me, New EventArgs)
-        End Sub
-        Public Sub MyKanmusu_Events()
-            RaiseEvent MyKanmusu(Me, New EventArgs)
-        End Sub
-        Public Sub MyEquipment_Events()
-            RaiseEvent MyEquipment(Me, New EventArgs)
-        End Sub
-        Public Sub MyPort_Events()
-            RaiseEvent MyPort(Me, New EventArgs)
-        End Sub
-        Public Sub RepairingDock_Events()
-            RaiseEvent RepairingDock(Me, New EventArgs)
-        End Sub
+        '更新イベント
+        Public Shared Event Info_Refresh(ByVal sender As Object, ByVal e As EventArgs)
 
-
-
+        Public Sub Info_Refresh_Events()
+            RaiseEvent Info_Refresh(Me, New EventArgs)
+        End Sub
 
     End Class
 
@@ -597,8 +576,6 @@ Public Class StructureOperationClass
                     End If
 
 
-                    'この構造体が変わったよ！ってイベントを発生
-                    MyDataClass.EventsEpoch.Admiral_Events()
 
                 End If
             End If
@@ -618,8 +595,7 @@ Public Class StructureOperationClass
                     If JsonObject("api_data")("api_material")(5) IsNot Nothing Then MyDataClass.MyResource.HighspeedRepairingMaterial = JsonObject("api_data")("api_material")(5)("api_value")
                     If JsonObject("api_data")("api_material")(6) IsNot Nothing Then MyDataClass.MyResource.DevelopmentMaterial = JsonObject("api_data")("api_material")(6)("api_value")
                     If JsonObject("api_data")("api_material")(7) IsNot Nothing Then MyDataClass.MyResource.ImprovementMaterial = JsonObject("api_data")("api_material")(7)("api_value")
-                    'この構造体が変わったよ！ってイベントを発生
-                    MyDataClass.EventsEpoch.MyResource_Events()
+
                 End If
 
 
@@ -631,8 +607,6 @@ Public Class StructureOperationClass
                     If JsonObject("api_data")("api_material")(1) IsNot Nothing Then MyDataClass.MyResource.Bullet = JsonObject("api_data")("api_material")(1)
                     If JsonObject("api_data")("api_material")(2) IsNot Nothing Then MyDataClass.MyResource.Steel = JsonObject("api_data")("api_material")(2)
                     If JsonObject("api_data")("api_material")(3) IsNot Nothing Then MyDataClass.MyResource.Bauxite = JsonObject("api_data")("api_material")(3)
-                    'この構造体が変わったよ！ってイベントを発生
-                    MyDataClass.EventsEpoch.MyResource_Events()
                 End If
 
             End If
@@ -650,7 +624,6 @@ Public Class StructureOperationClass
                         MyDataClass.RepairingDock(count).api_ship_id = JsonObject("api_data")(count)("api_ship_id")
                         MyDataClass.RepairingDock(count).api_complete_time = JsonObject("api_data")(count)("api_complete_time")
                     Next
-                    MyDataClass.EventsEpoch.RepairingDock_Events()
                 End If
             End If
             If path = URLDataClass.port Then
@@ -661,7 +634,6 @@ Public Class StructureOperationClass
                         If JsonObject("api_data")("api_ndock")(count)("api_ship_id") IsNot Nothing Then MyDataClass.RepairingDock(count).api_ship_id = JsonObject("api_data")("api_ndock")(count)("api_ship_id")
                         If JsonObject("api_data")("api_ndock")(count)("api_complete_time") IsNot Nothing Then MyDataClass.RepairingDock(count).api_complete_time = JsonObject("api_data")("api_ndock")(count)("api_complete_time")
                     Next
-                    MyDataClass.EventsEpoch.RepairingDock_Events()
 
                 End If
 
@@ -739,8 +711,6 @@ Public Class StructureOperationClass
                     If JsonObject("api_data")(Dir)(count)("api_locked_equip") IsNot Nothing Then MyDataClass.MyKanmusu(count).api_locked_equip = JsonObject("api_data")(Dir)(count)("api_locked_equip")
 
                 Next
-                'イベント
-                MyDataClass.EventsEpoch.MyPort_Events()
 
 
             ElseIf path = URLDataClass.ship3 Then
@@ -808,8 +778,6 @@ Public Class StructureOperationClass
                         If JsonObject("api_data")(dir)(0)("api_lucky")(1) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_lucky(1) = JsonObject("api_data")(dir)(0)("api_lucky")(1)
                         If JsonObject("api_data")(dir)(0)("api_locked") IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_locked = JsonObject("api_data")(dir)(0)("api_locked")
                         If JsonObject("api_data")(dir)(0)("api_locked_equip") IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_locked_equip = JsonObject("api_data")(dir)(0)("api_locked_equip")
-                        'イベント
-                        MyDataClass.EventsEpoch.MyPort_Events()
                     End If
 
                 End If
@@ -838,8 +806,6 @@ Public Class StructureOperationClass
                         End If
                     Next
 
-                    'イベント
-                    MyDataClass.EventsEpoch.MyPort_Events()
                 End If
             End If
             If path = URLDataClass.deck Then
@@ -853,8 +819,6 @@ Public Class StructureOperationClass
                         End If
                     Next
 
-                    'イベント
-                    MyDataClass.EventsEpoch.MyPort_Events()
                 End If
             End If
 
@@ -877,9 +841,6 @@ Public Class StructureOperationClass
                             MyDataClass.MyEquipment(count).api_alv = 0
                         End If
                     Next
-
-
-
 
                 End If
             End If
@@ -905,6 +866,12 @@ Public Class StructureOperationClass
                     Next
                 End If
             End If
+
+
+
+
+            '更新確認イベント
+            MyDataClass.EventsEpoch.Info_Refresh_Events()
 
         End If
     End Sub

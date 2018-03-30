@@ -16,7 +16,7 @@
     End Sub
 
     Private Sub 艦隊情報_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        AddHandler MyDataClass.Events.MyPort, AddressOf 艦隊情報更新
+        AddHandler MyDataClass.Events.Info_Refresh, AddressOf 艦隊情報更新
         艦隊情報更新()
     End Sub
 
@@ -52,7 +52,7 @@
 
 
 
-        情報更新タイマ.Enabled = True
+        情報更新タイマ.Start()
 
     End Sub
 
@@ -172,9 +172,9 @@
                                 Dim 所有装備配列番号 As Long = Component.KancolleMyEquipmentIDSearch(MyDataClass.MyKanmusu(母港配列ID).api_slot(cnt))
 
                                 If Component.KancolleAllEquipmentIDSearch(MyDataClass.MyEquipment(所有装備配列番号).api_slotitem_id) IsNot Nothing Then
-                                        Dim 装備一覧配列番号 As Long = Component.KancolleAllEquipmentIDSearch(MyDataClass.MyEquipment(所有装備配列番号).api_slotitem_id)
-                                        素索敵 -= CommonDataClass.AllEquipmentData(装備一覧配列番号).api_saku
-                                    End If
+                                    Dim 装備一覧配列番号 As Long = Component.KancolleAllEquipmentIDSearch(MyDataClass.MyEquipment(所有装備配列番号).api_slotitem_id)
+                                    素索敵 -= CommonDataClass.AllEquipmentData(装備一覧配列番号).api_saku
+                                End If
 
                             End If
                         Next
@@ -222,14 +222,18 @@
             '索敵スコア
             Me.合計索敵値.Text = Component.艦これ索敵スコア.判定式33計算()
 
-
+            'デバッグ用
             'DebugWindow.Text = "分岐点係数" + Component.艦これ索敵スコア.分岐点係数.ToString + "装備単体索敵値総和" + Component.艦これ索敵スコア.装備単体索敵値総和.ToString + "艦娘索敵値平方根総和" + Component.艦これ索敵スコア.艦娘索敵値平方根総和.ToString + "司令部レベル" + Component.艦これ索敵スコア.司令部レベル.ToString + "出撃艦数" + Component.艦これ索敵スコア.出撃艦数.ToString
         End If
+
+
     End Sub
 
     Private Sub 艦隊選択_SelectedIndexChanged(sender As Object, e As EventArgs) Handles 艦隊選択.SelectedIndexChanged
         'どの艦隊を選んだか保存
         選択艦隊 = 艦隊選択.SelectedIndex
+
+
 
         'デバッグ用
 #If DEBUG Then

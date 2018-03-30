@@ -1,8 +1,20 @@
 ﻿Public Class メインフォーム
+
+    'アップデートに必要な情報
+
+    Public Const ソフト名 As String = "Admiral's Desk"
+    Public Const バージョン As String = "0.1.0.0"
+    Dim 更新後URL As String = ""
+
+
+
     Private Sub ブラウザ_DocumentCompleted(sender As Object, e As WebBrowserDocumentCompletedEventArgs) Handles ブラウザ.DocumentCompleted
         ブラウザ.ScrollBarsEnabled = False
         ブラウザ.Document.Window.ScrollTo(123, 95)
+
     End Sub
+
+
 
     Private Sub メインフォーム_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'Nekoxyを使います
@@ -17,7 +29,6 @@
 
         'イベントハンドラを設定
         AddHandler Nekoxy.HttpProxy.AfterSessionComplete, AddressOf データ検知
-
 
 
 
@@ -146,5 +157,46 @@
 
     Private Sub 終了XToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 終了XToolStripMenuItem.Click
         Me.Close()
+    End Sub
+
+    Private Sub 更新確認ブラウザ_DocumentCompleted(sender As Object, e As WebBrowserDocumentCompletedEventArgs) Handles 更新確認ブラウザ.DocumentCompleted
+        '更新の確認用
+
+        Dim 現在バージョン As String = ソフト名 + " " + バージョン
+
+
+        If 更新確認ブラウザ.Document.Body.OuterText.ToString.StartsWith(現在バージョン) Then
+        Else
+
+            If オプション.更新チェック.Checked = True Then
+                '更新が必要な場合
+
+                Dim result As DialogResult = MessageBox.Show("新しいバージョンがあります。紹介ツイートを表示しますか？",
+                                                             "更新確認",
+                                                             MessageBoxButtons.YesNoCancel,
+                                                             MessageBoxIcon.Exclamation,
+                                                             MessageBoxDefaultButton.Button2)
+
+                '選択肢を見る
+                If result = DialogResult.Yes Then
+                    Dim 開くページ As String = ""
+
+                    If 更新後URL = "" Then
+                        開くページ = "https://ux.getuploader.com/masteralice3104/"
+                    Else
+                        開くページ = 更新後URL
+                    End If
+
+                    'ページを開く
+                    '参考
+                    System.Diagnostics.Process.Start(開くページ)
+                End If
+                End If
+
+        End If
+    End Sub
+
+    Private Sub 更新URL確認用ブラウザ_DocumentCompleted(sender As Object, e As WebBrowserDocumentCompletedEventArgs) Handles 更新URL確認用ブラウザ.DocumentCompleted
+        更新後URL = 更新URL確認用ブラウザ.Document.Body.OuterText.ToString
     End Sub
 End Class

@@ -77,6 +77,7 @@ Partial Class 遠征情報
         'タイマ
         '
         Me.タイマ.Enabled = True
+        Me.タイマ.Interval = 1000
         '
         '遠征情報
         '

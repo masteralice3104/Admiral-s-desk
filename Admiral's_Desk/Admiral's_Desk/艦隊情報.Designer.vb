@@ -204,6 +204,7 @@ Partial Class 艦隊情報
         '情報更新タイマ
         '
         Me.情報更新タイマ.Enabled = True
+        Me.情報更新タイマ.Interval = 500
         '
         '分岐点係数
         '

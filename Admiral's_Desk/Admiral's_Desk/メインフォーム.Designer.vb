@@ -42,6 +42,8 @@ Partial Class メインフォーム
         Me.艦隊情報アクセス = New System.Windows.Forms.CheckBox()
         Me.提督情報アクセス = New System.Windows.Forms.CheckBox()
         Me.情報アクセスラベル = New System.Windows.Forms.Label()
+        Me.更新確認ブラウザ = New System.Windows.Forms.WebBrowser()
+        Me.更新URL確認用ブラウザ = New System.Windows.Forms.WebBrowser()
         Me.MenuStrip1.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
@@ -235,11 +237,34 @@ Partial Class メインフォーム
         Me.情報アクセスラベル.TabIndex = 0
         Me.情報アクセスラベル.Text = "詳細"
         '
+        '更新確認ブラウザ
+        '
+        Me.更新確認ブラウザ.Location = New System.Drawing.Point(12, 38)
+        Me.更新確認ブラウザ.MinimumSize = New System.Drawing.Size(20, 20)
+        Me.更新確認ブラウザ.Name = "更新確認ブラウザ"
+        Me.更新確認ブラウザ.Size = New System.Drawing.Size(250, 250)
+        Me.更新確認ブラウザ.TabIndex = 3
+        Me.更新確認ブラウザ.Url = New System.Uri("https://raw.githubusercontent.com/masteralice3104/Admiral-s-desk/master/Refresh", System.UriKind.Absolute)
+        Me.更新確認ブラウザ.Visible = False
+        '
+        '更新URL確認用ブラウザ
+        '
+        Me.更新URL確認用ブラウザ.Location = New System.Drawing.Point(470, 184)
+        Me.更新URL確認用ブラウザ.MinimumSize = New System.Drawing.Size(20, 20)
+        Me.更新URL確認用ブラウザ.Name = "更新URL確認用ブラウザ"
+        Me.更新URL確認用ブラウザ.Size = New System.Drawing.Size(250, 250)
+        Me.更新URL確認用ブラウザ.TabIndex = 4
+        Me.更新URL確認用ブラウザ.Url = New System.Uri("https://raw.githubusercontent.com/masteralice3104/Admiral-s-desk/master/RefreshUR" &
+        "L", System.UriKind.Absolute)
+        Me.更新URL確認用ブラウザ.Visible = False
+        '
         'メインフォーム
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(804, 550)
+        Me.Controls.Add(Me.更新URL確認用ブラウザ)
+        Me.Controls.Add(Me.更新確認ブラウザ)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.ブラウザ)
         Me.Controls.Add(Me.MenuStrip1)
@@ -279,4 +304,6 @@ Partial Class メインフォーム
     Friend WithEvents 終了XToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents オプションoToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ヘルプHToolStripMenuItem1 As ToolStripMenuItem
+    Friend WithEvents 更新確認ブラウザ As WebBrowser
+    Friend WithEvents 更新URL確認用ブラウザ As WebBrowser
 End Class
