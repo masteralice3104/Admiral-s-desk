@@ -3,7 +3,7 @@
     'アップデートに必要な情報
 
     Public Const ソフト名 As String = "Admiral's Desk"
-    Public Const バージョン As String = "0.1.0.0"
+    Public Const バージョン As String = "0.1.0.1"
     Dim 更新後URL As String = ""
 
 
