@@ -1,6 +1,6 @@
 ﻿Public Class 提督情報
 
-
+    Public Shared 情報更新Flag As Boolean = False
 
 
     Private Sub 情報ウインドウ_Close() Handles MyBase.Closed
@@ -10,14 +10,26 @@
 
     Private Sub 提督情報_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         'ハンドラを設定
-        AddHandler MyDataClass.Events.Info_Refresh, AddressOf 提督情報等更新
+        AddHandler MyDataClass.Events.Info_Refresh, AddressOf 情報更新
 
     End Sub
 
+    Private Sub 情報更新()
+        情報更新Flag = True
+
+    End Sub
+
+    Private Sub 情報更新フラグ管理_Tick(sender As Object, e As EventArgs) Handles 情報更新フラグ管理.Tick
+        If 情報更新Flag = True Then
+            提督情報等更新()
+            情報更新Flag = False
+        End If
+    End Sub
+
+
     '提督情報更新
     Private Sub 提督情報等更新()
-        'あんまり良くないけど有効ではないスレッド間の操作が発生するのでこれを言っておく
-        DataGridView.CheckForIllegalCrossThreadCalls = False
+
 
 
         '本処理1
@@ -222,4 +234,6 @@
     Private Sub 資材資源量更新タイマー_Tick(sender As Object, e As EventArgs) Handles 資材資源量更新タイマー.Tick
         資材資源量変更()
     End Sub
+
+
 End Class

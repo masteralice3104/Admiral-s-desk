@@ -6,7 +6,7 @@
 
     Private Sub タイマ_Tick(sender As Object, e As EventArgs) Handles タイマ.Tick
         'あんまり良くないけど有効ではないスレッド間の操作が発生するのでこれを言っておく
-        DataGridView.CheckForIllegalCrossThreadCalls = False
+        'DataGridView.CheckForIllegalCrossThreadCalls = False
 
 
         'まずは中身を消す

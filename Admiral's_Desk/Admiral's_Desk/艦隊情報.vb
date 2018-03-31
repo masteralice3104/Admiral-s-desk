@@ -3,7 +3,7 @@
     '必要な変数
     Private 選択艦隊 As Long = 0
     Private 艦隊名(3) As String
-
+    Public Shared 艦隊情報更新Flag As Boolean = False
 
 
 
@@ -16,17 +16,16 @@
     End Sub
 
     Private Sub 艦隊情報_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        AddHandler MyDataClass.Events.Info_Refresh, AddressOf 艦隊情報更新
-        艦隊情報更新()
+        AddHandler MyDataClass.Events.Info_Refresh, AddressOf 艦隊情報更新フラグ管理
+
+    End Sub
+
+    Private Sub 艦隊情報更新フラグ管理()
+        艦隊情報更新Flag = True
     End Sub
 
 
-
     Private Sub 艦隊情報更新()
-        'あんまり良くないけど有効ではないスレッド間の操作が発生するのでこれを言っておく
-        DataGridView.CheckForIllegalCrossThreadCalls = False
-
-
         'まずは中身を消す
         艦隊選択.Items.Clear()
 
@@ -52,11 +51,12 @@
 
 
 
-        情報更新タイマ.Start()
 
-    End Sub
 
-    Private Sub 情報更新タイマ_Tick(sender As Object, e As EventArgs) Handles 情報更新タイマ.Tick
+
+
+
+
         'まずDataGridViewの項目全消し
         一艦隊情報.Rows.Clear()
 
@@ -242,12 +242,19 @@
         'どの艦隊を選んだか保存
         選択艦隊 = 艦隊選択.SelectedIndex
 
-
+        艦隊情報更新Flag = True
 
         'デバッグ用
 #If DEBUG Then
         Debug.WriteLine(String.Format("選択艦隊:{0}", 選択艦隊))
 #End If
 
+    End Sub
+
+    Private Sub 艦隊情報更新フラグ管理用タイマ_Tick(sender As Object, e As EventArgs) Handles 艦隊情報更新フラグ管理用タイマ.Tick
+        If 艦隊情報更新Flag = True Then
+            艦隊情報更新()
+            艦隊情報更新Flag = False
+        End If
     End Sub
 End Class

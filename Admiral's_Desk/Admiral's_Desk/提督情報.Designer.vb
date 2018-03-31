@@ -42,6 +42,7 @@ Partial Class 提督情報
         Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.資材資源量更新タイマー = New System.Windows.Forms.Timer(Me.components)
+        Me.情報更新フラグ管理 = New System.Windows.Forms.Timer(Me.components)
         Me.Panel1.SuspendLayout()
         Me.Panel2.SuspendLayout()
         Me.現在資材状況.SuspendLayout()
@@ -230,6 +231,11 @@ Partial Class 提督情報
         Me.資材資源量更新タイマー.Enabled = True
         Me.資材資源量更新タイマー.Interval = 500
         '
+        '情報更新フラグ管理
+        '
+        Me.情報更新フラグ管理.Enabled = True
+        Me.情報更新フラグ管理.Interval = 500
+        '
         '提督情報
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -278,4 +284,5 @@ Partial Class 提督情報
     Friend WithEvents DataGridViewTextBoxColumn1 As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn2 As DataGridViewTextBoxColumn
     Friend WithEvents 資材資源量更新タイマー As Timer
+    Friend WithEvents 情報更新フラグ管理 As Timer
 End Class

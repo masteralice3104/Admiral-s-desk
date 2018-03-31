@@ -42,9 +42,9 @@ Partial Class 艦隊情報
         Me.制空値 = New System.Windows.Forms.Label()
         Me.ラベル02 = New System.Windows.Forms.Label()
         Me.合計索敵値 = New System.Windows.Forms.Label()
-        Me.情報更新タイマ = New System.Windows.Forms.Timer(Me.components)
         Me.分岐点係数 = New System.Windows.Forms.TextBox()
         Me.ラベル03 = New System.Windows.Forms.Label()
+        Me.艦隊情報更新フラグ管理用タイマ = New System.Windows.Forms.Timer(Me.components)
         CType(Me.一艦隊情報, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -201,11 +201,6 @@ Partial Class 艦隊情報
         Me.合計索敵値.TabIndex = 5
         Me.合計索敵値.Text = "00.0"
         '
-        '情報更新タイマ
-        '
-        Me.情報更新タイマ.Enabled = True
-        Me.情報更新タイマ.Interval = 500
-        '
         '分岐点係数
         '
         Me.分岐点係数.ImeMode = System.Windows.Forms.ImeMode.Disable
@@ -224,6 +219,10 @@ Partial Class 艦隊情報
         Me.ラベル03.Size = New System.Drawing.Size(65, 12)
         Me.ラベル03.TabIndex = 7
         Me.ラベル03.Text = "分岐点係数"
+        '
+        '艦隊情報更新フラグ管理用タイマ
+        '
+        Me.艦隊情報更新フラグ管理用タイマ.Enabled = True
         '
         '艦隊情報
         '
@@ -258,7 +257,6 @@ Partial Class 艦隊情報
     Friend WithEvents 制空値 As Label
     Friend WithEvents ラベル02 As Label
     Friend WithEvents 合計索敵値 As Label
-    Friend WithEvents 情報更新タイマ As Timer
     Friend WithEvents 艦種 As DataGridViewTextBoxColumn
     Friend WithEvents 艦娘名 As DataGridViewTextBoxColumn
     Friend WithEvents Lv As DataGridViewTextBoxColumn
@@ -274,4 +272,5 @@ Partial Class 艦隊情報
     Friend WithEvents 補強増設 As DataGridViewTextBoxColumn
     Friend WithEvents 分岐点係数 As TextBox
     Friend WithEvents ラベル03 As Label
+    Friend WithEvents 艦隊情報更新フラグ管理用タイマ As Timer
 End Class
