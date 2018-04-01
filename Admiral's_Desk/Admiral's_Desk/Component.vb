@@ -106,7 +106,7 @@
     '装備検索②
     '装備ごとに共通のID(①の結果より求められるもの)
     '戻値はCommonDataClass.AllEquipmentDataの配列番号かNothing(失敗時)
-    Public Shared Function KancolleAllEquipmentIDSearch(ByVal 共通装備ID)
+    Public Shared Function KancolleAllEquipmentIDSearch(ByVal 共通装備ID As Integer)
         '装備IDを手がかりに全装備より検索
         For count As Integer = 0 To CommonDataClass.AllEquipmentData.Count - 1
             If CommonDataClass.AllEquipmentData(count).api_id.Equals(共通装備ID) Then
@@ -121,7 +121,7 @@
     '①と②を複合し扱いやすくしたもの
     '戻り値はString型で「装備名+改修状態」が返される
     'nothingが返るときは失敗
-    Public Shared Function KancolleEquipmentNameSearch(ByVal 個別装備ID)
+    Public Shared Function KancolleEquipmentNameSearch(ByVal 個別装備ID As Integer)
         '予め用意しておく変数
         Dim 所有装備配列番号 As Integer
         Dim 装備一覧配列番号 As Integer
@@ -172,7 +172,7 @@
     '
     '
 
-    Public Shared Function KancolleEquipmentAirspaceSearch(ByVal 個別装備ID)
+    Public Shared Function KancolleEquipmentAirspaceSearch(ByVal 個別装備ID As Integer)
         '予め用意しておく変数
         Dim 所有装備配列番号 As Integer
         Dim 装備一覧配列番号 As Integer
@@ -295,7 +295,7 @@
         Public Shared 司令部レベル As Integer = 0
         Public Shared 出撃艦数 As Integer = 0
 
-        Public Shared Function 装備単体索敵値(ByVal 個別装備ID)
+        Public Shared Function 装備単体索敵値(ByVal 個別装備ID As Integer)
             '装備ごとの倍率は以下の通り。
             '装備分類    倍率	        装備分類	    倍率
             '艦上爆撃機   0.6	        艦上戦闘機   	0.6

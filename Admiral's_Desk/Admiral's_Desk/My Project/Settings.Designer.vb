@@ -221,6 +221,30 @@ Namespace My
                 Me("遠征ウインドウ表示") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0, 0")>  _
+        Public Property 工廠情報ウインドウ位置() As Global.System.Drawing.Point
+            Get
+                Return CType(Me("工廠情報ウインドウ位置"),Global.System.Drawing.Point)
+            End Get
+            Set
+                Me("工廠情報ウインドウ位置") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property 建造開発ネタバレチェック() As Boolean
+            Get
+                Return CType(Me("建造開発ネタバレチェック"),Boolean)
+            End Get
+            Set
+                Me("建造開発ネタバレチェック") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

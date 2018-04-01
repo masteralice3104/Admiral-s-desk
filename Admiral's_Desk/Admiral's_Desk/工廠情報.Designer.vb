@@ -22,6 +22,7 @@ Partial Class 工廠情報
     'コード エディターを使って変更しないでください。
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.入渠情報表示 = New System.Windows.Forms.DataGridView()
         Me.艦娘名 = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -33,9 +34,10 @@ Partial Class 工廠情報
         Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.開発情報表示 = New System.Windows.Forms.DataGridView()
-        Me.Label3 = New System.Windows.Forms.Label()
         Me.DataGridViewTextBoxColumn4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.Label3 = New System.Windows.Forms.Label()
         Me.ネタバレ防止 = New System.Windows.Forms.CheckBox()
+        Me.情報更新タイマ = New System.Windows.Forms.Timer(Me.components)
         CType(Me.入渠情報表示, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.建造情報表示, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.開発情報表示, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -146,6 +148,13 @@ Partial Class 工廠情報
         Me.開発情報表示.Size = New System.Drawing.Size(265, 45)
         Me.開発情報表示.TabIndex = 5
         '
+        'DataGridViewTextBoxColumn4
+        '
+        Me.DataGridViewTextBoxColumn4.HeaderText = "装備名"
+        Me.DataGridViewTextBoxColumn4.Name = "DataGridViewTextBoxColumn4"
+        Me.DataGridViewTextBoxColumn4.ReadOnly = True
+        Me.DataGridViewTextBoxColumn4.Width = 260
+        '
         'Label3
         '
         Me.Label3.AutoSize = True
@@ -156,22 +165,23 @@ Partial Class 工廠情報
         Me.Label3.TabIndex = 4
         Me.Label3.Text = "開発"
         '
-        'DataGridViewTextBoxColumn4
-        '
-        Me.DataGridViewTextBoxColumn4.HeaderText = "装備名"
-        Me.DataGridViewTextBoxColumn4.Name = "DataGridViewTextBoxColumn4"
-        Me.DataGridViewTextBoxColumn4.ReadOnly = True
-        Me.DataGridViewTextBoxColumn4.Width = 260
-        '
         'ネタバレ防止
         '
         Me.ネタバレ防止.AutoSize = True
+        Me.ネタバレ防止.Checked = Global.Admiral_s_Desk.My.MySettings.Default.建造開発ネタバレチェック
+        Me.ネタバレ防止.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.ネタバレ防止.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.Admiral_s_Desk.My.MySettings.Default, "建造開発ネタバレチェック", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.ネタバレ防止.Location = New System.Drawing.Point(16, 292)
         Me.ネタバレ防止.Name = "ネタバレ防止"
         Me.ネタバレ防止.Size = New System.Drawing.Size(177, 16)
         Me.ネタバレ防止.TabIndex = 6
         Me.ネタバレ防止.Text = "建造・開発のネタバレを防止する"
         Me.ネタバレ防止.UseVisualStyleBackColor = True
+        '
+        '情報更新タイマ
+        '
+        Me.情報更新タイマ.Enabled = True
+        Me.情報更新タイマ.Interval = 1000
         '
         '工廠情報
         '
@@ -186,6 +196,8 @@ Partial Class 工廠情報
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.入渠情報表示)
         Me.Controls.Add(Me.Label1)
+        Me.DataBindings.Add(New System.Windows.Forms.Binding("Location", Global.Admiral_s_Desk.My.MySettings.Default, "工廠情報ウインドウ位置", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.Location = Global.Admiral_s_Desk.My.MySettings.Default.工廠情報ウインドウ位置
         Me.MaximumSize = New System.Drawing.Size(350, 350)
         Me.MinimumSize = New System.Drawing.Size(350, 350)
         Me.Name = "工廠情報"
@@ -212,4 +224,5 @@ Partial Class 工廠情報
     Friend WithEvents DataGridViewTextBoxColumn4 As DataGridViewTextBoxColumn
     Friend WithEvents Label3 As Label
     Friend WithEvents ネタバレ防止 As CheckBox
+    Friend WithEvents 情報更新タイマ As Timer
 End Class

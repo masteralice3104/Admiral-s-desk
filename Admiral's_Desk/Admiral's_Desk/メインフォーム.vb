@@ -199,4 +199,12 @@
     Private Sub 更新URL確認用ブラウザ_DocumentCompleted(sender As Object, e As WebBrowserDocumentCompletedEventArgs) Handles 更新URL確認用ブラウザ.DocumentCompleted
         更新後URL = 更新URL確認用ブラウザ.Document.Body.OuterText.ToString
     End Sub
+
+    Private Sub 工廠情報アクセス_CheckedChanged(sender As Object, e As EventArgs) Handles 工廠情報アクセス.CheckedChanged
+        If 工廠情報アクセス.Checked = True Then
+            工廠情報.Visible = True
+        Else
+            工廠情報.Visible = False
+        End If
+    End Sub
 End Class

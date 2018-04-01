@@ -252,6 +252,24 @@ Public Structure DataClass
             Public api_defeat_count As Long '削った回数?
         End Structure
 
+        '開発情報
+        Public Structure Development
+            Public EquipmentID As Integer
+        End Structure
+
+        '建造情報
+        Public Structure Building
+            Public api_state As Long
+            Public api_created_ship_id As Long
+            Public api_complete_time As Long
+            Public api_item1 As Long
+            Public api_item2 As Long
+            Public api_item3 As Long
+            Public api_item4 As Long
+            Public api_item5 As Long
+        End Structure
+
+
     End Structure
 
     End Structure
@@ -277,6 +295,8 @@ Public Class MyDataClass
     Public Shared MyPort(3) As DataClass.IndividualData.Port                   '艦隊4つぶん
     Public Shared RepairingDock(4) As DataClass.IndividualData.RepairingDock   '入渠ドック情報
     Public Shared MapInfo(64) As DataClass.IndividualData.MapInfo              'マップ情報
+    Public Shared Development As DataClass.IndividualData.Development          '開発情報
+    Public Shared Building(3) As DataClass.IndividualData.Building             '建造情報
 
     'イベントフラグのためのクラス
     'このへんから→http://rucio.a.la9.jp/main/dotnet/shokyu/standard49.htm
@@ -312,6 +332,8 @@ Public Class URLDataClass
     Public Const deck As String = "/kcsapi/api_get_member/deck"
     Public Const ship3 As String = "/kcsapi/api_get_member/ship3"
     Public Const ship_deck As String = "/kcsapi/api_get_member/ship_deck"
+    Public Const createitem As String = "/kcsapi/api_req_kousyou/createitem"
+    Public Const kdock As String = "/kcsapi/api_get_member/kdock"
 End Class
 
 
@@ -898,6 +920,47 @@ Public Class StructureOperationClass
                 End If
             End If
 
+            '開発情報取得
+            If path = URLDataClass.createitem Then
+                If JsonObject("api_data") IsNot Nothing Then
+                    If JsonObject("api_data")("api_fdata") IsNot Nothing Then
+                        '開発失敗時
+                        MyDataClass.Development.EquipmentID = -1
+                    End If
+                    If JsonObject("api_data")("api_slot_item") IsNot Nothing Then
+                        '開発成功
+                        MyDataClass.Development.EquipmentID = JsonObject("api_data")("api_slot_item")("api_slotitem_id")
+                    End If
+                End If
+            End If
+
+
+            '建造ドックの取得
+            If path = URLDataClass.kdock Then
+                For count As Integer = 0 To JsonObject("api_data").Count - 1
+                    If JsonObject("api_data")(count)("api_state") IsNot Nothing Then MyDataClass.Building(count).api_state = JsonObject("api_data")(count)("api_state")
+                    If JsonObject("api_data")(count)("api_created_ship_id") IsNot Nothing Then MyDataClass.Building(count).api_created_ship_id = JsonObject("api_data")(count)("api_created_ship_id")
+                    If JsonObject("api_data")(count)("api_complete_time") IsNot Nothing Then MyDataClass.Building(count).api_complete_time = JsonObject("api_data")(count)("api_complete_time")
+                    If JsonObject("api_data")(count)("api_item1") IsNot Nothing Then MyDataClass.Building(count).api_item1 = JsonObject("api_data")(count)("api_item1")
+                    If JsonObject("api_data")(count)("api_item2") IsNot Nothing Then MyDataClass.Building(count).api_item2 = JsonObject("api_data")(count)("api_item2")
+                    If JsonObject("api_data")(count)("api_item3") IsNot Nothing Then MyDataClass.Building(count).api_item3 = JsonObject("api_data")(count)("api_item3")
+                    If JsonObject("api_data")(count)("api_item4") IsNot Nothing Then MyDataClass.Building(count).api_item4 = JsonObject("api_data")(count)("api_item4")
+                    If JsonObject("api_data")(count)("api_item5") IsNot Nothing Then MyDataClass.Building(count).api_item5 = JsonObject("api_data")(count)("api_item5")
+                Next
+            End If
+            If path = URLDataClass.require_info Then
+                For count As Integer = 0 To JsonObject("api_data")("api_kdock").Count - 1
+                    If JsonObject("api_data")("api_kdock")(count)("api_state") IsNot Nothing Then MyDataClass.Building(count).api_state = JsonObject("api_data")("api_kdock")(count)("api_state")
+                    If JsonObject("api_data")("api_kdock")(count)("api_created_ship_id") IsNot Nothing Then MyDataClass.Building(count).api_created_ship_id = JsonObject("api_data")("api_kdock")(count)("api_created_ship_id")
+                    If JsonObject("api_data")("api_kdock")(count)("api_complete_time") IsNot Nothing Then MyDataClass.Building(count).api_complete_time = JsonObject("api_data")("api_kdock")(count)("api_complete_time")
+                    If JsonObject("api_data")("api_kdock")(count)("api_item1") IsNot Nothing Then MyDataClass.Building(count).api_item1 = JsonObject("api_data")("api_kdock")(count)("api_item1")
+                    If JsonObject("api_data")("api_kdock")(count)("api_item2") IsNot Nothing Then MyDataClass.Building(count).api_item2 = JsonObject("api_data")("api_kdock")(count)("api_item2")
+                    If JsonObject("api_data")("api_kdock")(count)("api_item3") IsNot Nothing Then MyDataClass.Building(count).api_item3 = JsonObject("api_data")("api_kdock")(count)("api_item3")
+                    If JsonObject("api_data")("api_kdock")(count)("api_item4") IsNot Nothing Then MyDataClass.Building(count).api_item4 = JsonObject("api_data")("api_kdock")(count)("api_item4")
+                    If JsonObject("api_data")("api_kdock")(count)("api_item5") IsNot Nothing Then MyDataClass.Building(count).api_item5 = JsonObject("api_data")("api_kdock")(count)("api_item5")
+                Next
+
+            End If
 
 
 

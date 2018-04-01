@@ -183,7 +183,6 @@ Partial Class メインフォーム
         Me.工廠情報アクセス.AutoSize = True
         Me.工廠情報アクセス.Checked = Global.Admiral_s_Desk.My.MySettings.Default.工廠ウインドウ表示
         Me.工廠情報アクセス.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.Admiral_s_Desk.My.MySettings.Default, "工廠ウインドウ表示", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        Me.工廠情報アクセス.Enabled = False
         Me.工廠情報アクセス.Location = New System.Drawing.Point(201, 15)
         Me.工廠情報アクセス.Name = "工廠情報アクセス"
         Me.工廠情報アクセス.Size = New System.Drawing.Size(48, 16)
