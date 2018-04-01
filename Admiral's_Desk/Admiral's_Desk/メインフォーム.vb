@@ -3,7 +3,7 @@
     'アップデートに必要な情報
 
     Public Const ソフト名 As String = "Admiral's Desk"
-    Public Const バージョン As String = "0.1.0.1"
+    Public Const バージョン As String = "0.1.1.0"
     Dim 更新後URL As String = ""
 
 
@@ -32,6 +32,16 @@
 
 
 
+        '動作速度の設定
+        If オプション.動作調整バー.Value = 3 Then
+            オプション.動作速度設定 = 1.0
+        ElseIf オプション.動作調整バー.Value = 2 Then
+            オプション.動作速度設定 = 1.5
+        ElseIf オプション.動作調整バー.Value = 1 Then
+            オプション.動作速度設定 = 2.0
+        ElseIf オプション.動作調整バー.Value = 0 Then
+            オプション.動作速度設定 = 2.5
+        End If
     End Sub
 
     Private Sub データ検知(oSession As Nekoxy.Session)
@@ -205,6 +215,14 @@
             工廠情報.Visible = True
         Else
             工廠情報.Visible = False
+        End If
+    End Sub
+
+    Private Sub 任務情報アクセス_CheckedChanged(sender As Object, e As EventArgs) Handles 任務情報アクセス.CheckedChanged
+        If 任務情報アクセス.Checked = True Then
+            任務情報.Visible = True
+        Else
+            任務情報.Visible = False
         End If
     End Sub
 End Class

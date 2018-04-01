@@ -48,7 +48,6 @@ Public Structure DataClass
             'api_taisはなにも定義がないとapi_tais = { 16 , 39 }となっている?
         End Structure
 
-
         '装備一覧
         Public Structure Equipment
             Public api_id As Long           '装備固有ID
@@ -80,7 +79,6 @@ Public Structure DataClass
             'api_brokenは必ず初期化時にReDimしてサイズを4にしなければならない!
             Public api_info As String       '説明文(html形式)
         End Structure
-
 
         '艦種データ
         Public Structure ShipType
@@ -272,7 +270,7 @@ Public Structure DataClass
 
     End Structure
 
-    End Structure
+End Structure
 
 
 Public Class CommonDataClass

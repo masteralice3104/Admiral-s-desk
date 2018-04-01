@@ -24,6 +24,8 @@
             提督情報等更新()
             情報更新Flag = False
         End If
+        '動作速度設定
+        情報更新フラグ管理.Interval = 1000 * オプション.動作速度設定
     End Sub
 
 
@@ -233,6 +235,8 @@
 
     Private Sub 資材資源量更新タイマー_Tick(sender As Object, e As EventArgs) Handles 資材資源量更新タイマー.Tick
         資材資源量変更()
+        '動作速度設定
+        資材資源量更新タイマー.Interval = 1000 * オプション.動作速度設定
     End Sub
 
 

@@ -245,6 +245,18 @@ Namespace My
                 Me("建造開発ネタバレチェック") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("3")>  _
+        Public Property 動作速度() As Integer
+            Get
+                Return CType(Me("動作速度"),Integer)
+            End Get
+            Set
+                Me("動作速度") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

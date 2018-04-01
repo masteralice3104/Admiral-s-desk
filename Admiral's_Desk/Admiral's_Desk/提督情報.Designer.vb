@@ -229,12 +229,12 @@ Partial Class 提督情報
         '資材資源量更新タイマー
         '
         Me.資材資源量更新タイマー.Enabled = True
-        Me.資材資源量更新タイマー.Interval = 500
+        Me.資材資源量更新タイマー.Interval = 1000
         '
         '情報更新フラグ管理
         '
         Me.情報更新フラグ管理.Enabled = True
-        Me.情報更新フラグ管理.Interval = 500
+        Me.情報更新フラグ管理.Interval = 1000
         '
         '提督情報
         '

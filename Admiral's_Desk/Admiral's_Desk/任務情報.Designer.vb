@@ -24,48 +24,48 @@ Partial Class 任務情報
     Private Sub InitializeComponent()
         Me.任務情報表示 = New System.Windows.Forms.TabControl()
         Me.デイリー任務 = New System.Windows.Forms.TabPage()
+        Me.デイリー任務表示 = New System.Windows.Forms.DataGridView()
+        Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.ウィークリー = New System.Windows.Forms.TabPage()
+        Me.ウィークリー任務表示 = New System.Windows.Forms.DataGridView()
+        Me.DataGridViewTextBoxColumn4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.マンスリー = New System.Windows.Forms.TabPage()
+        Me.マンスリー任務表示 = New System.Windows.Forms.DataGridView()
+        Me.DataGridViewTextBoxColumn7 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn8 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn9 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.クォータリー = New System.Windows.Forms.TabPage()
+        Me.クォータリー任務表示 = New System.Windows.Forms.DataGridView()
+        Me.DataGridViewTextBoxColumn10 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn11 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn12 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.単発 = New System.Windows.Forms.TabPage()
+        Me.単発任務表示 = New System.Windows.Forms.DataGridView()
+        Me.DataGridViewTextBoxColumn13 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn14 = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.DataGridViewTextBoxColumn15 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.受注中任務 = New System.Windows.Forms.GroupBox()
         Me.受注中任務表示 = New System.Windows.Forms.DataGridView()
         Me.種類 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.任務名 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.状態 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.デイリー任務表示 = New System.Windows.Forms.DataGridView()
-        Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn3 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.ウィークリー任務表示 = New System.Windows.Forms.DataGridView()
-        Me.DataGridViewTextBoxColumn4 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn5 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn6 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.マンスリー任務表示 = New System.Windows.Forms.DataGridView()
-        Me.DataGridViewTextBoxColumn7 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn8 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn9 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.クォータリー任務表示 = New System.Windows.Forms.DataGridView()
-        Me.DataGridViewTextBoxColumn10 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn11 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn12 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.単発任務表示 = New System.Windows.Forms.DataGridView()
-        Me.DataGridViewTextBoxColumn13 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn14 = New System.Windows.Forms.DataGridViewTextBoxColumn()
-        Me.DataGridViewTextBoxColumn15 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.任務情報表示.SuspendLayout()
         Me.デイリー任務.SuspendLayout()
+        CType(Me.デイリー任務表示, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.ウィークリー.SuspendLayout()
+        CType(Me.ウィークリー任務表示, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.マンスリー.SuspendLayout()
+        CType(Me.マンスリー任務表示, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.クォータリー.SuspendLayout()
+        CType(Me.クォータリー任務表示, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.単発.SuspendLayout()
+        CType(Me.単発任務表示, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.受注中任務.SuspendLayout()
         CType(Me.受注中任務表示, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.デイリー任務表示, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.ウィークリー任務表示, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.マンスリー任務表示, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.クォータリー任務表示, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.単発任務表示, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         '任務情報表示
@@ -94,6 +94,42 @@ Partial Class 任務情報
         Me.デイリー任務.Text = "デイリー"
         Me.デイリー任務.UseVisualStyleBackColor = True
         '
+        'デイリー任務表示
+        '
+        Me.デイリー任務表示.AllowUserToAddRows = False
+        Me.デイリー任務表示.AllowUserToDeleteRows = False
+        Me.デイリー任務表示.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.デイリー任務表示.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn1, Me.DataGridViewTextBoxColumn2, Me.DataGridViewTextBoxColumn3})
+        Me.デイリー任務表示.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.デイリー任務表示.Location = New System.Drawing.Point(3, 3)
+        Me.デイリー任務表示.Name = "デイリー任務表示"
+        Me.デイリー任務表示.ReadOnly = True
+        Me.デイリー任務表示.RowHeadersVisible = False
+        Me.デイリー任務表示.RowTemplate.Height = 21
+        Me.デイリー任務表示.Size = New System.Drawing.Size(345, 121)
+        Me.デイリー任務表示.TabIndex = 1
+        '
+        'DataGridViewTextBoxColumn1
+        '
+        Me.DataGridViewTextBoxColumn1.HeaderText = "種類"
+        Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
+        Me.DataGridViewTextBoxColumn1.ReadOnly = True
+        Me.DataGridViewTextBoxColumn1.Width = 55
+        '
+        'DataGridViewTextBoxColumn2
+        '
+        Me.DataGridViewTextBoxColumn2.HeaderText = "任務名"
+        Me.DataGridViewTextBoxColumn2.Name = "DataGridViewTextBoxColumn2"
+        Me.DataGridViewTextBoxColumn2.ReadOnly = True
+        Me.DataGridViewTextBoxColumn2.Width = 150
+        '
+        'DataGridViewTextBoxColumn3
+        '
+        Me.DataGridViewTextBoxColumn3.HeaderText = "状態"
+        Me.DataGridViewTextBoxColumn3.Name = "DataGridViewTextBoxColumn3"
+        Me.DataGridViewTextBoxColumn3.ReadOnly = True
+        Me.DataGridViewTextBoxColumn3.Width = 135
+        '
         'ウィークリー
         '
         Me.ウィークリー.Controls.Add(Me.ウィークリー任務表示)
@@ -104,6 +140,42 @@ Partial Class 任務情報
         Me.ウィークリー.TabIndex = 1
         Me.ウィークリー.Text = "ウィークリー"
         Me.ウィークリー.UseVisualStyleBackColor = True
+        '
+        'ウィークリー任務表示
+        '
+        Me.ウィークリー任務表示.AllowUserToAddRows = False
+        Me.ウィークリー任務表示.AllowUserToDeleteRows = False
+        Me.ウィークリー任務表示.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.ウィークリー任務表示.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn4, Me.DataGridViewTextBoxColumn5, Me.DataGridViewTextBoxColumn6})
+        Me.ウィークリー任務表示.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.ウィークリー任務表示.Location = New System.Drawing.Point(3, 3)
+        Me.ウィークリー任務表示.Name = "ウィークリー任務表示"
+        Me.ウィークリー任務表示.ReadOnly = True
+        Me.ウィークリー任務表示.RowHeadersVisible = False
+        Me.ウィークリー任務表示.RowTemplate.Height = 21
+        Me.ウィークリー任務表示.Size = New System.Drawing.Size(345, 121)
+        Me.ウィークリー任務表示.TabIndex = 1
+        '
+        'DataGridViewTextBoxColumn4
+        '
+        Me.DataGridViewTextBoxColumn4.HeaderText = "種類"
+        Me.DataGridViewTextBoxColumn4.Name = "DataGridViewTextBoxColumn4"
+        Me.DataGridViewTextBoxColumn4.ReadOnly = True
+        Me.DataGridViewTextBoxColumn4.Width = 55
+        '
+        'DataGridViewTextBoxColumn5
+        '
+        Me.DataGridViewTextBoxColumn5.HeaderText = "任務名"
+        Me.DataGridViewTextBoxColumn5.Name = "DataGridViewTextBoxColumn5"
+        Me.DataGridViewTextBoxColumn5.ReadOnly = True
+        Me.DataGridViewTextBoxColumn5.Width = 150
+        '
+        'DataGridViewTextBoxColumn6
+        '
+        Me.DataGridViewTextBoxColumn6.HeaderText = "状態"
+        Me.DataGridViewTextBoxColumn6.Name = "DataGridViewTextBoxColumn6"
+        Me.DataGridViewTextBoxColumn6.ReadOnly = True
+        Me.DataGridViewTextBoxColumn6.Width = 135
         '
         'マンスリー
         '
@@ -116,6 +188,42 @@ Partial Class 任務情報
         Me.マンスリー.Text = "マンスリー"
         Me.マンスリー.UseVisualStyleBackColor = True
         '
+        'マンスリー任務表示
+        '
+        Me.マンスリー任務表示.AllowUserToAddRows = False
+        Me.マンスリー任務表示.AllowUserToDeleteRows = False
+        Me.マンスリー任務表示.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.マンスリー任務表示.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn7, Me.DataGridViewTextBoxColumn8, Me.DataGridViewTextBoxColumn9})
+        Me.マンスリー任務表示.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.マンスリー任務表示.Location = New System.Drawing.Point(3, 3)
+        Me.マンスリー任務表示.Name = "マンスリー任務表示"
+        Me.マンスリー任務表示.ReadOnly = True
+        Me.マンスリー任務表示.RowHeadersVisible = False
+        Me.マンスリー任務表示.RowTemplate.Height = 21
+        Me.マンスリー任務表示.Size = New System.Drawing.Size(345, 121)
+        Me.マンスリー任務表示.TabIndex = 1
+        '
+        'DataGridViewTextBoxColumn7
+        '
+        Me.DataGridViewTextBoxColumn7.HeaderText = "種類"
+        Me.DataGridViewTextBoxColumn7.Name = "DataGridViewTextBoxColumn7"
+        Me.DataGridViewTextBoxColumn7.ReadOnly = True
+        Me.DataGridViewTextBoxColumn7.Width = 55
+        '
+        'DataGridViewTextBoxColumn8
+        '
+        Me.DataGridViewTextBoxColumn8.HeaderText = "任務名"
+        Me.DataGridViewTextBoxColumn8.Name = "DataGridViewTextBoxColumn8"
+        Me.DataGridViewTextBoxColumn8.ReadOnly = True
+        Me.DataGridViewTextBoxColumn8.Width = 150
+        '
+        'DataGridViewTextBoxColumn9
+        '
+        Me.DataGridViewTextBoxColumn9.HeaderText = "状態"
+        Me.DataGridViewTextBoxColumn9.Name = "DataGridViewTextBoxColumn9"
+        Me.DataGridViewTextBoxColumn9.ReadOnly = True
+        Me.DataGridViewTextBoxColumn9.Width = 135
+        '
         'クォータリー
         '
         Me.クォータリー.Controls.Add(Me.クォータリー任務表示)
@@ -127,6 +235,42 @@ Partial Class 任務情報
         Me.クォータリー.Text = "クォータリー"
         Me.クォータリー.UseVisualStyleBackColor = True
         '
+        'クォータリー任務表示
+        '
+        Me.クォータリー任務表示.AllowUserToAddRows = False
+        Me.クォータリー任務表示.AllowUserToDeleteRows = False
+        Me.クォータリー任務表示.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.クォータリー任務表示.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn10, Me.DataGridViewTextBoxColumn11, Me.DataGridViewTextBoxColumn12})
+        Me.クォータリー任務表示.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.クォータリー任務表示.Location = New System.Drawing.Point(3, 3)
+        Me.クォータリー任務表示.Name = "クォータリー任務表示"
+        Me.クォータリー任務表示.ReadOnly = True
+        Me.クォータリー任務表示.RowHeadersVisible = False
+        Me.クォータリー任務表示.RowTemplate.Height = 21
+        Me.クォータリー任務表示.Size = New System.Drawing.Size(345, 121)
+        Me.クォータリー任務表示.TabIndex = 1
+        '
+        'DataGridViewTextBoxColumn10
+        '
+        Me.DataGridViewTextBoxColumn10.HeaderText = "種類"
+        Me.DataGridViewTextBoxColumn10.Name = "DataGridViewTextBoxColumn10"
+        Me.DataGridViewTextBoxColumn10.ReadOnly = True
+        Me.DataGridViewTextBoxColumn10.Width = 55
+        '
+        'DataGridViewTextBoxColumn11
+        '
+        Me.DataGridViewTextBoxColumn11.HeaderText = "任務名"
+        Me.DataGridViewTextBoxColumn11.Name = "DataGridViewTextBoxColumn11"
+        Me.DataGridViewTextBoxColumn11.ReadOnly = True
+        Me.DataGridViewTextBoxColumn11.Width = 150
+        '
+        'DataGridViewTextBoxColumn12
+        '
+        Me.DataGridViewTextBoxColumn12.HeaderText = "状態"
+        Me.DataGridViewTextBoxColumn12.Name = "DataGridViewTextBoxColumn12"
+        Me.DataGridViewTextBoxColumn12.ReadOnly = True
+        Me.DataGridViewTextBoxColumn12.Width = 135
+        '
         '単発
         '
         Me.単発.Controls.Add(Me.単発任務表示)
@@ -137,6 +281,42 @@ Partial Class 任務情報
         Me.単発.TabIndex = 4
         Me.単発.Text = "単発"
         Me.単発.UseVisualStyleBackColor = True
+        '
+        '単発任務表示
+        '
+        Me.単発任務表示.AllowUserToAddRows = False
+        Me.単発任務表示.AllowUserToDeleteRows = False
+        Me.単発任務表示.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.単発任務表示.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn13, Me.DataGridViewTextBoxColumn14, Me.DataGridViewTextBoxColumn15})
+        Me.単発任務表示.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.単発任務表示.Location = New System.Drawing.Point(3, 3)
+        Me.単発任務表示.Name = "単発任務表示"
+        Me.単発任務表示.ReadOnly = True
+        Me.単発任務表示.RowHeadersVisible = False
+        Me.単発任務表示.RowTemplate.Height = 21
+        Me.単発任務表示.Size = New System.Drawing.Size(345, 121)
+        Me.単発任務表示.TabIndex = 1
+        '
+        'DataGridViewTextBoxColumn13
+        '
+        Me.DataGridViewTextBoxColumn13.HeaderText = "種類"
+        Me.DataGridViewTextBoxColumn13.Name = "DataGridViewTextBoxColumn13"
+        Me.DataGridViewTextBoxColumn13.ReadOnly = True
+        Me.DataGridViewTextBoxColumn13.Width = 55
+        '
+        'DataGridViewTextBoxColumn14
+        '
+        Me.DataGridViewTextBoxColumn14.HeaderText = "任務名"
+        Me.DataGridViewTextBoxColumn14.Name = "DataGridViewTextBoxColumn14"
+        Me.DataGridViewTextBoxColumn14.ReadOnly = True
+        Me.DataGridViewTextBoxColumn14.Width = 150
+        '
+        'DataGridViewTextBoxColumn15
+        '
+        Me.DataGridViewTextBoxColumn15.HeaderText = "状態"
+        Me.DataGridViewTextBoxColumn15.Name = "DataGridViewTextBoxColumn15"
+        Me.DataGridViewTextBoxColumn15.ReadOnly = True
+        Me.DataGridViewTextBoxColumn15.Width = 135
         '
         '受注中任務
         '
@@ -187,186 +367,6 @@ Partial Class 任務情報
         Me.状態.ReadOnly = True
         Me.状態.Width = 135
         '
-        'デイリー任務表示
-        '
-        Me.デイリー任務表示.AllowUserToAddRows = False
-        Me.デイリー任務表示.AllowUserToDeleteRows = False
-        Me.デイリー任務表示.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.デイリー任務表示.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn1, Me.DataGridViewTextBoxColumn2, Me.DataGridViewTextBoxColumn3})
-        Me.デイリー任務表示.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.デイリー任務表示.Location = New System.Drawing.Point(3, 3)
-        Me.デイリー任務表示.Name = "デイリー任務表示"
-        Me.デイリー任務表示.ReadOnly = True
-        Me.デイリー任務表示.RowHeadersVisible = False
-        Me.デイリー任務表示.RowTemplate.Height = 21
-        Me.デイリー任務表示.Size = New System.Drawing.Size(345, 121)
-        Me.デイリー任務表示.TabIndex = 1
-        '
-        'DataGridViewTextBoxColumn1
-        '
-        Me.DataGridViewTextBoxColumn1.HeaderText = "種類"
-        Me.DataGridViewTextBoxColumn1.Name = "DataGridViewTextBoxColumn1"
-        Me.DataGridViewTextBoxColumn1.ReadOnly = True
-        Me.DataGridViewTextBoxColumn1.Width = 55
-        '
-        'DataGridViewTextBoxColumn2
-        '
-        Me.DataGridViewTextBoxColumn2.HeaderText = "任務名"
-        Me.DataGridViewTextBoxColumn2.Name = "DataGridViewTextBoxColumn2"
-        Me.DataGridViewTextBoxColumn2.ReadOnly = True
-        Me.DataGridViewTextBoxColumn2.Width = 150
-        '
-        'DataGridViewTextBoxColumn3
-        '
-        Me.DataGridViewTextBoxColumn3.HeaderText = "状態"
-        Me.DataGridViewTextBoxColumn3.Name = "DataGridViewTextBoxColumn3"
-        Me.DataGridViewTextBoxColumn3.ReadOnly = True
-        Me.DataGridViewTextBoxColumn3.Width = 135
-        '
-        'ウィークリー任務表示
-        '
-        Me.ウィークリー任務表示.AllowUserToAddRows = False
-        Me.ウィークリー任務表示.AllowUserToDeleteRows = False
-        Me.ウィークリー任務表示.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.ウィークリー任務表示.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn4, Me.DataGridViewTextBoxColumn5, Me.DataGridViewTextBoxColumn6})
-        Me.ウィークリー任務表示.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.ウィークリー任務表示.Location = New System.Drawing.Point(3, 3)
-        Me.ウィークリー任務表示.Name = "ウィークリー任務表示"
-        Me.ウィークリー任務表示.ReadOnly = True
-        Me.ウィークリー任務表示.RowHeadersVisible = False
-        Me.ウィークリー任務表示.RowTemplate.Height = 21
-        Me.ウィークリー任務表示.Size = New System.Drawing.Size(345, 121)
-        Me.ウィークリー任務表示.TabIndex = 1
-        '
-        'DataGridViewTextBoxColumn4
-        '
-        Me.DataGridViewTextBoxColumn4.HeaderText = "種類"
-        Me.DataGridViewTextBoxColumn4.Name = "DataGridViewTextBoxColumn4"
-        Me.DataGridViewTextBoxColumn4.ReadOnly = True
-        Me.DataGridViewTextBoxColumn4.Width = 55
-        '
-        'DataGridViewTextBoxColumn5
-        '
-        Me.DataGridViewTextBoxColumn5.HeaderText = "任務名"
-        Me.DataGridViewTextBoxColumn5.Name = "DataGridViewTextBoxColumn5"
-        Me.DataGridViewTextBoxColumn5.ReadOnly = True
-        Me.DataGridViewTextBoxColumn5.Width = 150
-        '
-        'DataGridViewTextBoxColumn6
-        '
-        Me.DataGridViewTextBoxColumn6.HeaderText = "状態"
-        Me.DataGridViewTextBoxColumn6.Name = "DataGridViewTextBoxColumn6"
-        Me.DataGridViewTextBoxColumn6.ReadOnly = True
-        Me.DataGridViewTextBoxColumn6.Width = 135
-        '
-        'マンスリー任務表示
-        '
-        Me.マンスリー任務表示.AllowUserToAddRows = False
-        Me.マンスリー任務表示.AllowUserToDeleteRows = False
-        Me.マンスリー任務表示.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.マンスリー任務表示.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn7, Me.DataGridViewTextBoxColumn8, Me.DataGridViewTextBoxColumn9})
-        Me.マンスリー任務表示.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.マンスリー任務表示.Location = New System.Drawing.Point(3, 3)
-        Me.マンスリー任務表示.Name = "マンスリー任務表示"
-        Me.マンスリー任務表示.ReadOnly = True
-        Me.マンスリー任務表示.RowHeadersVisible = False
-        Me.マンスリー任務表示.RowTemplate.Height = 21
-        Me.マンスリー任務表示.Size = New System.Drawing.Size(345, 121)
-        Me.マンスリー任務表示.TabIndex = 1
-        '
-        'DataGridViewTextBoxColumn7
-        '
-        Me.DataGridViewTextBoxColumn7.HeaderText = "種類"
-        Me.DataGridViewTextBoxColumn7.Name = "DataGridViewTextBoxColumn7"
-        Me.DataGridViewTextBoxColumn7.ReadOnly = True
-        Me.DataGridViewTextBoxColumn7.Width = 55
-        '
-        'DataGridViewTextBoxColumn8
-        '
-        Me.DataGridViewTextBoxColumn8.HeaderText = "任務名"
-        Me.DataGridViewTextBoxColumn8.Name = "DataGridViewTextBoxColumn8"
-        Me.DataGridViewTextBoxColumn8.ReadOnly = True
-        Me.DataGridViewTextBoxColumn8.Width = 150
-        '
-        'DataGridViewTextBoxColumn9
-        '
-        Me.DataGridViewTextBoxColumn9.HeaderText = "状態"
-        Me.DataGridViewTextBoxColumn9.Name = "DataGridViewTextBoxColumn9"
-        Me.DataGridViewTextBoxColumn9.ReadOnly = True
-        Me.DataGridViewTextBoxColumn9.Width = 135
-        '
-        'クォータリー任務表示
-        '
-        Me.クォータリー任務表示.AllowUserToAddRows = False
-        Me.クォータリー任務表示.AllowUserToDeleteRows = False
-        Me.クォータリー任務表示.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.クォータリー任務表示.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn10, Me.DataGridViewTextBoxColumn11, Me.DataGridViewTextBoxColumn12})
-        Me.クォータリー任務表示.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.クォータリー任務表示.Location = New System.Drawing.Point(3, 3)
-        Me.クォータリー任務表示.Name = "クォータリー任務表示"
-        Me.クォータリー任務表示.ReadOnly = True
-        Me.クォータリー任務表示.RowHeadersVisible = False
-        Me.クォータリー任務表示.RowTemplate.Height = 21
-        Me.クォータリー任務表示.Size = New System.Drawing.Size(345, 121)
-        Me.クォータリー任務表示.TabIndex = 1
-        '
-        'DataGridViewTextBoxColumn10
-        '
-        Me.DataGridViewTextBoxColumn10.HeaderText = "種類"
-        Me.DataGridViewTextBoxColumn10.Name = "DataGridViewTextBoxColumn10"
-        Me.DataGridViewTextBoxColumn10.ReadOnly = True
-        Me.DataGridViewTextBoxColumn10.Width = 55
-        '
-        'DataGridViewTextBoxColumn11
-        '
-        Me.DataGridViewTextBoxColumn11.HeaderText = "任務名"
-        Me.DataGridViewTextBoxColumn11.Name = "DataGridViewTextBoxColumn11"
-        Me.DataGridViewTextBoxColumn11.ReadOnly = True
-        Me.DataGridViewTextBoxColumn11.Width = 150
-        '
-        'DataGridViewTextBoxColumn12
-        '
-        Me.DataGridViewTextBoxColumn12.HeaderText = "状態"
-        Me.DataGridViewTextBoxColumn12.Name = "DataGridViewTextBoxColumn12"
-        Me.DataGridViewTextBoxColumn12.ReadOnly = True
-        Me.DataGridViewTextBoxColumn12.Width = 135
-        '
-        '単発任務表示
-        '
-        Me.単発任務表示.AllowUserToAddRows = False
-        Me.単発任務表示.AllowUserToDeleteRows = False
-        Me.単発任務表示.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.単発任務表示.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.DataGridViewTextBoxColumn13, Me.DataGridViewTextBoxColumn14, Me.DataGridViewTextBoxColumn15})
-        Me.単発任務表示.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.単発任務表示.Location = New System.Drawing.Point(3, 3)
-        Me.単発任務表示.Name = "単発任務表示"
-        Me.単発任務表示.ReadOnly = True
-        Me.単発任務表示.RowHeadersVisible = False
-        Me.単発任務表示.RowTemplate.Height = 21
-        Me.単発任務表示.Size = New System.Drawing.Size(345, 121)
-        Me.単発任務表示.TabIndex = 1
-        '
-        'DataGridViewTextBoxColumn13
-        '
-        Me.DataGridViewTextBoxColumn13.HeaderText = "種類"
-        Me.DataGridViewTextBoxColumn13.Name = "DataGridViewTextBoxColumn13"
-        Me.DataGridViewTextBoxColumn13.ReadOnly = True
-        Me.DataGridViewTextBoxColumn13.Width = 55
-        '
-        'DataGridViewTextBoxColumn14
-        '
-        Me.DataGridViewTextBoxColumn14.HeaderText = "任務名"
-        Me.DataGridViewTextBoxColumn14.Name = "DataGridViewTextBoxColumn14"
-        Me.DataGridViewTextBoxColumn14.ReadOnly = True
-        Me.DataGridViewTextBoxColumn14.Width = 150
-        '
-        'DataGridViewTextBoxColumn15
-        '
-        Me.DataGridViewTextBoxColumn15.HeaderText = "状態"
-        Me.DataGridViewTextBoxColumn15.Name = "DataGridViewTextBoxColumn15"
-        Me.DataGridViewTextBoxColumn15.ReadOnly = True
-        Me.DataGridViewTextBoxColumn15.Width = 135
-        '
         '任務情報
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -381,17 +381,17 @@ Partial Class 任務情報
         Me.Text = "任務情報"
         Me.任務情報表示.ResumeLayout(False)
         Me.デイリー任務.ResumeLayout(False)
+        CType(Me.デイリー任務表示, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ウィークリー.ResumeLayout(False)
+        CType(Me.ウィークリー任務表示, System.ComponentModel.ISupportInitialize).EndInit()
         Me.マンスリー.ResumeLayout(False)
+        CType(Me.マンスリー任務表示, System.ComponentModel.ISupportInitialize).EndInit()
         Me.クォータリー.ResumeLayout(False)
+        CType(Me.クォータリー任務表示, System.ComponentModel.ISupportInitialize).EndInit()
         Me.単発.ResumeLayout(False)
+        CType(Me.単発任務表示, System.ComponentModel.ISupportInitialize).EndInit()
         Me.受注中任務.ResumeLayout(False)
         CType(Me.受注中任務表示, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.デイリー任務表示, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.ウィークリー任務表示, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.マンスリー任務表示, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.クォータリー任務表示, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.単発任務表示, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub

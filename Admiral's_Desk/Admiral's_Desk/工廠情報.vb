@@ -99,6 +99,9 @@
         入渠情報()
         開発情報()
         建造情報()
+
+        '動作速度設定
+        情報更新タイマ.Interval = 1000 * オプション.動作速度設定
     End Sub
 
     Private Sub ネタバレ防止_CheckedChanged(sender As Object, e As EventArgs) Handles ネタバレ防止.CheckedChanged

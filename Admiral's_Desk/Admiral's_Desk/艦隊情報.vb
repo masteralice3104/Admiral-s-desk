@@ -256,5 +256,7 @@
             艦隊情報更新()
             艦隊情報更新Flag = False
         End If
+        '動作速度設定
+        艦隊情報更新フラグ管理用タイマ.Interval = 250 * オプション.動作速度設定
     End Sub
 End Class

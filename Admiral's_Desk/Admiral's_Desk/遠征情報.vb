@@ -34,6 +34,11 @@
                 End If
             Next
         End If
+
+
+
+        '動作速度設定
+        タイマ.Interval = 1000 * オプション.動作速度設定
     End Sub
 
 End Class
