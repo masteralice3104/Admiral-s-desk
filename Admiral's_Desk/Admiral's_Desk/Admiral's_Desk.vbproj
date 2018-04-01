@@ -140,6 +140,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="任務情報.Designer.vb">
+      <DependentUpon>任務情報.vb</DependentUpon>
+    </Compile>
+    <Compile Include="任務情報.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="工廠情報.Designer.vb">
       <DependentUpon>工廠情報.vb</DependentUpon>
     </Compile>
@@ -177,6 +183,9 @@
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="任務情報.resx">
+      <DependentUpon>任務情報.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="工廠情報.resx">
       <DependentUpon>工廠情報.vb</DependentUpon>
