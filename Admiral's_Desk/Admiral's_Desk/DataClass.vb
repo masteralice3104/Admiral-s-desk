@@ -311,6 +311,7 @@ Public Class URLDataClass
     Public Const charge As String = "/kcsapi/api_req_hokyu/charge"
     Public Const deck As String = "/kcsapi/api_get_member/deck"
     Public Const ship3 As String = "/kcsapi/api_get_member/ship3"
+    Public Const ship_deck As String = "/kcsapi/api_get_member/ship_deck"
 End Class
 
 
@@ -712,77 +713,107 @@ Public Class StructureOperationClass
 
                 Next
 
-
-            ElseIf path = URLDataClass.ship3 Then
+            End If
+            If path = URLDataClass.ship3 Or path = URLDataClass.ship_deck Then
                 Dim dir As String = "api_ship_data"
 
-                If JsonObject("api_data")(dir)(0)("api_id") IsNot Nothing Then
-                    'id一致艦娘を探す
-                    If Component.KancollePortKanmusuSearch(JsonObject("api_data")(dir)(0)("api_id")) IsNot Nothing Then
-                        Dim 艦娘配列番号 As Integer = Component.KancollePortKanmusuSearch(JsonObject("api_data")(dir)(0)("api_id"))
+
+                For cnt As Integer = 0 To JsonObject("api_data")(dir).Count - 1
+                    If JsonObject("api_data")(dir)(cnt)("api_id") IsNot Nothing Then
+                        'id一致艦娘を探す
+                        If Component.KancollePortKanmusuSearch(JsonObject("api_data")(dir)(cnt)("api_id")) IsNot Nothing Then
+                            Dim 艦娘配列番号 As Integer = Component.KancollePortKanmusuSearch(JsonObject("api_data")(dir)(cnt)("api_id"))
 
 
-                        If JsonObject("api_data")(dir)(0)("api_id") IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_id = JsonObject("api_data")(dir)(0)("api_id")
-                        If JsonObject("api_data")(dir)(0)("api_sortno") IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_sortno = JsonObject("api_data")(dir)(0)("api_sortno")
-                        If JsonObject("api_data")(dir)(0)("api_ship_id") IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_ship_id = JsonObject("api_data")(dir)(0)("api_ship_id")
-                        If JsonObject("api_data")(dir)(0)("api_lv") IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_lv = JsonObject("api_data")(dir)(0)("api_lv")
-                        ReDim Preserve MyDataClass.MyKanmusu(艦娘配列番号).api_exp(2)
-                        If JsonObject("api_data")(dir)(0)("api_exp")(0) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_exp(0) = JsonObject("api_data")(dir)(0)("api_exp")(0)
-                        If JsonObject("api_data")(dir)(0)("api_exp")(1) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_exp(1) = JsonObject("api_data")(dir)(0)("api_exp")(1)
-                        If JsonObject("api_data")(dir)(0)("api_exp")(2) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_exp(2) = JsonObject("api_data")(dir)(0)("api_exp")(2)
-                        If JsonObject("api_data")(dir)(0)("api_nowhp") IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_nowhp = JsonObject("api_data")(dir)(0)("api_nowhp")
-                        If JsonObject("api_data")(dir)(0)("api_maxhp") IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_maxhp = JsonObject("api_data")(dir)(0)("api_maxhp")
-                        If JsonObject("api_data")(dir)(0)("api_soku") IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_soku = JsonObject("api_data")(dir)(0)("api_soku")
-                        If JsonObject("api_data")(dir)(0)("api_leng") IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_leng = JsonObject("api_data")(dir)(0)("api_leng")
-                        ReDim Preserve MyDataClass.MyKanmusu(艦娘配列番号).api_slot(4)
-                        If JsonObject("api_data")(dir)(0)("api_slot")(0) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_slot(0) = JsonObject("api_data")(dir)(0)("api_slot")(0)
-                        If JsonObject("api_data")(dir)(0)("api_slot")(1) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_slot(1) = JsonObject("api_data")(dir)(0)("api_slot")(1)
-                        If JsonObject("api_data")(dir)(0)("api_slot")(2) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_slot(2) = JsonObject("api_data")(dir)(0)("api_slot")(2)
-                        If JsonObject("api_data")(dir)(0)("api_slot")(3) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_slot(3) = JsonObject("api_data")(dir)(0)("api_slot")(3)
-                        If JsonObject("api_data")(dir)(0)("api_slot")(4) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_slot(4) = JsonObject("api_data")(dir)(0)("api_slot")(4)
-                        ReDim Preserve MyDataClass.MyKanmusu(艦娘配列番号).api_onslot(4)
-                        If JsonObject("api_data")(dir)(0)("api_onslot")(0) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_onslot(0) = JsonObject("api_data")(dir)(0)("api_onslot")(0)
-                        If JsonObject("api_data")(dir)(0)("api_onslot")(1) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_onslot(1) = JsonObject("api_data")(dir)(0)("api_onslot")(1)
-                        If JsonObject("api_data")(dir)(0)("api_onslot")(2) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_onslot(2) = JsonObject("api_data")(dir)(0)("api_onslot")(2)
-                        If JsonObject("api_data")(dir)(0)("api_onslot")(3) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_onslot(3) = JsonObject("api_data")(dir)(0)("api_onslot")(3)
-                        If JsonObject("api_data")(dir)(0)("api_onslot")(4) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_onslot(4) = JsonObject("api_data")(dir)(0)("api_onslot")(4)
-                        If JsonObject("api_data")(dir)(0)("api_slot_ex") IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_slot_ex = JsonObject("api_data")(dir)(0)("api_slot_ex")
-                        If JsonObject("api_data")(dir)(0)("api_fuel") IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_fuel = JsonObject("api_data")(dir)(0)("api_fuel")
-                        If JsonObject("api_data")(dir)(0)("api_bull") IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_bull = JsonObject("api_data")(dir)(0)("api_bull")
-                        If JsonObject("api_data")(dir)(0)("api_slotnum") IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_slotnum = JsonObject("api_data")(dir)(0)("api_slotnum")
-                        If JsonObject("api_data")(dir)(0)("api_ndock_time") IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_ndock_time = JsonObject("api_data")(dir)(0)("api_ndock_time")
-                        If JsonObject("api_data")(dir)(0)("api_cond") IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_cond = JsonObject("api_data")(dir)(0)("api_cond")
-                        ReDim Preserve MyDataClass.MyKanmusu(艦娘配列番号).api_karyoku(1)
-                        If JsonObject("api_data")(dir)(0)("api_karyoku")(0) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_karyoku(0) = JsonObject("api_data")(dir)(0)("api_karyoku")(0)
-                        If JsonObject("api_data")(dir)(0)("api_karyoku")(1) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_karyoku(1) = JsonObject("api_data")(dir)(0)("api_karyoku")(1)
-                        ReDim Preserve MyDataClass.MyKanmusu(艦娘配列番号).api_raisou(1)
-                        If JsonObject("api_data")(dir)(0)("api_raisou")(0) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_raisou(0) = JsonObject("api_data")(dir)(0)("api_raisou")(0)
-                        If JsonObject("api_data")(dir)(0)("api_raisou")(1) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_raisou(1) = JsonObject("api_data")(dir)(0)("api_raisou")(1)
-                        ReDim Preserve MyDataClass.MyKanmusu(艦娘配列番号).api_taiku(1)
-                        If JsonObject("api_data")(dir)(0)("api_taiku")(0) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_taiku(0) = JsonObject("api_data")(dir)(0)("api_taiku")(0)
-                        If JsonObject("api_data")(dir)(0)("api_taiku")(1) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_taiku(1) = JsonObject("api_data")(dir)(0)("api_taiku")(1)
-                        ReDim Preserve MyDataClass.MyKanmusu(艦娘配列番号).api_soukou(1)
-                        If JsonObject("api_data")(dir)(0)("api_soukou")(0) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_soukou(0) = JsonObject("api_data")(dir)(0)("api_soukou")(0)
-                        If JsonObject("api_data")(dir)(0)("api_soukou")(1) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_soukou(1) = JsonObject("api_data")(dir)(0)("api_soukou")(1)
-                        ReDim Preserve MyDataClass.MyKanmusu(艦娘配列番号).api_kaihi(1)
-                        If JsonObject("api_data")(dir)(0)("api_kaihi")(0) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_kaihi(0) = JsonObject("api_data")(dir)(0)("api_kaihi")(0)
-                        If JsonObject("api_data")(dir)(0)("api_kaihi")(1) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_kaihi(1) = JsonObject("api_data")(dir)(0)("api_kaihi")(1)
-                        ReDim Preserve MyDataClass.MyKanmusu(艦娘配列番号).api_taisen(1)
-                        If JsonObject("api_data")(dir)(0)("api_taisen")(0) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_taisen(0) = JsonObject("api_data")(dir)(0)("api_taisen")(0)
-                        If JsonObject("api_data")(dir)(0)("api_taisen")(1) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_taisen(1) = JsonObject("api_data")(dir)(0)("api_taisen")(1)
-                        ReDim Preserve MyDataClass.MyKanmusu(艦娘配列番号).api_sakuteki(1)
-                        If JsonObject("api_data")(dir)(0)("api_sakuteki")(0) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_sakuteki(0) = JsonObject("api_data")(dir)(0)("api_sakuteki")(0)
-                        If JsonObject("api_data")(dir)(0)("api_sakuteki")(1) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_sakuteki(1) = JsonObject("api_data")(dir)(0)("api_sakuteki")(1)
-                        ReDim Preserve MyDataClass.MyKanmusu(艦娘配列番号).api_lucky(1)
-                        If JsonObject("api_data")(dir)(0)("api_lucky")(0) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_lucky(0) = JsonObject("api_data")(dir)(0)("api_lucky")(0)
-                        If JsonObject("api_data")(dir)(0)("api_lucky")(1) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_lucky(1) = JsonObject("api_data")(dir)(0)("api_lucky")(1)
-                        If JsonObject("api_data")(dir)(0)("api_locked") IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_locked = JsonObject("api_data")(dir)(0)("api_locked")
-                        If JsonObject("api_data")(dir)(0)("api_locked_equip") IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_locked_equip = JsonObject("api_data")(dir)(0)("api_locked_equip")
+                            If JsonObject("api_data")(dir)(cnt)("api_id") IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_id = JsonObject("api_data")(dir)(cnt)("api_id")
+                            If JsonObject("api_data")(dir)(cnt)("api_sortno") IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_sortno = JsonObject("api_data")(dir)(cnt)("api_sortno")
+                            If JsonObject("api_data")(dir)(cnt)("api_ship_id") IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_ship_id = JsonObject("api_data")(dir)(cnt)("api_ship_id")
+                            If JsonObject("api_data")(dir)(cnt)("api_lv") IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_lv = JsonObject("api_data")(dir)(cnt)("api_lv")
+                            ReDim Preserve MyDataClass.MyKanmusu(艦娘配列番号).api_exp(2)
+                            If JsonObject("api_data")(dir)(cnt)("api_exp")(0) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_exp(0) = JsonObject("api_data")(dir)(cnt)("api_exp")(0)
+                            If JsonObject("api_data")(dir)(cnt)("api_exp")(1) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_exp(1) = JsonObject("api_data")(dir)(cnt)("api_exp")(1)
+                            If JsonObject("api_data")(dir)(cnt)("api_exp")(2) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_exp(2) = JsonObject("api_data")(dir)(cnt)("api_exp")(2)
+                            If JsonObject("api_data")(dir)(cnt)("api_nowhp") IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_nowhp = JsonObject("api_data")(dir)(cnt)("api_nowhp")
+                            If JsonObject("api_data")(dir)(cnt)("api_maxhp") IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_maxhp = JsonObject("api_data")(dir)(cnt)("api_maxhp")
+                            If JsonObject("api_data")(dir)(cnt)("api_soku") IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_soku = JsonObject("api_data")(dir)(cnt)("api_soku")
+                            If JsonObject("api_data")(dir)(cnt)("api_leng") IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_leng = JsonObject("api_data")(dir)(cnt)("api_leng")
+                            ReDim Preserve MyDataClass.MyKanmusu(艦娘配列番号).api_slot(4)
+                            If JsonObject("api_data")(dir)(cnt)("api_slot")(0) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_slot(0) = JsonObject("api_data")(dir)(cnt)("api_slot")(0)
+                            If JsonObject("api_data")(dir)(cnt)("api_slot")(1) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_slot(1) = JsonObject("api_data")(dir)(cnt)("api_slot")(1)
+                            If JsonObject("api_data")(dir)(cnt)("api_slot")(2) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_slot(2) = JsonObject("api_data")(dir)(cnt)("api_slot")(2)
+                            If JsonObject("api_data")(dir)(cnt)("api_slot")(3) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_slot(3) = JsonObject("api_data")(dir)(cnt)("api_slot")(3)
+                            If JsonObject("api_data")(dir)(cnt)("api_slot")(4) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_slot(4) = JsonObject("api_data")(dir)(cnt)("api_slot")(4)
+                            ReDim Preserve MyDataClass.MyKanmusu(艦娘配列番号).api_onslot(4)
+                            If JsonObject("api_data")(dir)(cnt)("api_onslot")(0) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_onslot(0) = JsonObject("api_data")(dir)(cnt)("api_onslot")(0)
+                            If JsonObject("api_data")(dir)(cnt)("api_onslot")(1) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_onslot(1) = JsonObject("api_data")(dir)(cnt)("api_onslot")(1)
+                            If JsonObject("api_data")(dir)(cnt)("api_onslot")(2) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_onslot(2) = JsonObject("api_data")(dir)(cnt)("api_onslot")(2)
+                            If JsonObject("api_data")(dir)(cnt)("api_onslot")(3) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_onslot(3) = JsonObject("api_data")(dir)(cnt)("api_onslot")(3)
+                            If JsonObject("api_data")(dir)(cnt)("api_onslot")(4) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_onslot(4) = JsonObject("api_data")(dir)(cnt)("api_onslot")(4)
+                            If JsonObject("api_data")(dir)(cnt)("api_slot_ex") IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_slot_ex = JsonObject("api_data")(dir)(cnt)("api_slot_ex")
+                            If JsonObject("api_data")(dir)(cnt)("api_fuel") IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_fuel = JsonObject("api_data")(dir)(cnt)("api_fuel")
+                            If JsonObject("api_data")(dir)(cnt)("api_bull") IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_bull = JsonObject("api_data")(dir)(cnt)("api_bull")
+                            If JsonObject("api_data")(dir)(cnt)("api_slotnum") IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_slotnum = JsonObject("api_data")(dir)(cnt)("api_slotnum")
+                            If JsonObject("api_data")(dir)(cnt)("api_ndock_time") IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_ndock_time = JsonObject("api_data")(dir)(cnt)("api_ndock_time")
+                            If JsonObject("api_data")(dir)(cnt)("api_cond") IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_cond = JsonObject("api_data")(dir)(cnt)("api_cond")
+                            ReDim Preserve MyDataClass.MyKanmusu(艦娘配列番号).api_karyoku(1)
+                            If JsonObject("api_data")(dir)(cnt)("api_karyoku")(0) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_karyoku(0) = JsonObject("api_data")(dir)(cnt)("api_karyoku")(0)
+                            If JsonObject("api_data")(dir)(cnt)("api_karyoku")(1) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_karyoku(1) = JsonObject("api_data")(dir)(cnt)("api_karyoku")(1)
+                            ReDim Preserve MyDataClass.MyKanmusu(艦娘配列番号).api_raisou(1)
+                            If JsonObject("api_data")(dir)(cnt)("api_raisou")(0) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_raisou(0) = JsonObject("api_data")(dir)(cnt)("api_raisou")(0)
+                            If JsonObject("api_data")(dir)(cnt)("api_raisou")(1) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_raisou(1) = JsonObject("api_data")(dir)(cnt)("api_raisou")(1)
+                            ReDim Preserve MyDataClass.MyKanmusu(艦娘配列番号).api_taiku(1)
+                            If JsonObject("api_data")(dir)(cnt)("api_taiku")(0) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_taiku(0) = JsonObject("api_data")(dir)(cnt)("api_taiku")(0)
+                            If JsonObject("api_data")(dir)(cnt)("api_taiku")(1) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_taiku(1) = JsonObject("api_data")(dir)(cnt)("api_taiku")(1)
+                            ReDim Preserve MyDataClass.MyKanmusu(艦娘配列番号).api_soukou(1)
+                            If JsonObject("api_data")(dir)(cnt)("api_soukou")(0) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_soukou(0) = JsonObject("api_data")(dir)(cnt)("api_soukou")(0)
+                            If JsonObject("api_data")(dir)(cnt)("api_soukou")(1) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_soukou(1) = JsonObject("api_data")(dir)(cnt)("api_soukou")(1)
+                            ReDim Preserve MyDataClass.MyKanmusu(艦娘配列番号).api_kaihi(1)
+                            If JsonObject("api_data")(dir)(cnt)("api_kaihi")(0) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_kaihi(0) = JsonObject("api_data")(dir)(cnt)("api_kaihi")(0)
+                            If JsonObject("api_data")(dir)(cnt)("api_kaihi")(1) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_kaihi(1) = JsonObject("api_data")(dir)(cnt)("api_kaihi")(1)
+                            ReDim Preserve MyDataClass.MyKanmusu(艦娘配列番号).api_taisen(1)
+                            If JsonObject("api_data")(dir)(cnt)("api_taisen")(0) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_taisen(0) = JsonObject("api_data")(dir)(cnt)("api_taisen")(0)
+                            If JsonObject("api_data")(dir)(cnt)("api_taisen")(1) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_taisen(1) = JsonObject("api_data")(dir)(cnt)("api_taisen")(1)
+                            ReDim Preserve MyDataClass.MyKanmusu(艦娘配列番号).api_sakuteki(1)
+                            If JsonObject("api_data")(dir)(cnt)("api_sakuteki")(0) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_sakuteki(0) = JsonObject("api_data")(dir)(cnt)("api_sakuteki")(0)
+                            If JsonObject("api_data")(dir)(cnt)("api_sakuteki")(1) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_sakuteki(1) = JsonObject("api_data")(dir)(cnt)("api_sakuteki")(1)
+                            ReDim Preserve MyDataClass.MyKanmusu(艦娘配列番号).api_lucky(1)
+                            If JsonObject("api_data")(dir)(cnt)("api_lucky")(0) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_lucky(0) = JsonObject("api_data")(dir)(cnt)("api_lucky")(0)
+                            If JsonObject("api_data")(dir)(cnt)("api_lucky")(1) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_lucky(1) = JsonObject("api_data")(dir)(cnt)("api_lucky")(1)
+                            If JsonObject("api_data")(dir)(cnt)("api_locked") IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_locked = JsonObject("api_data")(dir)(cnt)("api_locked")
+                            If JsonObject("api_data")(dir)(cnt)("api_locked_equip") IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_locked_equip = JsonObject("api_data")(dir)(cnt)("api_locked_equip")
+                        End If
+
                     End If
 
-                End If
-            End If
+                Next
 
+
+            End If
+            If path = URLDataClass.charge Then
+                Dim dir As String = "api_ship"
+
+
+
+                '代入
+                For count As Int32 = 0 To JsonObject("api_data")(dir).Count - 1
+
+                    Dim 艦娘配列番号 As Integer = -1
+                    If JsonObject("api_data")(dir)(count)("api_id") IsNot Nothing Then
+                        艦娘配列番号 = Component.KancollePortKanmusuSearch(JsonObject("api_data")(dir)(count)("api_id"))
+                        If JsonObject("api_data")(dir)(count)("api_id") IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_id = JsonObject("api_data")(dir)(count)("api_id")
+                        ReDim Preserve MyDataClass.MyKanmusu(count).api_onslot(4)
+                        If JsonObject("api_data")(dir)(count)("api_onslot")(0) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_onslot(0) = JsonObject("api_data")(dir)(count)("api_onslot")(0)
+                        If JsonObject("api_data")(dir)(count)("api_onslot")(1) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_onslot(1) = JsonObject("api_data")(dir)(count)("api_onslot")(1)
+                        If JsonObject("api_data")(dir)(count)("api_onslot")(2) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_onslot(2) = JsonObject("api_data")(dir)(count)("api_onslot")(2)
+                        If JsonObject("api_data")(dir)(count)("api_onslot")(3) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_onslot(3) = JsonObject("api_data")(dir)(count)("api_onslot")(3)
+                        If JsonObject("api_data")(dir)(count)("api_onslot")(4) IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_onslot(4) = JsonObject("api_data")(dir)(count)("api_onslot")(4)
+                        If JsonObject("api_data")(dir)(count)("api_fuel") IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_fuel = JsonObject("api_data")(dir)(count)("api_fuel")
+                        If JsonObject("api_data")(dir)(count)("api_bull") IsNot Nothing Then MyDataClass.MyKanmusu(艦娘配列番号).api_bull = JsonObject("api_data")(dir)(count)("api_bull")
+                    Else
+                        Continue For
+                    End If
+                Next
+            End If
 
 
 
