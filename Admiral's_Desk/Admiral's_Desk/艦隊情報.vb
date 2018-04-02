@@ -213,11 +213,60 @@
                         '艦隊情報
                         一艦隊情報.Rows.Add(艦種, 艦娘名, Lv, HP, cond, 燃料, 弾薬, 装備(0), 装備(1), 装備(2), 装備(3), 装備(4), 装備(5))
 
+                        '色を塗る
+
+                        'HPの視覚的表示
+                        If MyDataClass.MyKanmusu(母港配列ID).api_nowhp / MyDataClass.MyKanmusu(母港配列ID).api_maxhp > 0.75 Then
+                            一艦隊情報.Rows(一艦隊情報.Rows.Count - 1).Cells(3).Style.BackColor = Color.LightGreen
+                            一艦隊情報.Rows(一艦隊情報.Rows.Count - 1).Cells(3).Style.ForeColor = Color.Black
+                        ElseIf MyDataClass.MyKanmusu(母港配列ID).api_nowhp / MyDataClass.MyKanmusu(母港配列ID).api_maxhp > 0.5 Then
+                            一艦隊情報.Rows(一艦隊情報.Rows.Count - 1).Cells(3).Style.BackColor = Color.Yellow
+                            一艦隊情報.Rows(一艦隊情報.Rows.Count - 1).Cells(3).Style.ForeColor = Color.Black
+                        ElseIf MyDataClass.MyKanmusu(母港配列ID).api_nowhp / MyDataClass.MyKanmusu(母港配列ID).api_maxhp > 0.25 Then
+                            一艦隊情報.Rows(一艦隊情報.Rows.Count - 1).Cells(3).Style.BackColor = Color.Orange
+                            一艦隊情報.Rows(一艦隊情報.Rows.Count - 1).Cells(3).Style.ForeColor = Color.White
+                        Else
+                            一艦隊情報.Rows(一艦隊情報.Rows.Count - 1).Cells(3).Style.BackColor = Color.Red
+                            一艦隊情報.Rows(一艦隊情報.Rows.Count - 1).Cells(3).Style.ForeColor = Color.White
+                        End If
+
+                        'cond.の視覚的表示
+                        If MyDataClass.MyKanmusu(母港配列ID).api_cond > 49 Then
+                            一艦隊情報.Rows(一艦隊情報.Rows.Count - 1).Cells(4).Style.BackColor = Color.Yellow
+                            一艦隊情報.Rows(一艦隊情報.Rows.Count - 1).Cells(4).Style.ForeColor = Color.Black
+                        ElseIf MyDataClass.MyKanmusu(母港配列ID).api_cond > 39 Then
+                            一艦隊情報.Rows(一艦隊情報.Rows.Count - 1).Cells(4).Style.BackColor = Color.White
+                            一艦隊情報.Rows(一艦隊情報.Rows.Count - 1).Cells(4).Style.ForeColor = Color.Black
+                        ElseIf MyDataClass.MyKanmusu(母港配列ID).api_cond > 29 Then
+                            一艦隊情報.Rows(一艦隊情報.Rows.Count - 1).Cells(4).Style.BackColor = Color.Orange
+                            一艦隊情報.Rows(一艦隊情報.Rows.Count - 1).Cells(4).Style.ForeColor = Color.White
+                        Else
+                            一艦隊情報.Rows(一艦隊情報.Rows.Count - 1).Cells(4).Style.BackColor = Color.Red
+                            一艦隊情報.Rows(一艦隊情報.Rows.Count - 1).Cells(4).Style.ForeColor = Color.White
+                        End If
+
+                        '燃料の視覚的表示
+                        If 燃料現在 / 燃料上限 >= 0.5 Then
+                        ElseIf 燃料現在 / 燃料上限 >= 0.4 Then
+                        ElseIf 燃料現在 / 燃料上限 >= 0.3 Then
+                        ElseIf 燃料現在 / 燃料上限 >= 0.2 Then
+                        ElseIf 燃料現在 / 燃料上限 >= 0.1 Then
+                        Else
+                        End If
+                        '弾薬の視覚的表示
+                        If 弾薬現在 / 弾薬上限 >= 0.5 Then
+                        ElseIf 弾薬現在 / 弾薬上限 >= 0.4 Then
+                        ElseIf 弾薬現在 / 弾薬上限 >= 0.3 Then
+                        ElseIf 弾薬現在 / 弾薬上限 >= 0.2 Then
+                        ElseIf 弾薬現在 / 弾薬上限 >= 0.1 Then
+                        Else
+                        End If
+
                     End If
 
 
 
-                Else
+                    Else
                     '表示しないため何も処理しない
                 End If
             Next
