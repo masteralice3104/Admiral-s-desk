@@ -24,12 +24,12 @@ Partial Class オプション
     Private Sub InitializeComponent()
         Me.TabControl1 = New System.Windows.Forms.TabControl()
         Me.全般設定 = New System.Windows.Forms.TabPage()
-        Me.Label1 = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
-        Me.Label3 = New System.Windows.Forms.Label()
-        Me.Label4 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
         Me.動作調整バー = New System.Windows.Forms.TrackBar()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.更新チェック = New System.Windows.Forms.CheckBox()
         Me.TabControl1.SuspendLayout()
         Me.全般設定.SuspendLayout()
@@ -62,33 +62,15 @@ Partial Class オプション
         Me.全般設定.Text = "全般"
         Me.全般設定.UseVisualStyleBackColor = True
         '
-        'Label1
+        'Label5
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(5, 45)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(77, 12)
-        Me.Label1.TabIndex = 1
-        Me.Label1.Text = "動作速度設定"
-        '
-        'Label2
-        '
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(217, 93)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(29, 12)
-        Me.Label2.TabIndex = 3
-        Me.Label2.Text = "推奨"
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(149, 93)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(31, 12)
-        Me.Label3.TabIndex = 4
-        Me.Label3.Text = "x0.67"
-        Me.Label3.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(7, 93)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(31, 12)
+        Me.Label5.TabIndex = 6
+        Me.Label5.Text = "x0.40"
+        Me.Label5.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
         'Label4
         '
@@ -100,15 +82,24 @@ Partial Class オプション
         Me.Label4.Text = "x0.50"
         Me.Label4.TextAlign = System.Drawing.ContentAlignment.TopCenter
         '
-        'Label5
+        'Label3
         '
-        Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(7, 93)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(31, 12)
-        Me.Label5.TabIndex = 6
-        Me.Label5.Text = "x0.40"
-        Me.Label5.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(149, 93)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(31, 12)
+        Me.Label3.TabIndex = 4
+        Me.Label3.Text = "x0.67"
+        Me.Label3.TextAlign = System.Drawing.ContentAlignment.TopCenter
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(217, 93)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(29, 12)
+        Me.Label2.TabIndex = 3
+        Me.Label2.Text = "推奨"
         '
         '動作調整バー
         '
@@ -120,9 +111,19 @@ Partial Class オプション
         Me.動作調整バー.TabIndex = 2
         Me.動作調整バー.Value = Global.Admiral_s_Desk.My.MySettings.Default.動作速度
         '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(5, 45)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(77, 12)
+        Me.Label1.TabIndex = 1
+        Me.Label1.Text = "動作速度設定"
+        '
         '更新チェック
         '
         Me.更新チェック.AutoSize = True
+        Me.更新チェック.Checked = True
         Me.更新チェック.CheckState = Global.Admiral_s_Desk.My.MySettings.Default.更新確認の有無
         Me.更新チェック.DataBindings.Add(New System.Windows.Forms.Binding("CheckState", Global.Admiral_s_Desk.My.MySettings.Default, "更新確認の有無", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.更新チェック.Location = New System.Drawing.Point(7, 7)
