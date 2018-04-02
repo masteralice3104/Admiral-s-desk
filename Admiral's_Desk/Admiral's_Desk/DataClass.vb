@@ -267,6 +267,37 @@ Public Structure DataClass
             Public api_item5 As Long
         End Structure
 
+        '任務情報
+        Public Structure Quest
+            Public api_no As Long               '番号
+            Public api_category As Long         'カテゴリ番号
+            '   1   編成
+            '   2   出撃
+            '   3   演習
+            '   4   遠征
+            '   5   補給
+            '   6   開発
+            '   7   改修
+            '   8   出撃
+
+            Public api_type As Long             '任務種別
+            '   1   デイリー
+            '   2   ウィークリー
+            '   3   マンスリー
+            '   4   単発
+            '   5   その他
+            '
+            Public api_state As Long            '状態
+            '   1   未受注
+            '   2   受注
+
+            Public api_title As String          'タイトル
+            Public api_detail As String         '詳細
+            Public api_progress_flag As Long    '進行状況
+            '   0   ～50%
+            '   1   50%～
+            '   2   80%～
+        End Structure
 
     End Structure
 
@@ -295,6 +326,7 @@ Public Class MyDataClass
     Public Shared MapInfo(64) As DataClass.IndividualData.MapInfo              'マップ情報
     Public Shared Development As DataClass.IndividualData.Development          '開発情報
     Public Shared Building(3) As DataClass.IndividualData.Building             '建造情報
+    Public Shared Quest(5) As DataClass.IndividualData.Quest                   '受注中任務情報
 
     'イベントフラグのためのクラス
     'このへんから→http://rucio.a.la9.jp/main/dotnet/shokyu/standard49.htm
@@ -961,6 +993,56 @@ Public Class StructureOperationClass
             End If
 
 
+            '任務情報の取得
+            If path = URLDataClass.questlist Then
+                ReDim Preserve MyDataClass.Quest(JsonObject("api_data")("api_list").Count - 1)
+                For Each list In JsonObject("api_data")("api_list")
+
+                    If list.ToString <> "-1" Then
+                        'データが有る時
+
+                        Dim 記録済みフラグ As Boolean = False
+
+                        '受注中
+
+                        '記録済みか調べる
+                        For count As Integer = 0 To MyDataClass.Quest.Count - 1
+                                If MyDataClass.Quest(count).api_no.ToString = list("api_no").ToString Then
+                                    '記録済みだったら状態を代入する
+                                    MyDataClass.Quest(count).api_state = list("api_state")                     '状態
+                                    MyDataClass.Quest(count).api_progress_flag = list("api_progress_flag")     '進行度
+                                    記録済みフラグ = True
+
+                                    '達成済みだったら消します
+                                    If MyDataClass.Quest(count).api_state = 3 Or MyDataClass.Quest(count).api_state = 1 Then
+                                        MyDataClass.Quest(count).api_no = 0
+                                    End If
+
+                                End If
+                            Next
+                            '知らない任務だったら記録する
+                            For count As Integer = 0 To MyDataClass.Quest.Count - 1
+                                If MyDataClass.Quest(count).api_no.ToString = "0" _
+                                    And list("api_state").ToString <> "1" _
+                                    And 記録済みフラグ = False Then
+
+                                    '状態を代入する
+                                    MyDataClass.Quest(count).api_no = list("api_no")                           '番号
+                                    MyDataClass.Quest(count).api_category = list("api_category")               'カテゴリ
+                                    MyDataClass.Quest(count).api_type = list("api_type")                       '種別
+                                    MyDataClass.Quest(count).api_state = list("api_state")                     '状態
+                                    MyDataClass.Quest(count).api_title = list("api_title")                     'タイトル
+                                    MyDataClass.Quest(count).api_detail = list("api_detail")                   '詳細
+                                    MyDataClass.Quest(count).api_progress_flag = list("api_progress_flag")     '進行度
+
+                                    記録済みフラグ = True
+                                End If
+                            Next
+
+
+                    End If
+                Next
+            End If
 
             '更新確認イベント
             MyDataClass.EventsEpoch.Info_Refresh_Events()

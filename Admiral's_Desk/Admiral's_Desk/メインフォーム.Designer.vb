@@ -170,7 +170,6 @@ Partial Class メインフォーム
         Me.任務情報アクセス.AutoSize = True
         Me.任務情報アクセス.Checked = Global.Admiral_s_Desk.My.MySettings.Default.任務ウインドウ表示
         Me.任務情報アクセス.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.Admiral_s_Desk.My.MySettings.Default, "任務ウインドウ表示", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        Me.任務情報アクセス.Enabled = False
         Me.任務情報アクセス.Location = New System.Drawing.Point(255, 16)
         Me.任務情報アクセス.Name = "任務情報アクセス"
         Me.任務情報アクセス.Size = New System.Drawing.Size(48, 16)
