@@ -250,6 +250,23 @@ Public Structure DataClass
             Public api_defeat_count As Long '削った回数?
         End Structure
 
+        '出撃中情報
+        Public Structure Start
+            Public 出撃 As Boolean          '出撃中はここがtrueになる
+            Public api_maparea_id As Long   'マップ名
+            Public api_mapinfo_no As Long   'マップ名
+            Public api_id As Long           'マス固有の番号
+            Public api_no As Long           'マップ内のマス識別番号
+            Public api_win_rank As String   '勝利
+
+            Public api_ship_id As Long
+            Public api_ship_type As String
+            Public api_ship_name As String
+
+            Public 出力 As Boolean          '出力すべきときTrueになる
+
+        End Structure
+
         '開発情報
         Public Structure Development
             Public EquipmentID As Integer
@@ -327,6 +344,7 @@ Public Class MyDataClass
     Public Shared Development As DataClass.IndividualData.Development          '開発情報
     Public Shared Building(3) As DataClass.IndividualData.Building             '建造情報
     Public Shared Quest(5) As DataClass.IndividualData.Quest                   '受注中任務情報
+    Public Shared Start As DataClass.IndividualData.Start                      '出撃中ドロップデータ
 
     'イベントフラグのためのクラス
     'このへんから→http://rucio.a.la9.jp/main/dotnet/shokyu/standard49.htm
@@ -357,6 +375,8 @@ Public Class URLDataClass
     Public Const clearitemget As String = "/kcsapi/api_req_quest/clearitemget"
     Public Const questlist As String = "/kcsapi/api_get_member/questlist"
     Public Const start As String = "/kcsapi/api_req_quest/start"
+    Public Const battleresult As String = "/kcsapi/api_req_sortie/battleresult"
+    Public Const next_map As String = "/kcsapi/api_req_map/next"
     Public Const map_info As String = "/kcsapi/api_get_member/mapinfo"
     Public Const charge As String = "/kcsapi/api_req_hokyu/charge"
     Public Const deck As String = "/kcsapi/api_get_member/deck"
@@ -1007,42 +1027,69 @@ Public Class StructureOperationClass
 
                         '記録済みか調べる
                         For count As Integer = 0 To MyDataClass.Quest.Count - 1
-                                If MyDataClass.Quest(count).api_no.ToString = list("api_no").ToString Then
-                                    '記録済みだったら状態を代入する
-                                    MyDataClass.Quest(count).api_state = list("api_state")                     '状態
-                                    MyDataClass.Quest(count).api_progress_flag = list("api_progress_flag")     '進行度
-                                    記録済みフラグ = True
+                            If MyDataClass.Quest(count).api_no.ToString = list("api_no").ToString Then
+                                '記録済みだったら状態を代入する
+                                MyDataClass.Quest(count).api_state = list("api_state")                     '状態
+                                MyDataClass.Quest(count).api_progress_flag = list("api_progress_flag")     '進行度
+                                記録済みフラグ = True
 
-                                    '達成済みだったら消します
-                                    If MyDataClass.Quest(count).api_state = 3 Or MyDataClass.Quest(count).api_state = 1 Then
-                                        MyDataClass.Quest(count).api_no = 0
-                                    End If
-
+                                '達成済みだったら消します
+                                If MyDataClass.Quest(count).api_state = 3 Or MyDataClass.Quest(count).api_state = 1 Then
+                                    MyDataClass.Quest(count).api_no = 0
                                 End If
-                            Next
-                            '知らない任務だったら記録する
-                            For count As Integer = 0 To MyDataClass.Quest.Count - 1
-                                If MyDataClass.Quest(count).api_no.ToString = "0" _
+
+                            End If
+                        Next
+                        '知らない任務だったら記録する
+                        For count As Integer = 0 To MyDataClass.Quest.Count - 1
+                            If MyDataClass.Quest(count).api_no.ToString = "0" _
                                     And list("api_state").ToString <> "1" _
                                     And 記録済みフラグ = False Then
 
-                                    '状態を代入する
-                                    MyDataClass.Quest(count).api_no = list("api_no")                           '番号
-                                    MyDataClass.Quest(count).api_category = list("api_category")               'カテゴリ
-                                    MyDataClass.Quest(count).api_type = list("api_type")                       '種別
-                                    MyDataClass.Quest(count).api_state = list("api_state")                     '状態
-                                    MyDataClass.Quest(count).api_title = list("api_title")                     'タイトル
-                                    MyDataClass.Quest(count).api_detail = list("api_detail")                   '詳細
-                                    MyDataClass.Quest(count).api_progress_flag = list("api_progress_flag")     '進行度
+                                '状態を代入する
+                                MyDataClass.Quest(count).api_no = list("api_no")                           '番号
+                                MyDataClass.Quest(count).api_category = list("api_category")               'カテゴリ
+                                MyDataClass.Quest(count).api_type = list("api_type")                       '種別
+                                MyDataClass.Quest(count).api_state = list("api_state")                     '状態
+                                MyDataClass.Quest(count).api_title = list("api_title")                     'タイトル
+                                MyDataClass.Quest(count).api_detail = list("api_detail")                   '詳細
+                                MyDataClass.Quest(count).api_progress_flag = list("api_progress_flag")     '進行度
 
-                                    記録済みフラグ = True
-                                End If
-                            Next
+                                記録済みフラグ = True
+                            End If
+                        Next
 
 
                     End If
                 Next
             End If
+
+            '出撃中
+            If path = URLDataClass.start Or path = URLDataClass.next_map Then
+                If JsonObject("api_data")("api_maparea_id") IsNot Nothing Then MyDataClass.Start.api_maparea_id = JsonObject("api_data")("api_maparea_id")
+                If JsonObject("api_data")("api_mapinfo_no") IsNot Nothing Then MyDataClass.Start.api_mapinfo_no = JsonObject("api_data")("api_mapinfo_no")
+                If JsonObject("api_data")("api_no") IsNot Nothing Then MyDataClass.Start.api_no = JsonObject("api_data")("api_no")
+                If JsonObject("api_data")("api_id") IsNot Nothing Then MyDataClass.Start.api_id = JsonObject("api_data")("api_id")
+
+                If path = URLDataClass.start Then
+                    MyDataClass.Start.出撃 = True
+                End If
+            End If
+            If path = URLDataClass.battleresult Then
+                If JsonObject("api_data")("api_get_ship") IsNot Nothing Then
+                    If JsonObject("api_data")("api_get_ship")("api_ship_id") IsNot Nothing Then MyDataClass.Start.api_ship_id = JsonObject("api_data")("api_get_ship")("api_ship_id")
+                    If JsonObject("api_data")("api_get_ship")("api_ship_type") IsNot Nothing Then MyDataClass.Start.api_ship_type = JsonObject("api_data")("api_get_ship")("api_ship_type")
+                    If JsonObject("api_data")("api_get_ship")("api_ship_name") IsNot Nothing Then MyDataClass.Start.api_ship_name = JsonObject("api_data")("api_get_ship")("api_ship_name")
+                    If JsonObject("api_data")("api_win_rank") IsNot Nothing Then MyDataClass.Start.api_win_rank = JsonObject("api_data")("api_win_rank")
+
+                    MyDataClass.Start.出力 = True
+                End If
+            End If
+            If path = URLDataClass.port Then
+                MyDataClass.Start.出撃 = False
+            End If
+
+
 
             '更新確認イベント
             MyDataClass.EventsEpoch.Info_Refresh_Events()

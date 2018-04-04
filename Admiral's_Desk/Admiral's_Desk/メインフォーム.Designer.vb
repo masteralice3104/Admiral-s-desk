@@ -22,6 +22,7 @@ Partial Class メインフォーム
     'コード エディターを使って変更しないでください。
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
         Me.ファイルFToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.エクスポートEToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
@@ -44,6 +45,7 @@ Partial Class メインフォーム
         Me.情報アクセスラベル = New System.Windows.Forms.Label()
         Me.更新確認ブラウザ = New System.Windows.Forms.WebBrowser()
         Me.更新URL確認用ブラウザ = New System.Windows.Forms.WebBrowser()
+        Me.汎用タイマ = New System.Windows.Forms.Timer(Me.components)
         Me.MenuStrip1.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
@@ -256,6 +258,11 @@ Partial Class メインフォーム
         "L", System.UriKind.Absolute)
         Me.更新URL確認用ブラウザ.Visible = False
         '
+        '汎用タイマ
+        '
+        Me.汎用タイマ.Enabled = True
+        Me.汎用タイマ.Interval = 1000
+        '
         'メインフォーム
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -304,4 +311,5 @@ Partial Class メインフォーム
     Friend WithEvents ヘルプHToolStripMenuItem1 As ToolStripMenuItem
     Friend WithEvents 更新確認ブラウザ As WebBrowser
     Friend WithEvents 更新URL確認用ブラウザ As WebBrowser
+    Friend WithEvents 汎用タイマ As Timer
 End Class
