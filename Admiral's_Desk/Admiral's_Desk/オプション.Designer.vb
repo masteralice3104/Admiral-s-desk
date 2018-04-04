@@ -161,9 +161,9 @@ Partial Class オプション
         '更新チェック
         '
         Me.更新チェック.AutoSize = True
-        Me.更新チェック.Checked = True
-        Me.更新チェック.CheckState = Global.Admiral_s_Desk.My.MySettings.Default.更新確認の有無
-        Me.更新チェック.DataBindings.Add(New System.Windows.Forms.Binding("CheckState", Global.Admiral_s_Desk.My.MySettings.Default, "更新確認の有無", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.更新チェック.Checked = Global.Admiral_s_Desk.My.MySettings.Default.更新確認
+        Me.更新チェック.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.更新チェック.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.Admiral_s_Desk.My.MySettings.Default, "更新確認", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.更新チェック.Location = New System.Drawing.Point(7, 7)
         Me.更新チェック.Name = "更新チェック"
         Me.更新チェック.Size = New System.Drawing.Size(155, 16)

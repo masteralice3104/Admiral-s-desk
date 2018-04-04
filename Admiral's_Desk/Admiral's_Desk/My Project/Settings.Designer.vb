@@ -293,6 +293,18 @@ Namespace My
                 Me("入手艦娘記録名") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property 更新確認() As Boolean
+            Get
+                Return CType(Me("更新確認"),Boolean)
+            End Get
+            Set
+                Me("更新確認") = value
+            End Set
+        End Property
     End Class
 End Namespace
 
