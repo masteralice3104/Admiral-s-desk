@@ -82,7 +82,7 @@
 
 
         '出力
-        If 一致艦種.Equals("") Then
+        If 一致艦種 Is Nothing Then
             Return Nothing
         Else
             Return 一致艦種

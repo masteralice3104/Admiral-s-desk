@@ -250,6 +250,23 @@ Public Structure DataClass
             Public api_defeat_count As Long '削った回数?
         End Structure
 
+        '出撃中情報
+        Public Structure Start
+            Public 出撃 As Boolean          '出撃中はここがtrueになる
+            Public api_maparea_id As Long   'マップ名
+            Public api_mapinfo_no As Long   'マップ名
+            Public api_id As Long           'マス固有の番号
+            Public api_no As Long           'マップ内のマス識別番号
+            Public api_win_rank As String   '勝利
+
+            Public api_ship_id As Long
+            Public api_ship_type As String
+            Public api_ship_name As String
+
+            Public 出力 As Boolean          '出力すべきときTrueになる
+
+        End Structure
+
         '開発情報
         Public Structure Development
             Public EquipmentID As Integer
@@ -267,6 +284,37 @@ Public Structure DataClass
             Public api_item5 As Long
         End Structure
 
+        '任務情報
+        Public Structure Quest
+            Public api_no As Long               '番号
+            Public api_category As Long         'カテゴリ番号
+            '   1   編成
+            '   2   出撃
+            '   3   演習
+            '   4   遠征
+            '   5   補給
+            '   6   開発
+            '   7   改修
+            '   8   出撃
+
+            Public api_type As Long             '任務種別
+            '   1   デイリー
+            '   2   ウィークリー
+            '   3   マンスリー
+            '   4   単発
+            '   5   その他
+            '
+            Public api_state As Long            '状態
+            '   1   未受注
+            '   2   受注
+
+            Public api_title As String          'タイトル
+            Public api_detail As String         '詳細
+            Public api_progress_flag As Long    '進行状況
+            '   0   ～50%
+            '   1   50%～
+            '   2   80%～
+        End Structure
 
     End Structure
 
@@ -288,13 +336,15 @@ Public Class MyDataClass
     'ここのデータをもとに数値操作を行うべし
     Public Shared Admiral As DataClass.IndividualData.Admiral                  '提督データ
     Public Shared MyResource As DataClass.IndividualData.Resource              '資源資材
-    Public Shared MyKanmusu(1024) As DataClass.IndividualData.Kanmusu          '艦娘データとりあえず(1024)
-    Public Shared MyEquipment(4096) As DataClass.IndividualData.Equipment      '所持装備とりあえず(4096)
+    Public Shared MyKanmusu(99) As DataClass.IndividualData.Kanmusu          '艦娘データとりあえず(1024)
+    Public Shared MyEquipment(499) As DataClass.IndividualData.Equipment      '所持装備とりあえず(4096)
     Public Shared MyPort(3) As DataClass.IndividualData.Port                   '艦隊4つぶん
     Public Shared RepairingDock(4) As DataClass.IndividualData.RepairingDock   '入渠ドック情報
     Public Shared MapInfo(64) As DataClass.IndividualData.MapInfo              'マップ情報
     Public Shared Development As DataClass.IndividualData.Development          '開発情報
     Public Shared Building(3) As DataClass.IndividualData.Building             '建造情報
+    Public Shared Quest(5) As DataClass.IndividualData.Quest                   '受注中任務情報
+    Public Shared Start As DataClass.IndividualData.Start                      '出撃中ドロップデータ
 
     'イベントフラグのためのクラス
     'このへんから→http://rucio.a.la9.jp/main/dotnet/shokyu/standard49.htm
@@ -325,6 +375,8 @@ Public Class URLDataClass
     Public Const clearitemget As String = "/kcsapi/api_req_quest/clearitemget"
     Public Const questlist As String = "/kcsapi/api_get_member/questlist"
     Public Const start As String = "/kcsapi/api_req_quest/start"
+    Public Const battleresult As String = "/kcsapi/api_req_sortie/battleresult"
+    Public Const next_map As String = "/kcsapi/api_req_map/next"
     Public Const map_info As String = "/kcsapi/api_get_member/mapinfo"
     Public Const charge As String = "/kcsapi/api_req_hokyu/charge"
     Public Const deck As String = "/kcsapi/api_get_member/deck"
@@ -958,6 +1010,83 @@ Public Class StructureOperationClass
                     If JsonObject("api_data")("api_kdock")(count)("api_item5") IsNot Nothing Then MyDataClass.Building(count).api_item5 = JsonObject("api_data")("api_kdock")(count)("api_item5")
                 Next
 
+            End If
+
+
+            '任務情報の取得
+            If path = URLDataClass.questlist Then
+                ReDim Preserve MyDataClass.Quest(JsonObject("api_data")("api_list").Count - 1)
+                For Each list In JsonObject("api_data")("api_list")
+
+                    If list.ToString <> "-1" Then
+                        'データが有る時
+
+                        Dim 記録済みフラグ As Boolean = False
+
+                        '受注中
+
+                        '記録済みか調べる
+                        For count As Integer = 0 To MyDataClass.Quest.Count - 1
+                            If MyDataClass.Quest(count).api_no.ToString = list("api_no").ToString Then
+                                '記録済みだったら状態を代入する
+                                MyDataClass.Quest(count).api_state = list("api_state")                     '状態
+                                MyDataClass.Quest(count).api_progress_flag = list("api_progress_flag")     '進行度
+                                記録済みフラグ = True
+
+                                '達成済みだったら消します
+                                If MyDataClass.Quest(count).api_state = 3 Or MyDataClass.Quest(count).api_state = 1 Then
+                                    MyDataClass.Quest(count).api_no = 0
+                                End If
+
+                            End If
+                        Next
+                        '知らない任務だったら記録する
+                        For count As Integer = 0 To MyDataClass.Quest.Count - 1
+                            If MyDataClass.Quest(count).api_no.ToString = "0" _
+                                    And list("api_state").ToString <> "1" _
+                                    And 記録済みフラグ = False Then
+
+                                '状態を代入する
+                                MyDataClass.Quest(count).api_no = list("api_no")                           '番号
+                                MyDataClass.Quest(count).api_category = list("api_category")               'カテゴリ
+                                MyDataClass.Quest(count).api_type = list("api_type")                       '種別
+                                MyDataClass.Quest(count).api_state = list("api_state")                     '状態
+                                MyDataClass.Quest(count).api_title = list("api_title")                     'タイトル
+                                MyDataClass.Quest(count).api_detail = list("api_detail")                   '詳細
+                                MyDataClass.Quest(count).api_progress_flag = list("api_progress_flag")     '進行度
+
+                                記録済みフラグ = True
+                            End If
+                        Next
+
+
+                    End If
+                Next
+            End If
+
+            '出撃中
+            If path = URLDataClass.start Or path = URLDataClass.next_map Then
+                If JsonObject("api_data")("api_maparea_id") IsNot Nothing Then MyDataClass.Start.api_maparea_id = JsonObject("api_data")("api_maparea_id")
+                If JsonObject("api_data")("api_mapinfo_no") IsNot Nothing Then MyDataClass.Start.api_mapinfo_no = JsonObject("api_data")("api_mapinfo_no")
+                If JsonObject("api_data")("api_no") IsNot Nothing Then MyDataClass.Start.api_no = JsonObject("api_data")("api_no")
+                If JsonObject("api_data")("api_id") IsNot Nothing Then MyDataClass.Start.api_id = JsonObject("api_data")("api_id")
+
+                If path = URLDataClass.start Then
+                    MyDataClass.Start.出撃 = True
+                End If
+            End If
+            If path = URLDataClass.battleresult Then
+                If JsonObject("api_data")("api_get_ship") IsNot Nothing Then
+                    If JsonObject("api_data")("api_get_ship")("api_ship_id") IsNot Nothing Then MyDataClass.Start.api_ship_id = JsonObject("api_data")("api_get_ship")("api_ship_id")
+                    If JsonObject("api_data")("api_get_ship")("api_ship_type") IsNot Nothing Then MyDataClass.Start.api_ship_type = JsonObject("api_data")("api_get_ship")("api_ship_type")
+                    If JsonObject("api_data")("api_get_ship")("api_ship_name") IsNot Nothing Then MyDataClass.Start.api_ship_name = JsonObject("api_data")("api_get_ship")("api_ship_name")
+                    If JsonObject("api_data")("api_win_rank") IsNot Nothing Then MyDataClass.Start.api_win_rank = JsonObject("api_data")("api_win_rank")
+
+                    MyDataClass.Start.出力 = True
+                End If
+            End If
+            If path = URLDataClass.port Then
+                MyDataClass.Start.出撃 = False
             End If
 
 

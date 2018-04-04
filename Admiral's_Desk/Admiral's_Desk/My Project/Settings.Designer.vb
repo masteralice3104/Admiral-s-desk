@@ -257,6 +257,54 @@ Namespace My
                 Me("動作速度") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0, 0")>  _
+        Public Property 任務情報ウインドウ位置() As Global.System.Drawing.Point
+            Get
+                Return CType(Me("任務情報ウインドウ位置"),Global.System.Drawing.Point)
+            End Get
+            Set
+                Me("任務情報ウインドウ位置") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property 入手艦娘記録() As Boolean
+            Get
+                Return CType(Me("入手艦娘記録"),Boolean)
+            End Get
+            Set
+                Me("入手艦娘記録") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property 入手艦娘記録名() As String
+            Get
+                Return CType(Me("入手艦娘記録名"),String)
+            End Get
+            Set
+                Me("入手艦娘記録名") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property 更新確認() As Boolean
+            Get
+                Return CType(Me("更新確認"),Boolean)
+            End Get
+            Set
+                Me("更新確認") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

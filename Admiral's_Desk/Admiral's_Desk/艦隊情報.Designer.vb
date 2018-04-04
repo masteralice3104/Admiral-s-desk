@@ -71,7 +71,7 @@ Partial Class 艦隊情報
         Me.一艦隊情報.ReadOnly = True
         Me.一艦隊情報.RowHeadersVisible = False
         Me.一艦隊情報.RowTemplate.Height = 21
-        Me.一艦隊情報.Size = New System.Drawing.Size(860, 210)
+        Me.一艦隊情報.Size = New System.Drawing.Size(860, 160)
         Me.一艦隊情報.TabIndex = 1
         '
         '艦種
@@ -229,7 +229,7 @@ Partial Class 艦隊情報
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(884, 261)
+        Me.ClientSize = New System.Drawing.Size(884, 211)
         Me.ControlBox = False
         Me.Controls.Add(Me.ラベル03)
         Me.Controls.Add(Me.分岐点係数)

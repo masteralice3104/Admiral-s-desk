@@ -3,7 +3,8 @@
     'アップデートに必要な情報
 
     Public Const ソフト名 As String = "Admiral's Desk"
-    Public Const バージョン As String = "0.1.1.0"
+    Public Const バージョン As String = "0.1.2.0"
+    Public Const バージョン他表記 As String = "α"
     Dim 更新後URL As String = ""
 
 
@@ -17,6 +18,11 @@
 
 
     Private Sub メインフォーム_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+        'ウインドウ名だけ変更
+        MyBase.Text += " " + バージョン & バージョン他表記
+
+
         'Nekoxyを使います
         'ここはNekoxyExampleを参考にしてます
 
@@ -224,5 +230,26 @@
         Else
             任務情報.Visible = False
         End If
+    End Sub
+
+    Private Sub 汎用タイマ_Tick(sender As Object, e As EventArgs) Handles 汎用タイマ.Tick
+        If MyDataClass.Start.出力 = True Then
+
+            If オプション.入手艦娘記録.Checked = True And オプション.保存ファイル名.Text <> "" Then
+                Dim filePath As String = オプション.保存ファイル名.Text
+                Dim enc As System.Text.Encoding = System.Text.Encoding.GetEncoding("shift_jis")
+
+                Dim マップ名 As String = String.Format("""{0}-{1}""", MyDataClass.Start.api_maparea_id, MyDataClass.Start.api_mapinfo_no)
+
+                IO.File.AppendAllText(filePath, String.Format("{0},{1},{2},{3},", マップ名, MyDataClass.Start.api_no, MyDataClass.Start.api_ship_type, MyDataClass.Start.api_ship_name) & MyDataClass.Start.api_win_rank & "," & String.Format("{0:yyyy/MM/dd HH:mm:ss}", DateTimeOffset.Now) & "" & vbCrLf, enc)
+            End If
+
+            MyDataClass.Start.出力 = False
+
+        End If
+    End Sub
+
+    Private Sub 全艦娘一覧ウインドウ表示_Click(sender As Object, e As EventArgs) Handles 全艦娘一覧ウインドウ表示.Click
+        全艦娘一覧.Visible = True
     End Sub
 End Class
