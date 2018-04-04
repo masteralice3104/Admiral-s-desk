@@ -336,8 +336,8 @@ Public Class MyDataClass
     'ここのデータをもとに数値操作を行うべし
     Public Shared Admiral As DataClass.IndividualData.Admiral                  '提督データ
     Public Shared MyResource As DataClass.IndividualData.Resource              '資源資材
-    Public Shared MyKanmusu(1024) As DataClass.IndividualData.Kanmusu          '艦娘データとりあえず(1024)
-    Public Shared MyEquipment(4096) As DataClass.IndividualData.Equipment      '所持装備とりあえず(4096)
+    Public Shared MyKanmusu(99) As DataClass.IndividualData.Kanmusu          '艦娘データとりあえず(1024)
+    Public Shared MyEquipment(499) As DataClass.IndividualData.Equipment      '所持装備とりあえず(4096)
     Public Shared MyPort(3) As DataClass.IndividualData.Port                   '艦隊4つぶん
     Public Shared RepairingDock(4) As DataClass.IndividualData.RepairingDock   '入渠ドック情報
     Public Shared MapInfo(64) As DataClass.IndividualData.MapInfo              'マップ情報

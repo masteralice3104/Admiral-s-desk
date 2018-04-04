@@ -146,6 +146,12 @@
     <Compile Include="任務情報.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="全艦娘一覧.Designer.vb">
+      <DependentUpon>全艦娘一覧.vb</DependentUpon>
+    </Compile>
+    <Compile Include="全艦娘一覧.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="工廠情報.Designer.vb">
       <DependentUpon>工廠情報.vb</DependentUpon>
     </Compile>
@@ -186,6 +192,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="任務情報.resx">
       <DependentUpon>任務情報.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="全艦娘一覧.resx">
+      <DependentUpon>全艦娘一覧.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="工廠情報.resx">
       <DependentUpon>工廠情報.vb</DependentUpon>

@@ -46,6 +46,7 @@ Partial Class メインフォーム
         Me.更新確認ブラウザ = New System.Windows.Forms.WebBrowser()
         Me.更新URL確認用ブラウザ = New System.Windows.Forms.WebBrowser()
         Me.汎用タイマ = New System.Windows.Forms.Timer(Me.components)
+        Me.全艦娘一覧ウインドウ表示 = New System.Windows.Forms.Button()
         Me.MenuStrip1.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
@@ -70,13 +71,13 @@ Partial Class メインフォーム
         '
         Me.エクスポートEToolStripMenuItem.Enabled = False
         Me.エクスポートEToolStripMenuItem.Name = "エクスポートEToolStripMenuItem"
-        Me.エクスポートEToolStripMenuItem.Size = New System.Drawing.Size(146, 22)
+        Me.エクスポートEToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.エクスポートEToolStripMenuItem.Text = "エクスポート(&M)"
         '
         '終了XToolStripMenuItem
         '
         Me.終了XToolStripMenuItem.Name = "終了XToolStripMenuItem"
-        Me.終了XToolStripMenuItem.Size = New System.Drawing.Size(146, 22)
+        Me.終了XToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.終了XToolStripMenuItem.Text = "終了(&X)"
         '
         '表示VToolStripMenuItem
@@ -89,13 +90,13 @@ Partial Class メインフォーム
         '更新ToolStripMenuItem
         '
         Me.更新ToolStripMenuItem.Name = "更新ToolStripMenuItem"
-        Me.更新ToolStripMenuItem.Size = New System.Drawing.Size(113, 22)
+        Me.更新ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.更新ToolStripMenuItem.Text = "更新(&R)"
         '
         '中止ToolStripMenuItem
         '
         Me.中止ToolStripMenuItem.Name = "中止ToolStripMenuItem"
-        Me.中止ToolStripMenuItem.Size = New System.Drawing.Size(113, 22)
+        Me.中止ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.中止ToolStripMenuItem.Text = "中止(&P)"
         '
         'ツールTToolStripMenuItem
@@ -108,7 +109,7 @@ Partial Class メインフォーム
         'オプションoToolStripMenuItem
         '
         Me.オプションoToolStripMenuItem.Name = "オプションoToolStripMenuItem"
-        Me.オプションoToolStripMenuItem.Size = New System.Drawing.Size(135, 22)
+        Me.オプションoToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
         Me.オプションoToolStripMenuItem.Text = "オプション(&O)"
         '
         'ヘルプHToolStripMenuItem
@@ -122,7 +123,7 @@ Partial Class メインフォーム
         '
         Me.ヘルプHToolStripMenuItem1.Enabled = False
         Me.ヘルプHToolStripMenuItem1.Name = "ヘルプHToolStripMenuItem1"
-        Me.ヘルプHToolStripMenuItem1.Size = New System.Drawing.Size(120, 22)
+        Me.ヘルプHToolStripMenuItem1.Size = New System.Drawing.Size(180, 22)
         Me.ヘルプHToolStripMenuItem1.Text = "ヘルプ(&H)"
         '
         'ブラウザ
@@ -143,6 +144,7 @@ Partial Class メインフォーム
         '
         'Panel1
         '
+        Me.Panel1.Controls.Add(Me.全艦娘一覧ウインドウ表示)
         Me.Panel1.Controls.Add(Me.遠征情報アクセス)
         Me.Panel1.Controls.Add(Me.任務情報アクセス)
         Me.Panel1.Controls.Add(Me.工廠情報アクセス)
@@ -263,6 +265,15 @@ Partial Class メインフォーム
         Me.汎用タイマ.Enabled = True
         Me.汎用タイマ.Interval = 1000
         '
+        '全艦娘一覧ウインドウ表示
+        '
+        Me.全艦娘一覧ウインドウ表示.Location = New System.Drawing.Point(717, 8)
+        Me.全艦娘一覧ウインドウ表示.Name = "全艦娘一覧ウインドウ表示"
+        Me.全艦娘一覧ウインドウ表示.Size = New System.Drawing.Size(75, 23)
+        Me.全艦娘一覧ウインドウ表示.TabIndex = 7
+        Me.全艦娘一覧ウインドウ表示.Text = "全艦娘一覧"
+        Me.全艦娘一覧ウインドウ表示.UseVisualStyleBackColor = True
+        '
         'メインフォーム
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -279,7 +290,7 @@ Partial Class メインフォーム
         Me.MaximumSize = New System.Drawing.Size(820, 589)
         Me.MinimumSize = New System.Drawing.Size(820, 589)
         Me.Name = "メインフォーム"
-        Me.Text = "Admiral's desk アルファ版"
+        Me.Text = "Admiral's desk"
         Me.MenuStrip1.ResumeLayout(False)
         Me.MenuStrip1.PerformLayout()
         Me.Panel1.ResumeLayout(False)
@@ -312,4 +323,5 @@ Partial Class メインフォーム
     Friend WithEvents 更新確認ブラウザ As WebBrowser
     Friend WithEvents 更新URL確認用ブラウザ As WebBrowser
     Friend WithEvents 汎用タイマ As Timer
+    Friend WithEvents 全艦娘一覧ウインドウ表示 As Button
 End Class
