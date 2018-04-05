@@ -8,15 +8,15 @@
 
         For Each Kanmusu In MyDataClass.MyKanmusu
             '変数の準備
-            Dim ID As String = ""
+            Dim ID As Integer
             Dim 艦種 As String = ""
             Dim 艦娘名 As String = ""
-            Dim Lv As String = ""
-            Dim cond As String = ""
-            Dim 耐久 As String = ""
-            Dim 対潜 As String = ""
-            Dim 運 As String = ""
-            Dim 夜戦火力 As String = ""
+            Dim Lv As Integer
+            Dim cond As Integer
+            Dim 耐久 As Integer
+            Dim 対潜 As Integer
+            Dim 運 As Integer
+            Dim 夜戦火力 As Integer
             Dim 装備() As String = {"", "", "", "", "", ""}
 
             '発見できた母港IDを保存
@@ -26,16 +26,16 @@
 
 
             '変数への代入
-            ID = Kanmusu.api_id.ToString
-            If ID <> "0" Then
+            ID = Kanmusu.api_id
+            If ID.ToString <> "0" Then
                 艦種 = Component.KancolleStypeSearch(CommonDataClass.AllKanmusuData(艦娘配列ID).api_stype.ToString)
                 艦娘名 = CommonDataClass.AllKanmusuData(艦娘配列ID).api_name.ToString
-                If Kanmusu.api_lv.ToString IsNot Nothing Then Lv = Kanmusu.api_lv.ToString
-                If Kanmusu.api_cond.ToString IsNot Nothing Then cond = Kanmusu.api_cond.ToString
-                If Kanmusu.api_maxhp.ToString IsNot Nothing Then 耐久 = Kanmusu.api_maxhp.ToString
-                If Kanmusu.api_taisen IsNot Nothing Then 対潜 = Kanmusu.api_taisen(0).ToString
-                If Kanmusu.api_lucky.ToString IsNot Nothing Then 運 = Kanmusu.api_lucky(0).ToString
-                夜戦火力 = String.Format("{0}", Kanmusu.api_karyoku(0) + Kanmusu.api_raisou(0))
+                If Kanmusu.api_lv.ToString IsNot Nothing Then Lv = Kanmusu.api_lv
+                If Kanmusu.api_cond.ToString IsNot Nothing Then cond = Kanmusu.api_cond
+                If Kanmusu.api_maxhp.ToString IsNot Nothing Then 耐久 = Kanmusu.api_maxhp
+                If Kanmusu.api_taisen IsNot Nothing Then 対潜 = Kanmusu.api_taisen(0)
+                If Kanmusu.api_lucky.ToString IsNot Nothing Then 運 = Kanmusu.api_lucky(0)
+                夜戦火力 = Kanmusu.api_karyoku(0) + Kanmusu.api_raisou(0)
                 For cnt As Integer = 0 To Kanmusu.api_slot.Count - 1
                     装備(cnt) = Component.KancolleEquipmentNameSearch(Kanmusu.api_slot(cnt))
                 Next
