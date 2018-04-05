@@ -5,6 +5,8 @@
     Private 艦隊名(3) As String
     Public Shared 艦隊情報更新Flag As Boolean = False
 
+    '大破通知の準備
+    Public Shared 大破艦あり As Boolean = False
 
 
 
@@ -22,12 +24,20 @@
 
     Private Sub 艦隊情報更新フラグ管理()
         艦隊情報更新Flag = True
+
+        '大破通知
+        If 大破艦あり = True And オプション.大破通知.Checked = True And MyDataClass.Start.出撃 = True Then
+            MessageBox.Show("艦隊に大破している艦娘がいます！", "大破通知", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+        End If
     End Sub
 
 
     Private Sub 艦隊情報更新()
         'まずは中身を消す
         艦隊選択.Items.Clear()
+
+        '大破通知用
+        Dim 大破艦確認 As Boolean = False
 
         '配列の整理
         If MyDataClass.MyPort(0).api_name IsNot Nothing Then
@@ -59,6 +69,10 @@
 
         'まずDataGridViewの項目全消し
         一艦隊情報.Rows.Clear()
+
+
+
+
 
         '変なデータを読まないようにする
         If MyDataClass.MyPort(選択艦隊).api_ship IsNot Nothing Then
@@ -262,11 +276,15 @@
                         Else
                         End If
 
+                        '大破通知
+                        If MyDataClass.MyKanmusu(母港配列ID).api_nowhp / MyDataClass.MyKanmusu(母港配列ID).api_maxhp <= 0.25 Then
+                            大破艦確認 = True
+                        End If
                     End If
 
 
 
-                    Else
+                Else
                     '表示しないため何も処理しない
                 End If
             Next
@@ -279,6 +297,13 @@
 
             '索敵スコア
             Me.合計索敵値.Text = Component.艦これ索敵スコア.判定式33計算()
+
+            '大破艦確認用
+            If 大破艦確認 = True Then
+                大破艦あり = True
+            Else
+                大破艦あり = False
+            End If
 
             'デバッグ用
             'DebugWindow.Text = "分岐点係数" + Component.艦これ索敵スコア.分岐点係数.ToString + "装備単体索敵値総和" + Component.艦これ索敵スコア.装備単体索敵値総和.ToString + "艦娘索敵値平方根総和" + Component.艦これ索敵スコア.艦娘索敵値平方根総和.ToString + "司令部レベル" + Component.艦これ索敵スコア.司令部レベル.ToString + "出撃艦数" + Component.艦これ索敵スコア.出撃艦数.ToString

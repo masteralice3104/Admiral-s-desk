@@ -375,6 +375,7 @@ Public Class URLDataClass
     Public Const clearitemget As String = "/kcsapi/api_req_quest/clearitemget"
     Public Const questlist As String = "/kcsapi/api_get_member/questlist"
     Public Const start As String = "/kcsapi/api_req_quest/start"
+    Public Const start2 As String = "/kcsapi/api_req_map/start"
     Public Const battleresult As String = "/kcsapi/api_req_sortie/battleresult"
     Public Const next_map As String = "/kcsapi/api_req_map/next"
     Public Const map_info As String = "/kcsapi/api_get_member/mapinfo"
@@ -1065,15 +1066,13 @@ Public Class StructureOperationClass
             End If
 
             '出撃中
-            If path = URLDataClass.start Or path = URLDataClass.next_map Then
+            If path = URLDataClass.start2 Or path = URLDataClass.next_map Then
                 If JsonObject("api_data")("api_maparea_id") IsNot Nothing Then MyDataClass.Start.api_maparea_id = JsonObject("api_data")("api_maparea_id")
                 If JsonObject("api_data")("api_mapinfo_no") IsNot Nothing Then MyDataClass.Start.api_mapinfo_no = JsonObject("api_data")("api_mapinfo_no")
                 If JsonObject("api_data")("api_no") IsNot Nothing Then MyDataClass.Start.api_no = JsonObject("api_data")("api_no")
                 If JsonObject("api_data")("api_id") IsNot Nothing Then MyDataClass.Start.api_id = JsonObject("api_data")("api_id")
 
-                If path = URLDataClass.start Then
-                    MyDataClass.Start.出撃 = True
-                End If
+                MyDataClass.Start.出撃 = True
             End If
             If path = URLDataClass.battleresult Then
                 If JsonObject("api_data")("api_get_ship") IsNot Nothing Then

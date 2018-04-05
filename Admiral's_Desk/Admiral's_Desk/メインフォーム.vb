@@ -118,6 +118,8 @@
             StructureOperationClass.JsonDataInputToStructure(JSONObject, path)
 
 
+
+
         End If
 
     End Sub
@@ -249,36 +251,9 @@
             MyDataClass.Start.出力 = False
 
         End If
-
-
         '大破通知
         If MyDataClass.Start.出撃 = True Then
-            If オプション.大破通知.Checked = True Then
-                Dim 大破艦あり As Boolean = False
 
-                For Each port In MyDataClass.MyPort
-
-                    For Each kanmusu In port.api_ship
-                        '発見できた母港IDを保存
-                        '母港IDがわかれば艦娘の情報がわかる
-                        Dim 母港配列ID As Integer = Component.KancollePortKanmusuSearch(kanmusu)
-                        Dim 艦娘配列ID As Integer = Component.KancolleShipIdSearch(MyDataClass.MyKanmusu(母港配列ID).api_ship_id)
-
-                        If 艦娘配列ID.ToString <> "0" Then
-                            If MyDataClass.MyKanmusu(母港配列ID).api_nowhp / MyDataClass.MyKanmusu(母港配列ID).api_maxhp <= 0.25 Then
-                                大破艦あり = True
-                            End If
-                        End If
-                    Next
-
-
-
-                Next
-
-                    If 大破艦あり = True Then
-                    MessageBox.Show("艦隊に大破している艦娘がいます！", "大破通知", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
-                End If
-            End If
         End If
     End Sub
 

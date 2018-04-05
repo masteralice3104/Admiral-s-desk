@@ -6,6 +6,7 @@
         'まずは消す
         艦娘一覧.Rows.Clear()
 
+
         For Each Kanmusu In MyDataClass.MyKanmusu
             '変数の準備
             Dim ID As Integer
@@ -45,10 +46,20 @@
 
                 '出力
                 艦娘一覧.Rows.Add(ID, 艦種, 艦娘名, Lv, cond, 耐久, 対潜, 運, 夜戦火力, 装備(0), 装備(1), 装備(2), 装備(3), 装備(4), 装備(5))
+
+
+
+
+
+
             End If
 
 
         Next
+
+
+
+
     End Sub
 
     Private Sub 全艦娘一覧_Load(sender As Object, e As EventArgs) Handles MyBase.Load
