@@ -296,7 +296,7 @@
             Me.制空値.Text = 制空値.ToString
 
             '索敵スコア
-            Me.合計索敵値.Text = Component.艦これ索敵スコア.判定式33計算()
+            Me.合計索敵値.Text = Component.艦これ索敵スコア.判定式33計算().ToString("00.0")
 
             '大破艦確認用
             If 大破艦確認 = True Then
