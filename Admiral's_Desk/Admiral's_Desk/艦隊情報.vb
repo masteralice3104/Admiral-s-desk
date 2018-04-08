@@ -65,8 +65,6 @@
 
 
 
-
-
         'まずDataGridViewの項目全消し
         一艦隊情報.Rows.Clear()
 
@@ -280,6 +278,14 @@
                         If MyDataClass.MyKanmusu(母港配列ID).api_nowhp / MyDataClass.MyKanmusu(母港配列ID).api_maxhp <= 0.25 Then
                             大破艦確認 = True
                         End If
+
+
+                        '先制対潜艦か否か判別
+                        'http://wikiwiki.jp/kancolle/?%C2%D0%C0%F8%C0%E8%C0%A9%C7%FA%CD%EB%B9%B6%B7%E2 より
+
+
+
+
                     End If
 
 
