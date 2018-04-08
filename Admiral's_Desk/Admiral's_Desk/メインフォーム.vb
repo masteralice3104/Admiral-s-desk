@@ -9,13 +9,6 @@
 
 
 
-    Private Sub ブラウザ_DocumentCompleted(sender As Object, e As WebBrowserDocumentCompletedEventArgs) Handles ブラウザ.DocumentCompleted
-        ブラウザ.ScrollBarsEnabled = False
-        ブラウザ.Document.Window.ScrollTo(123, 95)
-
-    End Sub
-
-
 
     Private Sub メインフォーム_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
@@ -48,24 +41,13 @@
         ElseIf オプション.動作調整バー.Value = 0 Then
             オプション.動作速度設定 = 2.5
         End If
+
+
     End Sub
 
+
+
     Private Sub データ検知(oSession As Nekoxy.Session)
-
-        'この辺は Component.KancolleReadJson で置換されました
-
-        '        'とりあえずNekoxyからパスを受け取る
-        '       Dim path As String = oSession.Request.PathAndQuery
-        '
-        '       'JSONのデータもぶち込む
-        '        Dim JSONtemporaryData As String = oSession.Response.BodyAsString
-
-        '        If (path.StartsWith("/kcsapi/api_")) Then
-        '          'JSONの先頭にある余計な文字を取り除く
-        '           Dim JSONData As String = JSONtemporaryData.Substring(7)
-        '
-        '           'JSON文字列→JSON形式データに復元
-        '            Dim JSONObject As Object = Newtonsoft.Json.JsonConvert.DeserializeObject(JSONData)
 
         Dim JSONObject As Object = Component.KancolleReadJson(oSession, URLDataClass.kcsapi)
         If JSONObject IsNot Nothing Then
@@ -209,7 +191,7 @@
                     '参考
                     System.Diagnostics.Process.Start(開くページ)
                 End If
-                End If
+            End If
 
         End If
     End Sub
@@ -259,5 +241,11 @@
 
     Private Sub 全艦娘一覧ウインドウ表示_Click(sender As Object, e As EventArgs) Handles 全艦娘一覧ウインドウ表示.Click
         全艦娘一覧.Visible = True
+    End Sub
+
+    Private Sub ブラウザ_DocumentCompleted(sender As Object, e As WebBrowserDocumentCompletedEventArgs) Handles ブラウザ.DocumentCompleted
+        ブラウザ.ScrollBarsEnabled = False
+        ブラウザ.Document.Window.ScrollTo(123, 95)
+
     End Sub
 End Class

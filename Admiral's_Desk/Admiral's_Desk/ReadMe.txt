@@ -1,7 +1,7 @@
 ﻿■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 
 　　　　　　「艦隊これくしょん－艦これ－」専用ブラウザ
-　　　　　　　　Admiral's Desk ver0.1.1.0α ReadMe
+　　　　　　　　Admiral's Desk ver0.1.2.1α ReadMe
 
 　　　　　　　by ますたー。 (Twitter:@masteralice3104)
 　　　
@@ -173,7 +173,7 @@
 
 【７．更新ログ】
 
-2018/04/07 Admiral's Desk ver 0.1.2.1α
+2018/04/09 Admiral's Desk ver 0.1.2.1α
 　　　[修正]全艦娘一覧のウインドウ内容を微修正
 
 　　　[修正]33式索敵スコア表示欄の微修正
