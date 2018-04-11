@@ -65,7 +65,7 @@
         ElseIf no = 7 Then
             Return "分岐"
         ElseIf no = 8 Then
-            Return "未設定"
+            Return "うずしお"
         ElseIf no = 9 Then
             Return "未設定"
         ElseIf no = 10 Then
