@@ -98,8 +98,8 @@ Public Structure DataClass
         Public Structure MapInfo
             Public api_id As Long                       'マップID
             Public api_maparea_id As Long               'api_noと組み合わせてマップ名(通称)を表現。
-            Public api_name As String                   'マップ名
             Public api_no As Long                       'string.format("{0}-{1}",api_maparea_id,api_no)って感じに使う
+            Public api_name As String                   'マップ名
             Public api_max_maphp As Long                'マップのHP。HP制じゃないマップはnullになっている
             Public api_required_defeat_count As Long    'マップ突破までに必要な回数
 
@@ -320,6 +320,66 @@ Public Structure DataClass
 
 End Structure
 
+'予報に関する情報
+Public Structure Forecast
+    'ここは「戦闘予報」に関する基礎データが入っている場所
+
+
+    '識別情報
+
+    'マップ
+    Public map As String '形式は1-1とか
+        'マス
+        Public square As Integer '艦これから送りつけられる形式と同じ。固有idではなくマップごとのno
+
+        '戦闘種別
+        Public Battle_type As Integer
+    'ここのBattle_typeは種別が以下のように表されます
+    '   0   不明                  これを見つけたら処理を飛ばす
+    '   1   昼戦
+    '   2   開幕夜戦
+    '   3   夜戦(昼戦移行あり)
+    '   4   航空戦
+    '   5   空襲戦
+    '   6   アイテム              これを見つけたら処理を飛ばす
+    '   7   ただの分岐            これを見つけたら処理を飛ばす
+    '   8   [空き]
+    '   9   [空き]
+    '   10  [空き]
+
+
+    '敵編成
+
+    '的中率(%)
+    Public percent As Integer
+        '0～100までです
+
+        '陣形
+        Public formation As Integer
+        '   1   単縦陣
+        '   2   複縦陣
+        '   3   輪形陣
+        '   4   梯形陣
+        '   5   単横陣
+        '   6   警戒陣
+
+        '制空値
+        Public air As Integer
+
+        '弾着有無
+        Public danchaku As Integer
+
+        '敵編成
+        Public hensei As String
+
+        '自分のレベルで変わる場合の識別情報
+        Public max_lv As Integer
+        Public min_lv As Integer
+    '既定値は max_lv=1 min_lv=120
+
+
+End Structure
+
 
 Public Class CommonDataClass
     '共通データ
@@ -328,6 +388,9 @@ Public Class CommonDataClass
     Public Shared ShipType(21) As DataClass.CommonData.ShipType                '艦種データ
     Public Shared Mission(50) As DataClass.CommonData.Mission                  '遠征データ
     Public Shared MapInfo(127) As DataClass.CommonData.MapInfo                  'マップデータ
+
+    '予測のための情報
+    Public Shared 予測基礎情報(1024) As Forecast
 End Class
 
 Public Class MyDataClass
@@ -386,6 +449,7 @@ Public Class URLDataClass
     Public Const createitem As String = "/kcsapi/api_req_kousyou/createitem"
     Public Const kdock As String = "/kcsapi/api_get_member/kdock"
 End Class
+
 
 
 

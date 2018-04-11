@@ -183,6 +183,12 @@
     <Compile Include="工廠情報.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="戦闘予報.Designer.vb">
+      <DependentUpon>戦闘予報.vb</DependentUpon>
+    </Compile>
+    <Compile Include="戦闘予報.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="提督情報.Designer.vb">
       <DependentUpon>提督情報.vb</DependentUpon>
     </Compile>
@@ -224,6 +230,9 @@
     <EmbeddedResource Include="工廠情報.resx">
       <DependentUpon>工廠情報.vb</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="戦闘予報.resx">
+      <DependentUpon>戦闘予報.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="提督情報.resx">
       <DependentUpon>提督情報.vb</DependentUpon>
     </EmbeddedResource>
@@ -235,6 +244,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="forecast.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="My Project\app.manifest" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>

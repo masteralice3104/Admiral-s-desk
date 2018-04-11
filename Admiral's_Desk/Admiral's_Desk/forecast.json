@@ -1,0 +1,114 @@
+﻿{
+  "comment": "http://shancarter.github.io/mr-data-converter/ を利用した",
+  "json_ver": 1,
+  "data":[
+    {
+      "map": "1-1",
+      "square": 1,
+      "Battle_type": 1,
+      "percent": 33,
+      "min_lv": 1,
+      "max_lv": 120,
+      "danchaku": 0,
+      "hensei": "駆逐イ級",
+      "formation": 1,
+      "air": 0
+    },
+    {
+      "map": "1-1",
+      "square": 1,
+      "Battle_type": 1,
+      "percent": 33,
+      "min_lv": 1,
+      "max_lv": 120,
+      "danchaku": 0,
+      "hensei": "駆逐ロ級",
+      "formation": 1,
+      "air": 0
+    },
+    {
+      "map": "1-1",
+      "square": 1,
+      "Battle_type": 1,
+      "percent": 33,
+      "min_lv": 1,
+      "max_lv": 120,
+      "danchaku": 0,
+      "hensei": "駆逐ハ級",
+      "formation": 1,
+      "air": 0
+    },
+    {
+      "map": "1-1",
+      "square": 2,
+      "Battle_type": 1,
+      "percent": 33,
+      "min_lv": 1,
+      "max_lv": 120,
+      "danchaku": 0,
+      "hensei": "駆逐イ級、駆逐イ級",
+      "formation": 1,
+      "air": 0
+    },
+    {
+      "map": "1-1",
+      "square": 2,
+      "Battle_type": 1,
+      "percent": 33,
+      "min_lv": 1,
+      "max_lv": 120,
+      "danchaku": 0,
+      "hensei": "駆逐ロ級、駆逐イ級",
+      "formation": 1,
+      "air": 0
+    },
+    {
+      "map": "1-1",
+      "square": 2,
+      "Battle_type": 1,
+      "percent": 33,
+      "min_lv": 1,
+      "max_lv": 120,
+      "danchaku": 0,
+      "hensei": "駆逐ハ級、駆逐ハ級",
+      "formation": 1,
+      "air": 0
+    },
+    {
+      "map": "1-1",
+      "square": 3,
+      "Battle_type": 1,
+      "percent": 33,
+      "min_lv": 1,
+      "max_lv": 120,
+      "danchaku": 0,
+      "hensei": "軽巡ホ級、駆逐イ級、駆逐イ級",
+      "formation": 1,
+      "air": 0
+    },
+    {
+      "map": "1-1",
+      "square": 3,
+      "Battle_type": 1,
+      "percent": 33,
+      "min_lv": 1,
+      "max_lv": 120,
+      "danchaku": 0,
+      "hensei": "軽巡ホ級、駆逐ロ級、駆逐ロ級",
+      "formation": 1,
+      "air": 0
+    },
+    {
+      "map": "1-1",
+      "square": 3,
+      "Battle_type": 1,
+      "percent": 33,
+      "min_lv": 1,
+      "max_lv": 120,
+      "danchaku": 0,
+      "hensei": "軽巡ホ級、駆逐ハ級、駆逐ロ級、駆逐ロ級",
+      "formation": 1,
+      "air": 0
+    }
+  ]
+}

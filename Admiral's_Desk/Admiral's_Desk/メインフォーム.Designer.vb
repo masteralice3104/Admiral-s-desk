@@ -35,6 +35,7 @@ Partial Class メインフォーム
         Me.ヘルプHToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ヘルプHToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.戦闘予報アクセス = New System.Windows.Forms.CheckBox()
         Me.全艦娘一覧ウインドウ表示 = New System.Windows.Forms.Button()
         Me.遠征情報アクセス = New System.Windows.Forms.CheckBox()
         Me.任務情報アクセス = New System.Windows.Forms.CheckBox()
@@ -128,6 +129,7 @@ Partial Class メインフォーム
         '
         'Panel1
         '
+        Me.Panel1.Controls.Add(Me.戦闘予報アクセス)
         Me.Panel1.Controls.Add(Me.全艦娘一覧ウインドウ表示)
         Me.Panel1.Controls.Add(Me.遠征情報アクセス)
         Me.Panel1.Controls.Add(Me.任務情報アクセス)
@@ -140,6 +142,18 @@ Partial Class メインフォーム
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(800, 41)
         Me.Panel1.TabIndex = 2
+        '
+        '戦闘予報アクセス
+        '
+        Me.戦闘予報アクセス.AutoSize = True
+        Me.戦闘予報アクセス.Checked = Global.Admiral_s_Desk.My.MySettings.Default.戦闘予報ウインドウ表示
+        Me.戦闘予報アクセス.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.Admiral_s_Desk.My.MySettings.Default, "戦闘予報ウインドウ表示", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.戦闘予報アクセス.Location = New System.Drawing.Point(363, 16)
+        Me.戦闘予報アクセス.Name = "戦闘予報アクセス"
+        Me.戦闘予報アクセス.Size = New System.Drawing.Size(72, 16)
+        Me.戦闘予報アクセス.TabIndex = 8
+        Me.戦闘予報アクセス.Text = "戦闘予報"
+        Me.戦闘予報アクセス.UseVisualStyleBackColor = True
         '
         '全艦娘一覧ウインドウ表示
         '
@@ -321,4 +335,5 @@ Partial Class メインフォーム
     Friend WithEvents 汎用タイマ As Timer
     Friend WithEvents 全艦娘一覧ウインドウ表示 As Button
     Friend WithEvents ブラウザ As WebBrowser
+    Friend WithEvents 戦闘予報アクセス As CheckBox
 End Class

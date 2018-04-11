@@ -227,7 +227,7 @@
 
                 Dim マップ名 As String = String.Format("""{0}-{1}""", MyDataClass.Start.api_maparea_id, MyDataClass.Start.api_mapinfo_no)
 
-                IO.File.AppendAllText(filePath, String.Format("{0},{1},{2},{3},", マップ名, MyDataClass.Start.api_no, MyDataClass.Start.api_ship_type, MyDataClass.Start.api_ship_name) & MyDataClass.Start.api_win_rank & "," & String.Format("{0:yyyy/MM/dd HH:mm:ss}", DateTimeOffset.Now) & "" & vbCrLf, enc)
+                IO.File.AppendAllText(filePath, String.Format("{0},{1},{2},{3},", マップ名, Component.MapIDSquareString(マップ名, MyDataClass.Start.api_no), MyDataClass.Start.api_ship_type, MyDataClass.Start.api_ship_name) & MyDataClass.Start.api_win_rank & "," & String.Format("{0:yyyy/MM/dd HH:mm:ss}", DateTimeOffset.Now) & "" & vbCrLf, enc)
             End If
 
             MyDataClass.Start.出力 = False
@@ -247,5 +247,13 @@
         ブラウザ.ScrollBarsEnabled = False
         ブラウザ.Document.Window.ScrollTo(123, 95)
 
+    End Sub
+
+    Private Sub 戦闘予報アクセス_CheckedChanged(sender As Object, e As EventArgs) Handles 戦闘予報アクセス.CheckedChanged
+        If 戦闘予報アクセス.Checked = True Then
+            戦闘予報.Visible = True
+        Else
+            戦闘予報.Visible = False
+        End If
     End Sub
 End Class
