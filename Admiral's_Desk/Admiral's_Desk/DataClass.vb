@@ -329,11 +329,11 @@ Public Structure Forecast
 
     'マップ
     Public map As String '形式は1-1とか
-        'マス
-        Public square As Integer '艦これから送りつけられる形式と同じ。固有idではなくマップごとのno
+    'マス
+    Public square As String '艦これから送りつけられる形式と同じ。固有idではなくマップごとのno
 
-        '戦闘種別
-        Public Battle_type As Integer
+    '戦闘種別
+    Public Battle_type As Integer
     'ここのBattle_typeは種別が以下のように表されます
     '   0   不明                  これを見つけたら処理を飛ばす
     '   1   昼戦
@@ -342,8 +342,8 @@ Public Structure Forecast
     '   4   航空戦
     '   5   空襲戦
     '   6   アイテム              これを見つけたら処理を飛ばす
-    '   7   ただの分岐            これを見つけたら処理を飛ばす
-    '   8   [空き]
+    '   7   きのせい 　           これを見つけたら処理を飛ばす
+    '   8   うずしお              これを見つけたら処理を飛ばす
     '   9   [空き]
     '   10  [空き]
 

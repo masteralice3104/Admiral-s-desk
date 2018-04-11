@@ -51,14 +51,14 @@
                     For Each BasicData In CommonDataClass.予測基礎情報
 
                         'マップ名・マス番号一致確認
-                        If BasicData.map = マップ名 And BasicData.square = MyDataClass.Start.api_no Then
+                        If BasicData.map = マップ名 And BasicData.square = Component.MapIDSquareString(マップ名, MyDataClass.Start.api_no) Then
 
                             '読込初回処理
                             If データ読み込み回数 = 0 Then
                                 予報文 += "戦闘種別：" + Component.BattleTypeNameString(BasicData.Battle_type) + vbCrLf
                             End If
 
-                            If BasicData.Battle_type = 6 Or BasicData.Battle_type = 7 Then
+                            If BasicData.Battle_type = 6 Or BasicData.Battle_type = 7 Or BasicData.Battle_type = 8 Then
                                 データ読み込み回数 += 1
                                 Continue For
                             End If
@@ -146,7 +146,7 @@
 
         '変数格納用
         Dim マップ名 As String = ""
-        Dim マス番号 As Integer = 0
+        Dim マス名称 As String = 0
         Dim 戦闘種別 As Integer = 0
         Dim 的中確率 As Integer = 0
         Dim 敵艦陣形 As Integer = 0
@@ -160,7 +160,7 @@
             For Each Obj In JSONObject("data")
                 '読み込んで
                 If Obj("map") IsNot Nothing Then マップ名 = Obj("map")
-                If Obj("square") IsNot Nothing Then マス番号 = Obj("square")
+                If Obj("square") IsNot Nothing Then マス名称 = Obj("square")
                 If Obj("Battle_type") IsNot Nothing Then 戦闘種別 = Obj("Battle_type")
                 If Obj("percent") IsNot Nothing Then 的中確率 = Obj("percent")
                 If Obj("min_lv") IsNot Nothing Then 司令Lv(0) = Obj("min_lv")
@@ -177,7 +177,7 @@
 
                 '代入
                 CommonDataClass.予測基礎情報(CommonDataClass.予測基礎情報.Count - 1).map = マップ名
-                CommonDataClass.予測基礎情報(CommonDataClass.予測基礎情報.Count - 1).square = マス番号
+                CommonDataClass.予測基礎情報(CommonDataClass.予測基礎情報.Count - 1).square = マス名称
                 CommonDataClass.予測基礎情報(CommonDataClass.予測基礎情報.Count - 1).Battle_type = 戦闘種別
                 CommonDataClass.予測基礎情報(CommonDataClass.予測基礎情報.Count - 1).percent = 的中確率
                 CommonDataClass.予測基礎情報(CommonDataClass.予測基礎情報.Count - 1).formation = 敵艦陣形
