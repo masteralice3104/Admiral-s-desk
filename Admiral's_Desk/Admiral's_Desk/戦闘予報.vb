@@ -26,15 +26,18 @@
 
         Dim 予報文 As String = ""
         Dim データ読み込み回数 As Long = 0
-        Dim 最小制空値 As Long = 0
+        Dim 最小制空値 As Long = 10000
         Dim 最大制空値 As Long = 0
-        Dim 自艦隊制空値 As Long = Long.Parse(艦隊情報.制空値.Text)
+        Dim 自艦隊制空値 As Long
         Dim 航空戦確率() As Long = {0, 0, 0, 0, 0}
         Dim 弾着確率 As Long = 0
 
 
         '出撃中
         If MyDataClass.Start.出撃 = True Then
+
+            '制空値入力
+            自艦隊制空値 = Long.Parse(艦隊情報.制空値.Text)
 
             'マップ判定
             If MyDataClass.Start.api_maparea_id <> Nothing And MyDataClass.Start.api_mapinfo_no <> Nothing Then
@@ -63,9 +66,28 @@
                                 Continue For
                             End If
 
+
+                            '前哨戦と最終形態を判別する
+                            If BasicData.Battle_type = 9 Or BasicData.Battle_type = 10 Then
+                                For count As Integer = 0 To 提督情報.マップ状態.Rows.Count - 1
+                                    If 提督情報.マップ状態.Rows(count).Cells(0).ToString = マップ名 Then
+                                        If BasicData.Battle_type = 9 And 提督情報.マップ状態.Rows(count).Cells(1).ToString.StartsWith("1/") Then
+                                            Continue For
+                                        End If
+                                        If BasicData.Battle_type = 10 Then
+                                            If 提督情報.マップ状態.Rows(count).Cells(1).ToString.StartsWith("1/") Then
+                                            Else
+                                                Continue For
+                                            End If
+
+                                        End If
+                                    End If
+                                Next
+                            End If
+
                             If データ読み込み回数 = 0 Then
 
-                                予報文 += "的中率　｜　陣  形　｜　編　成" + vbCrLf
+                                予報文 += "的中率　｜　陣  形　 ｜　編　成" + vbCrLf
                             End If
 
                             '司令LV確認
@@ -74,34 +96,35 @@
                                 予報文 += BasicData.percent.ToString("00") + "％　 　｜　" + Component.FormationNameString(BasicData.formation) + "  ｜　　" + BasicData.hensei + vbCrLf
 
                                 '制空値比較
-                                If 最大制空値 < BasicData.air Then
+                                If 最大制空値 <= BasicData.air Then
                                     最大制空値 = BasicData.air
-                                ElseIf 最小制空値 > BasicData.air Then
+                                ElseIf 最小制空値 >= BasicData.air Then
                                     最小制空値 = BasicData.air
                                 End If
 
+
                                 '制空値判定
-                                If BasicData.air * 3 < 自艦隊制空値 Then
-                                    航空戦確率(0) += BasicData.percent
-                                ElseIf BasicData.air * 2 < 自艦隊制空値 Then
-                                    航空戦確率(1) += BasicData.percent
-                                ElseIf BasicData.air < 自艦隊制空値 Then
-                                    航空戦確率(2) += BasicData.percent
-                                ElseIf BasicData.air > 自艦隊制空値 * 2 Then
-                                    航空戦確率(3) += BasicData.percent
-                                    '弾着確率
-                                    If BasicData.danchaku = 1 Then
-                                        弾着確率 += BasicData.percent
-                                    End If
-                                ElseIf BasicData.air > 自艦隊制空値 * 3 Then
-                                    航空戦確率(4) += BasicData.percent
-                                    '弾着確率
-                                    If BasicData.danchaku = 1 Then
-                                        弾着確率 += BasicData.percent
-                                    End If
-                                ElseIf BasicData.air > 自艦隊制空値 Then
-                                    航空戦確率(2) += BasicData.percent
-                                End If
+                                Select Case 自艦隊制空値
+                                    Case Is >= BasicData.air * 3
+                                        航空戦確率(0) += BasicData.percent
+
+                                    Case Is >= BasicData.air * 2
+                                        航空戦確率(1) += BasicData.percent
+                                    Case BasicData.air * 0.5 To BasicData.air * 2
+                                        航空戦確率(2) += BasicData.percent
+                                    Case Is <= BasicData.air * 0.5
+                                        航空戦確率(3) += BasicData.percent
+                                        '弾着確率
+                                        If BasicData.danchaku = 1 Then
+                                            弾着確率 += BasicData.percent
+                                        End If
+                                    Case Is <= BasicData.air / 3
+                                        航空戦確率(4) += BasicData.percent
+                                        '弾着確率
+                                        If BasicData.danchaku = 1 Then
+                                            弾着確率 += BasicData.percent
+                                        End If
+                                End Select
 
 
 
@@ -127,7 +150,7 @@
             予報文 += "    劣勢：" + 航空戦確率(3).ToString + "%" + vbCrLf
             予報文 += "    喪失：" + 航空戦確率(4).ToString + "%" + vbCrLf + vbCrLf
 
-            予報文 += "弾着観測射撃をされる可能性：" + 弾着確率.ToString + vbCrLf
+            予報文 += "弾着観測射撃をされる可能性：" + 弾着確率.ToString + "％" + vbCrLf
 
         End If
 
