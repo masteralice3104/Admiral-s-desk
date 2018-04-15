@@ -70,24 +70,22 @@
                             Dim 飛ばすフラグ As Boolean = False
 
                             '前哨戦と最終形態を判別する
-                            If BasicData.Battle_type = 9 Or BasicData.Battle_type = 10 Then
-                                For count As Integer = 0 To 提督情報.マップ状態.Rows.Count - 1
-                                    If 提督情報.マップ状態.Rows(count).Cells(0).ToString = マップ名 Then
-                                        If BasicData.Battle_type = 9 And 提督情報.マップ状態.Rows(count).Cells(1).ToString.StartsWith("1/") Then
+                            For count As Integer = 0 To 提督情報.マップ状態.Rows.Count - 1
+                                If 提督情報.マップ状態.Rows(count).Cells(0).ToString = マップ名 Then
+                                    If 提督情報.マップ状態.Rows(count).Cells(1).ToString.StartsWith("1/") Then
+                                        If BasicData.Battle_type = 9 Then
                                             飛ばすフラグ = True
                                         End If
+                                    Else
                                         If BasicData.Battle_type = 10 Then
-                                            If 提督情報.マップ状態.Rows(count).Cells(1).ToString.StartsWith("1/") Then
-                                            Else
-                                                飛ばすフラグ = True
-                                            End If
-                                        End If
-                                        If BasicData.Battle_type = 1 Then
                                             飛ばすフラグ = True
                                         End If
                                     End If
-                                Next
-                            End If
+                                    If BasicData.Battle_type = 1 Then
+                                        飛ばすフラグ = True
+                                    End If
+                                End If
+                            Next
 
                             '飛ばすフラグをみつけたら飛ばす
                             If 飛ばすフラグ = True Then
