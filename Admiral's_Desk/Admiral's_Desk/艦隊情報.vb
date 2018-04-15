@@ -60,16 +60,8 @@
 
 
 
-
-
-
-
-
         'まずDataGridViewの項目全消し
         一艦隊情報.Rows.Clear()
-
-
-
 
 
         '変なデータを読まないようにする
@@ -141,6 +133,7 @@
                             弾薬上限 = CommonDataClass.AllKanmusuData(艦娘配列ID).api_bull_max
                         End If
 
+                        'キープ
                         Dim 燃料 As String = String.Format("{0}/{1}", 燃料現在, 燃料上限)
                         Dim 弾薬 As String = String.Format("{0}/{1}", 弾薬現在, 弾薬上限)
 
@@ -156,6 +149,7 @@
                             装備(cnt) = Component.KancolleEquipmentNameSearch(MyDataClass.MyKanmusu(母港配列ID).api_slot(cnt))
                         Next
 
+
                         '補強増設も忘れずに
                         If Component.KancolleEquipmentNameSearch(MyDataClass.MyKanmusu(母港配列ID).api_slot_ex) IsNot Nothing Then
                             装備(5) = Component.KancolleEquipmentNameSearch(MyDataClass.MyKanmusu(母港配列ID).api_slot_ex)
@@ -168,7 +162,8 @@
                         'http://wikiwiki.jp/kancolle/?%B9%D2%B6%F5%C0%EF#AirSupremacy
                         For cnt As Integer = 0 To 4
                             Dim 対空値 As Long = Component.KancolleEquipmentAirspaceSearch(MyDataClass.MyKanmusu(母港配列ID).api_slot(cnt))
-                            Dim 搭載数 As Long = CommonDataClass.AllKanmusuData(艦娘配列ID).api_maxeq(cnt)
+                            'Dim 搭載数 As Long = CommonDataClass.AllKanmusuData(艦娘配列ID).api_maxeq(cnt)
+                            Dim 搭載数 As Long = MyDataClass.MyKanmusu(母港配列ID).api_onslot(cnt)
                             Dim 熟練補正 As Double = Component.KancolleEquipmentProficiencyCorrectionSearch(MyDataClass.MyKanmusu(母港配列ID).api_slot(cnt))
 
 
