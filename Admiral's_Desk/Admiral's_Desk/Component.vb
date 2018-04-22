@@ -67,9 +67,9 @@
         ElseIf no = 8 Then
             Return "うずしお"
         ElseIf no = 9 Then
-            Return "未設定"
+            Return "前哨戦昼戦"
         ElseIf no = 10 Then
-            Return "未設定"
+            Return "最終形態昼戦"
         ElseIf no = 11 Then
             Return "未設定"
         Else
