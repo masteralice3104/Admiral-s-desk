@@ -179,9 +179,9 @@ Partial Class 艦隊情報
         Me.制空値.AutoSize = True
         Me.制空値.Location = New System.Drawing.Point(253, 16)
         Me.制空値.Name = "制空値"
-        Me.制空値.Size = New System.Drawing.Size(29, 12)
+        Me.制空値.Size = New System.Drawing.Size(11, 12)
         Me.制空値.TabIndex = 3
-        Me.制空値.Text = "0000"
+        Me.制空値.Text = "0"
         '
         'ラベル02
         '
@@ -195,7 +195,7 @@ Partial Class 艦隊情報
         '合計索敵値
         '
         Me.合計索敵値.AutoSize = True
-        Me.合計索敵値.Location = New System.Drawing.Point(420, 15)
+        Me.合計索敵値.Location = New System.Drawing.Point(420, 16)
         Me.合計索敵値.Name = "合計索敵値"
         Me.合計索敵値.Size = New System.Drawing.Size(25, 12)
         Me.合計索敵値.TabIndex = 5

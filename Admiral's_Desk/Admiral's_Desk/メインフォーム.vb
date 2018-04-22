@@ -3,17 +3,10 @@
     'アップデートに必要な情報
 
     Public Const ソフト名 As String = "Admiral's Desk"
-    Public Const バージョン As String = "0.1.2.0"
+    Public Const バージョン As String = "0.1.3.0"
     Public Const バージョン他表記 As String = "α"
     Dim 更新後URL As String = ""
 
-
-
-    Private Sub ブラウザ_DocumentCompleted(sender As Object, e As WebBrowserDocumentCompletedEventArgs) Handles ブラウザ.DocumentCompleted
-        ブラウザ.ScrollBarsEnabled = False
-        ブラウザ.Document.Window.ScrollTo(123, 95)
-
-    End Sub
 
 
 
@@ -48,24 +41,13 @@
         ElseIf オプション.動作調整バー.Value = 0 Then
             オプション.動作速度設定 = 2.5
         End If
+
+
     End Sub
 
+
+
     Private Sub データ検知(oSession As Nekoxy.Session)
-
-        'この辺は Component.KancolleReadJson で置換されました
-
-        '        'とりあえずNekoxyからパスを受け取る
-        '       Dim path As String = oSession.Request.PathAndQuery
-        '
-        '       'JSONのデータもぶち込む
-        '        Dim JSONtemporaryData As String = oSession.Response.BodyAsString
-
-        '        If (path.StartsWith("/kcsapi/api_")) Then
-        '          'JSONの先頭にある余計な文字を取り除く
-        '           Dim JSONData As String = JSONtemporaryData.Substring(7)
-        '
-        '           'JSON文字列→JSON形式データに復元
-        '            Dim JSONObject As Object = Newtonsoft.Json.JsonConvert.DeserializeObject(JSONData)
 
         Dim JSONObject As Object = Component.KancolleReadJson(oSession, URLDataClass.kcsapi)
         If JSONObject IsNot Nothing Then
@@ -116,6 +98,8 @@
 
             '構造体に代入する関数
             StructureOperationClass.JsonDataInputToStructure(JSONObject, path)
+
+
 
 
         End If
@@ -207,7 +191,7 @@
                     '参考
                     System.Diagnostics.Process.Start(開くページ)
                 End If
-                End If
+            End If
 
         End If
     End Sub
@@ -233,6 +217,8 @@
     End Sub
 
     Private Sub 汎用タイマ_Tick(sender As Object, e As EventArgs) Handles 汎用タイマ.Tick
+
+        'ドロップ艦娘保存
         If MyDataClass.Start.出力 = True Then
 
             If オプション.入手艦娘記録.Checked = True And オプション.保存ファイル名.Text <> "" Then
@@ -241,15 +227,33 @@
 
                 Dim マップ名 As String = String.Format("""{0}-{1}""", MyDataClass.Start.api_maparea_id, MyDataClass.Start.api_mapinfo_no)
 
-                IO.File.AppendAllText(filePath, String.Format("{0},{1},{2},{3},", マップ名, MyDataClass.Start.api_no, MyDataClass.Start.api_ship_type, MyDataClass.Start.api_ship_name) & MyDataClass.Start.api_win_rank & "," & String.Format("{0:yyyy/MM/dd HH:mm:ss}", DateTimeOffset.Now) & "" & vbCrLf, enc)
+                IO.File.AppendAllText(filePath, String.Format("{0},{1},{2},{3},", マップ名, Component.MapIDSquareString(マップ名, MyDataClass.Start.api_no), MyDataClass.Start.api_ship_type, MyDataClass.Start.api_ship_name) & MyDataClass.Start.api_win_rank & "," & String.Format("{0:yyyy/MM/dd HH:mm:ss}", DateTimeOffset.Now) & "" & vbCrLf, enc)
             End If
 
             MyDataClass.Start.出力 = False
+
+        End If
+        '大破通知
+        If MyDataClass.Start.出撃 = True Then
 
         End If
     End Sub
 
     Private Sub 全艦娘一覧ウインドウ表示_Click(sender As Object, e As EventArgs) Handles 全艦娘一覧ウインドウ表示.Click
         全艦娘一覧.Visible = True
+    End Sub
+
+    Private Sub ブラウザ_DocumentCompleted(sender As Object, e As WebBrowserDocumentCompletedEventArgs) Handles ブラウザ.DocumentCompleted
+        ブラウザ.ScrollBarsEnabled = False
+        ブラウザ.Document.Window.ScrollTo(123, 95)
+
+    End Sub
+
+    Private Sub 戦闘予報アクセス_CheckedChanged(sender As Object, e As EventArgs) Handles 戦闘予報アクセス.CheckedChanged
+        If 戦闘予報アクセス.Checked = True Then
+            戦闘予報.Visible = True
+        Else
+            戦闘予報.Visible = False
+        End If
     End Sub
 End Class

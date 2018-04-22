@@ -34,8 +34,9 @@ Partial Class メインフォーム
         Me.オプションoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ヘルプHToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ヘルプHToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
-        Me.ブラウザ = New System.Windows.Forms.WebBrowser()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.戦闘予報アクセス = New System.Windows.Forms.CheckBox()
+        Me.全艦娘一覧ウインドウ表示 = New System.Windows.Forms.Button()
         Me.遠征情報アクセス = New System.Windows.Forms.CheckBox()
         Me.任務情報アクセス = New System.Windows.Forms.CheckBox()
         Me.工廠情報アクセス = New System.Windows.Forms.CheckBox()
@@ -46,7 +47,7 @@ Partial Class メインフォーム
         Me.更新確認ブラウザ = New System.Windows.Forms.WebBrowser()
         Me.更新URL確認用ブラウザ = New System.Windows.Forms.WebBrowser()
         Me.汎用タイマ = New System.Windows.Forms.Timer(Me.components)
-        Me.全艦娘一覧ウインドウ表示 = New System.Windows.Forms.Button()
+        Me.ブラウザ = New System.Windows.Forms.WebBrowser()
         Me.MenuStrip1.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
@@ -71,13 +72,13 @@ Partial Class メインフォーム
         '
         Me.エクスポートEToolStripMenuItem.Enabled = False
         Me.エクスポートEToolStripMenuItem.Name = "エクスポートEToolStripMenuItem"
-        Me.エクスポートEToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.エクスポートEToolStripMenuItem.Size = New System.Drawing.Size(146, 22)
         Me.エクスポートEToolStripMenuItem.Text = "エクスポート(&M)"
         '
         '終了XToolStripMenuItem
         '
         Me.終了XToolStripMenuItem.Name = "終了XToolStripMenuItem"
-        Me.終了XToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.終了XToolStripMenuItem.Size = New System.Drawing.Size(146, 22)
         Me.終了XToolStripMenuItem.Text = "終了(&X)"
         '
         '表示VToolStripMenuItem
@@ -90,13 +91,13 @@ Partial Class メインフォーム
         '更新ToolStripMenuItem
         '
         Me.更新ToolStripMenuItem.Name = "更新ToolStripMenuItem"
-        Me.更新ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.更新ToolStripMenuItem.Size = New System.Drawing.Size(113, 22)
         Me.更新ToolStripMenuItem.Text = "更新(&R)"
         '
         '中止ToolStripMenuItem
         '
         Me.中止ToolStripMenuItem.Name = "中止ToolStripMenuItem"
-        Me.中止ToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.中止ToolStripMenuItem.Size = New System.Drawing.Size(113, 22)
         Me.中止ToolStripMenuItem.Text = "中止(&P)"
         '
         'ツールTToolStripMenuItem
@@ -109,7 +110,7 @@ Partial Class メインフォーム
         'オプションoToolStripMenuItem
         '
         Me.オプションoToolStripMenuItem.Name = "オプションoToolStripMenuItem"
-        Me.オプションoToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.オプションoToolStripMenuItem.Size = New System.Drawing.Size(135, 22)
         Me.オプションoToolStripMenuItem.Text = "オプション(&O)"
         '
         'ヘルプHToolStripMenuItem
@@ -123,27 +124,12 @@ Partial Class メインフォーム
         '
         Me.ヘルプHToolStripMenuItem1.Enabled = False
         Me.ヘルプHToolStripMenuItem1.Name = "ヘルプHToolStripMenuItem1"
-        Me.ヘルプHToolStripMenuItem1.Size = New System.Drawing.Size(180, 22)
+        Me.ヘルプHToolStripMenuItem1.Size = New System.Drawing.Size(120, 22)
         Me.ヘルプHToolStripMenuItem1.Text = "ヘルプ(&H)"
-        '
-        'ブラウザ
-        '
-        Me.ブラウザ.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ブラウザ.Location = New System.Drawing.Point(0, 24)
-        Me.ブラウザ.MaximumSize = New System.Drawing.Size(802, 482)
-        Me.ブラウザ.MinimumSize = New System.Drawing.Size(800, 482)
-        Me.ブラウザ.Name = "ブラウザ"
-        Me.ブラウザ.ScriptErrorsSuppressed = True
-        Me.ブラウザ.ScrollBarsEnabled = False
-        Me.ブラウザ.Size = New System.Drawing.Size(802, 482)
-        Me.ブラウザ.TabIndex = 1
-        Me.ブラウザ.Url = New System.Uri("http://www.dmm.com/netgame/social/-/gadgets/=/app_id=854854/", System.UriKind.Absolute)
-        Me.ブラウザ.WebBrowserShortcutsEnabled = False
         '
         'Panel1
         '
+        Me.Panel1.Controls.Add(Me.戦闘予報アクセス)
         Me.Panel1.Controls.Add(Me.全艦娘一覧ウインドウ表示)
         Me.Panel1.Controls.Add(Me.遠征情報アクセス)
         Me.Panel1.Controls.Add(Me.任務情報アクセス)
@@ -156,6 +142,27 @@ Partial Class メインフォーム
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(800, 41)
         Me.Panel1.TabIndex = 2
+        '
+        '戦闘予報アクセス
+        '
+        Me.戦闘予報アクセス.AutoSize = True
+        Me.戦闘予報アクセス.Checked = Global.Admiral_s_Desk.My.MySettings.Default.戦闘予報ウインドウ表示
+        Me.戦闘予報アクセス.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.Admiral_s_Desk.My.MySettings.Default, "戦闘予報ウインドウ表示", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.戦闘予報アクセス.Location = New System.Drawing.Point(363, 16)
+        Me.戦闘予報アクセス.Name = "戦闘予報アクセス"
+        Me.戦闘予報アクセス.Size = New System.Drawing.Size(72, 16)
+        Me.戦闘予報アクセス.TabIndex = 8
+        Me.戦闘予報アクセス.Text = "戦闘予報"
+        Me.戦闘予報アクセス.UseVisualStyleBackColor = True
+        '
+        '全艦娘一覧ウインドウ表示
+        '
+        Me.全艦娘一覧ウインドウ表示.Location = New System.Drawing.Point(717, 8)
+        Me.全艦娘一覧ウインドウ表示.Name = "全艦娘一覧ウインドウ表示"
+        Me.全艦娘一覧ウインドウ表示.Size = New System.Drawing.Size(75, 23)
+        Me.全艦娘一覧ウインドウ表示.TabIndex = 7
+        Me.全艦娘一覧ウインドウ表示.Text = "全艦娘一覧"
+        Me.全艦娘一覧ウインドウ表示.UseVisualStyleBackColor = True
         '
         '遠征情報アクセス
         '
@@ -265,24 +272,28 @@ Partial Class メインフォーム
         Me.汎用タイマ.Enabled = True
         Me.汎用タイマ.Interval = 1000
         '
-        '全艦娘一覧ウインドウ表示
+        'ブラウザ
         '
-        Me.全艦娘一覧ウインドウ表示.Location = New System.Drawing.Point(717, 8)
-        Me.全艦娘一覧ウインドウ表示.Name = "全艦娘一覧ウインドウ表示"
-        Me.全艦娘一覧ウインドウ表示.Size = New System.Drawing.Size(75, 23)
-        Me.全艦娘一覧ウインドウ表示.TabIndex = 7
-        Me.全艦娘一覧ウインドウ表示.Text = "全艦娘一覧"
-        Me.全艦娘一覧ウインドウ表示.UseVisualStyleBackColor = True
+        Me.ブラウザ.Location = New System.Drawing.Point(-1, 27)
+        Me.ブラウザ.MaximumSize = New System.Drawing.Size(802, 482)
+        Me.ブラウザ.MinimumSize = New System.Drawing.Size(802, 482)
+        Me.ブラウザ.Name = "ブラウザ"
+        Me.ブラウザ.ScriptErrorsSuppressed = True
+        Me.ブラウザ.ScrollBarsEnabled = False
+        Me.ブラウザ.Size = New System.Drawing.Size(802, 482)
+        Me.ブラウザ.TabIndex = 5
+        Me.ブラウザ.Url = New System.Uri("http://www.dmm.com/netgame/social/-/gadgets/=/app_id=854854/", System.UriKind.Absolute)
+        Me.ブラウザ.WebBrowserShortcutsEnabled = False
         '
         'メインフォーム
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(804, 550)
+        Me.Controls.Add(Me.ブラウザ)
         Me.Controls.Add(Me.更新URL確認用ブラウザ)
         Me.Controls.Add(Me.更新確認ブラウザ)
         Me.Controls.Add(Me.Panel1)
-        Me.Controls.Add(Me.ブラウザ)
         Me.Controls.Add(Me.MenuStrip1)
         Me.DataBindings.Add(New System.Windows.Forms.Binding("Location", Global.Admiral_s_Desk.My.MySettings.Default, "KancolleFormLocation", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.Location = Global.Admiral_s_Desk.My.MySettings.Default.KancolleFormLocation
@@ -305,7 +316,6 @@ Partial Class メインフォーム
     Friend WithEvents 表示VToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ツールTToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents ヘルプHToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents ブラウザ As WebBrowser
     Friend WithEvents Panel1 As Panel
     Friend WithEvents 情報アクセスラベル As Label
     Friend WithEvents 遠征情報アクセス As CheckBox
@@ -324,4 +334,6 @@ Partial Class メインフォーム
     Friend WithEvents 更新URL確認用ブラウザ As WebBrowser
     Friend WithEvents 汎用タイマ As Timer
     Friend WithEvents 全艦娘一覧ウインドウ表示 As Button
+    Friend WithEvents ブラウザ As WebBrowser
+    Friend WithEvents 戦闘予報アクセス As CheckBox
 End Class

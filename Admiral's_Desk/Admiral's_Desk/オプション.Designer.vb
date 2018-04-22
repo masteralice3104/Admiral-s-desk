@@ -35,6 +35,7 @@ Partial Class オプション
         Me.Label1 = New System.Windows.Forms.Label()
         Me.更新チェック = New System.Windows.Forms.CheckBox()
         Me.ドロップ艦娘保存 = New System.Windows.Forms.SaveFileDialog()
+        Me.大破通知 = New System.Windows.Forms.CheckBox()
         Me.TabControl1.SuspendLayout()
         Me.全般設定.SuspendLayout()
         CType(Me.動作調整バー, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -51,6 +52,7 @@ Partial Class オプション
         '
         '全般設定
         '
+        Me.全般設定.Controls.Add(Me.大破通知)
         Me.全般設定.Controls.Add(Me.保存ファイル名設定)
         Me.全般設定.Controls.Add(Me.保存ファイル名)
         Me.全般設定.Controls.Add(Me.入手艦娘記録)
@@ -171,6 +173,19 @@ Partial Class オプション
         Me.更新チェック.Text = "起動時に更新の確認をする"
         Me.更新チェック.UseVisualStyleBackColor = True
         '
+        '大破通知
+        '
+        Me.大破通知.AutoSize = True
+        Me.大破通知.Checked = Global.Admiral_s_Desk.My.MySettings.Default.大破通知
+        Me.大破通知.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.大破通知.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.Admiral_s_Desk.My.MySettings.Default, "大破通知", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.大破通知.Location = New System.Drawing.Point(7, 78)
+        Me.大破通知.Name = "大破通知"
+        Me.大破通知.Size = New System.Drawing.Size(158, 16)
+        Me.大破通知.TabIndex = 10
+        Me.大破通知.Text = "戦闘時の大破艦を通知する"
+        Me.大破通知.UseVisualStyleBackColor = True
+        '
         'オプション
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -203,4 +218,5 @@ Partial Class オプション
     Friend WithEvents 保存ファイル名 As TextBox
     Friend WithEvents 入手艦娘記録 As CheckBox
     Friend WithEvents ドロップ艦娘保存 As SaveFileDialog
+    Friend WithEvents 大破通知 As CheckBox
 End Class
