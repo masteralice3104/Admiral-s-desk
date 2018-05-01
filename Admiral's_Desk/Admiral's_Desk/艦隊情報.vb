@@ -297,7 +297,8 @@
             Me.制空値.Text = 制空値.ToString
 
             '索敵スコア
-            Me.合計索敵値.Text = Component.艦これ索敵スコア.判定式33計算().ToString("00.0")
+            Dim 索敵スコア As Double = Component.艦これ索敵スコア.判定式33計算()
+            Me.合計索敵値.Text = 索敵スコア.ToString("0.0")
 
             '大破艦確認用
             If 大破艦確認 = True Then
@@ -333,5 +334,9 @@
         End If
         '動作速度設定
         艦隊情報更新フラグ管理用タイマ.Interval = 250 * オプション.動作速度設定
+    End Sub
+
+    Private Sub 分岐点係数_TextChanged(sender As Object, e As EventArgs) Handles 分岐点係数.TextChanged
+        艦隊情報更新()
     End Sub
 End Class

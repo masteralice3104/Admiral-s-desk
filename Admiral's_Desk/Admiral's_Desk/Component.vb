@@ -773,7 +773,7 @@
     Public Structure 艦これ索敵スコア
         Public Shared 分岐点係数 As Integer = 1
         Public Shared 装備単体索敵値総和 As Double = 0
-        Public Shared 艦娘索敵値平方根総和 As Integer = 0
+        Public Shared 艦娘索敵値平方根総和 As Double = 0
         Public Shared 司令部レベル As Integer = 0
         Public Shared 出撃艦数 As Integer = 0
 
