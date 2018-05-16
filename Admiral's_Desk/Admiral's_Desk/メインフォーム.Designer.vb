@@ -49,6 +49,7 @@ Partial Class メインフォーム
         Me.汎用タイマ = New System.Windows.Forms.Timer(Me.components)
         Me.ブラウザ = New System.Windows.Forms.WebBrowser()
         Me.スクリーンショット撮影 = New System.Windows.Forms.Button()
+        Me.遠征支援SToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.MenuStrip1.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
@@ -103,7 +104,7 @@ Partial Class メインフォーム
         '
         'ツールTToolStripMenuItem
         '
-        Me.ツールTToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.オプションoToolStripMenuItem})
+        Me.ツールTToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.遠征支援SToolStripMenuItem, Me.オプションoToolStripMenuItem})
         Me.ツールTToolStripMenuItem.Name = "ツールTToolStripMenuItem"
         Me.ツールTToolStripMenuItem.Size = New System.Drawing.Size(60, 20)
         Me.ツールTToolStripMenuItem.Text = "ツール(&T)"
@@ -296,6 +297,12 @@ Partial Class メインフォーム
         Me.スクリーンショット撮影.Text = "SS撮影！"
         Me.スクリーンショット撮影.UseVisualStyleBackColor = True
         '
+        '遠征支援SToolStripMenuItem
+        '
+        Me.遠征支援SToolStripMenuItem.Name = "遠征支援SToolStripMenuItem"
+        Me.遠征支援SToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.遠征支援SToolStripMenuItem.Text = "遠征支援(&S)"
+        '
         'メインフォーム
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -348,4 +355,5 @@ Partial Class メインフォーム
     Friend WithEvents ブラウザ As WebBrowser
     Friend WithEvents 戦闘予報アクセス As CheckBox
     Friend WithEvents スクリーンショット撮影 As Button
+    Friend WithEvents 遠征支援SToolStripMenuItem As ToolStripMenuItem
 End Class

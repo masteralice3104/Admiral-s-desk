@@ -297,5 +297,7 @@
         rectemp.Dispose()
     End Sub
 
-
+    Private Sub 遠征支援SToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 遠征支援SToolStripMenuItem.Click
+        遠征支援.Visible = True
+    End Sub
 End Class

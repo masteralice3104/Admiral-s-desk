@@ -41,4 +41,7 @@
         タイマ.Interval = 1000 * オプション.動作速度設定
     End Sub
 
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        遠征支援.Visible = True
+    End Sub
 End Class
