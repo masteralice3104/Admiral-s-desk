@@ -31,10 +31,12 @@ Partial Class メインフォーム
         Me.更新ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.中止ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ツールTToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.遠征支援SToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.オプションoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ヘルプHToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ヘルプHToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.スクリーンショット撮影 = New System.Windows.Forms.Button()
         Me.戦闘予報アクセス = New System.Windows.Forms.CheckBox()
         Me.全艦娘一覧ウインドウ表示 = New System.Windows.Forms.Button()
         Me.遠征情報アクセス = New System.Windows.Forms.CheckBox()
@@ -48,8 +50,7 @@ Partial Class メインフォーム
         Me.更新URL確認用ブラウザ = New System.Windows.Forms.WebBrowser()
         Me.汎用タイマ = New System.Windows.Forms.Timer(Me.components)
         Me.ブラウザ = New System.Windows.Forms.WebBrowser()
-        Me.スクリーンショット撮影 = New System.Windows.Forms.Button()
-        Me.遠征支援SToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.panBrowser = New System.Windows.Forms.Panel()
         Me.MenuStrip1.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
@@ -109,10 +110,16 @@ Partial Class メインフォーム
         Me.ツールTToolStripMenuItem.Size = New System.Drawing.Size(60, 20)
         Me.ツールTToolStripMenuItem.Text = "ツール(&T)"
         '
+        '遠征支援SToolStripMenuItem
+        '
+        Me.遠征支援SToolStripMenuItem.Name = "遠征支援SToolStripMenuItem"
+        Me.遠征支援SToolStripMenuItem.Size = New System.Drawing.Size(136, 22)
+        Me.遠征支援SToolStripMenuItem.Text = "遠征支援(&S)"
+        '
         'オプションoToolStripMenuItem
         '
         Me.オプションoToolStripMenuItem.Name = "オプションoToolStripMenuItem"
-        Me.オプションoToolStripMenuItem.Size = New System.Drawing.Size(135, 22)
+        Me.オプションoToolStripMenuItem.Size = New System.Drawing.Size(136, 22)
         Me.オプションoToolStripMenuItem.Text = "オプション(&O)"
         '
         'ヘルプHToolStripMenuItem
@@ -145,6 +152,15 @@ Partial Class メインフォーム
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(800, 41)
         Me.Panel1.TabIndex = 2
+        '
+        'スクリーンショット撮影
+        '
+        Me.スクリーンショット撮影.Location = New System.Drawing.Point(627, 8)
+        Me.スクリーンショット撮影.Name = "スクリーンショット撮影"
+        Me.スクリーンショット撮影.Size = New System.Drawing.Size(75, 23)
+        Me.スクリーンショット撮影.TabIndex = 9
+        Me.スクリーンショット撮影.Text = "SS撮影！"
+        Me.スクリーンショット撮影.UseVisualStyleBackColor = True
         '
         '戦闘予報アクセス
         '
@@ -288,26 +304,20 @@ Partial Class メインフォーム
         Me.ブラウザ.Url = New System.Uri("http://www.dmm.com/netgame/social/-/gadgets/=/app_id=854854/", System.UriKind.Absolute)
         Me.ブラウザ.WebBrowserShortcutsEnabled = False
         '
-        'スクリーンショット撮影
+        'panBrowser
         '
-        Me.スクリーンショット撮影.Location = New System.Drawing.Point(627, 8)
-        Me.スクリーンショット撮影.Name = "スクリーンショット撮影"
-        Me.スクリーンショット撮影.Size = New System.Drawing.Size(75, 23)
-        Me.スクリーンショット撮影.TabIndex = 9
-        Me.スクリーンショット撮影.Text = "SS撮影！"
-        Me.スクリーンショット撮影.UseVisualStyleBackColor = True
-        '
-        '遠征支援SToolStripMenuItem
-        '
-        Me.遠征支援SToolStripMenuItem.Name = "遠征支援SToolStripMenuItem"
-        Me.遠征支援SToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
-        Me.遠征支援SToolStripMenuItem.Text = "遠征支援(&S)"
+        Me.panBrowser.Location = New System.Drawing.Point(3, 25)
+        Me.panBrowser.Name = "panBrowser"
+        Me.panBrowser.Size = New System.Drawing.Size(611, 482)
+        Me.panBrowser.TabIndex = 6
+        Me.panBrowser.Visible = False
         '
         'メインフォーム
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(804, 550)
+        Me.Controls.Add(Me.panBrowser)
         Me.Controls.Add(Me.ブラウザ)
         Me.Controls.Add(Me.更新URL確認用ブラウザ)
         Me.Controls.Add(Me.更新確認ブラウザ)
@@ -356,4 +366,5 @@ Partial Class メインフォーム
     Friend WithEvents 戦闘予報アクセス As CheckBox
     Friend WithEvents スクリーンショット撮影 As Button
     Friend WithEvents 遠征支援SToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents panBrowser As Panel
 End Class
