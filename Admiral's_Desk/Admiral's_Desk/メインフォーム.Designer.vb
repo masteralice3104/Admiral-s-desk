@@ -50,7 +50,6 @@ Partial Class メインフォーム
         Me.更新URL確認用ブラウザ = New System.Windows.Forms.WebBrowser()
         Me.汎用タイマ = New System.Windows.Forms.Timer(Me.components)
         Me.ブラウザ = New System.Windows.Forms.WebBrowser()
-        Me.panBrowser = New System.Windows.Forms.Panel()
         Me.MenuStrip1.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
@@ -293,7 +292,7 @@ Partial Class メインフォーム
         '
         'ブラウザ
         '
-        Me.ブラウザ.Location = New System.Drawing.Point(0, 25)
+        Me.ブラウザ.Location = New System.Drawing.Point(0, 22)
         Me.ブラウザ.MaximumSize = New System.Drawing.Size(802, 482)
         Me.ブラウザ.MinimumSize = New System.Drawing.Size(802, 482)
         Me.ブラウザ.Name = "ブラウザ"
@@ -304,20 +303,11 @@ Partial Class メインフォーム
         Me.ブラウザ.Url = New System.Uri("http://www.dmm.com/netgame/social/-/gadgets/=/app_id=854854/", System.UriKind.Absolute)
         Me.ブラウザ.WebBrowserShortcutsEnabled = False
         '
-        'panBrowser
-        '
-        Me.panBrowser.Location = New System.Drawing.Point(3, 25)
-        Me.panBrowser.Name = "panBrowser"
-        Me.panBrowser.Size = New System.Drawing.Size(611, 482)
-        Me.panBrowser.TabIndex = 6
-        Me.panBrowser.Visible = False
-        '
         'メインフォーム
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(804, 550)
-        Me.Controls.Add(Me.panBrowser)
         Me.Controls.Add(Me.ブラウザ)
         Me.Controls.Add(Me.更新URL確認用ブラウザ)
         Me.Controls.Add(Me.更新確認ブラウザ)
@@ -366,5 +356,4 @@ Partial Class メインフォーム
     Friend WithEvents 戦闘予報アクセス As CheckBox
     Friend WithEvents スクリーンショット撮影 As Button
     Friend WithEvents 遠征支援SToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents panBrowser As Panel
 End Class

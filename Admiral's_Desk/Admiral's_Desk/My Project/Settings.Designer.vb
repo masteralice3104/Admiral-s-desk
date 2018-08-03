@@ -104,7 +104,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("0, 0")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("0, 17")>  _
         Public Property 遠征情報ウインドウ位置() As Global.System.Drawing.Point
             Get
                 Return CType(Me("遠征情報ウインドウ位置"),Global.System.Drawing.Point)

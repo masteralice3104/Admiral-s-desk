@@ -15,7 +15,7 @@
       <Value Profile="(Default)">0, 0</Value>
     </Setting>
     <Setting Name="遠征情報ウインドウ位置" Type="System.Drawing.Point" Scope="User">
-      <Value Profile="(Default)">0, 0</Value>
+      <Value Profile="(Default)">0, 17</Value>
     </Setting>
     <Setting Name="艦隊情報ウインドウ位置" Type="System.Drawing.Point" Scope="User">
       <Value Profile="(Default)">0, 0</Value>

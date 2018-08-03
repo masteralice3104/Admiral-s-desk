@@ -1,7 +1,7 @@
 ﻿■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 
 　　　　　　「艦隊これくしょん－艦これ－」専用ブラウザ
-　　　　　　　　Admiral's Desk ver0.1.3.2α ReadMe
+　　　　　　　　Admiral's Desk ver0.1.4.0α ReadMe
 
 　　　　　　　by ますたー。 (Twitter:@masteralice3104)
 　　　

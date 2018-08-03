@@ -1,6 +1,4 @@
 ﻿
-Imports CefSharp.WinForms
-Imports CefSharp
 
 Public Class メインフォーム
 
@@ -305,19 +303,5 @@ Public Class メインフォーム
         遠征支援.Visible = True
     End Sub
 
-    'Private WithEvents browser As ChromiumWebBrowser
-
-    'Public Sub New()
-    '    InitializeComponent()
-
-    '    Dim settings As New CefSettings()
-    '    CefSharp.Cef.Initialize(settings)
-
-    '    browser = New ChromiumWebBrowser("http://www.dmm.com/netgame/social/-/gadgets/=/app_id=854854/") With {
-    '        .Dock = DockStyle.Fill
-    '    }
-    '    panBrowser.Controls.Add(browser)
-
-    'End Sub
 
 End Class

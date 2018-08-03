@@ -45,6 +45,7 @@ Partial Class 艦隊情報
         Me.分岐点係数 = New System.Windows.Forms.TextBox()
         Me.ラベル03 = New System.Windows.Forms.Label()
         Me.艦隊情報更新フラグ管理用タイマ = New System.Windows.Forms.Timer(Me.components)
+        Me.Panel1 = New System.Windows.Forms.Panel()
         CType(Me.一艦隊情報, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -61,9 +62,6 @@ Partial Class 艦隊情報
         '
         Me.一艦隊情報.AllowUserToAddRows = False
         Me.一艦隊情報.AllowUserToDeleteRows = False
-        Me.一艦隊情報.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.一艦隊情報.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.一艦隊情報.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.艦種, Me.艦娘名, Me.Lv, Me.HP, Me.cond, Me.燃料, Me.弾薬, Me.装備1, Me.装備2, Me.装備3, Me.装備4, Me.装備5, Me.補強増設})
         Me.一艦隊情報.Location = New System.Drawing.Point(12, 39)
@@ -71,7 +69,7 @@ Partial Class 艦隊情報
         Me.一艦隊情報.ReadOnly = True
         Me.一艦隊情報.RowHeadersVisible = False
         Me.一艦隊情報.RowTemplate.Height = 21
-        Me.一艦隊情報.Size = New System.Drawing.Size(860, 160)
+        Me.一艦隊情報.Size = New System.Drawing.Size(860, 169)
         Me.一艦隊情報.TabIndex = 1
         '
         '艦種
@@ -225,6 +223,14 @@ Partial Class 艦隊情報
         Me.艦隊情報更新フラグ管理用タイマ.Enabled = True
         Me.艦隊情報更新フラグ管理用タイマ.Interval = 250
         '
+        'Panel1
+        '
+        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.Panel1.Location = New System.Drawing.Point(0, 0)
+        Me.Panel1.Name = "Panel1"
+        Me.Panel1.Size = New System.Drawing.Size(884, 211)
+        Me.Panel1.TabIndex = 8
+        '
         '艦隊情報
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
@@ -239,6 +245,7 @@ Partial Class 艦隊情報
         Me.Controls.Add(Me.ラベル01)
         Me.Controls.Add(Me.一艦隊情報)
         Me.Controls.Add(Me.艦隊選択)
+        Me.Controls.Add(Me.Panel1)
         Me.DataBindings.Add(New System.Windows.Forms.Binding("Location", Global.Admiral_s_Desk.My.MySettings.Default, "艦隊情報ウインドウ位置", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.Location = Global.Admiral_s_Desk.My.MySettings.Default.艦隊情報ウインドウ位置
         Me.MaximizeBox = False
@@ -274,4 +281,5 @@ Partial Class 艦隊情報
     Friend WithEvents 分岐点係数 As TextBox
     Friend WithEvents ラベル03 As Label
     Friend WithEvents 艦隊情報更新フラグ管理用タイマ As Timer
+    Friend WithEvents Panel1 As Panel
 End Class
