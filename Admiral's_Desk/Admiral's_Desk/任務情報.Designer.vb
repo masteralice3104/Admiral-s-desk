@@ -42,7 +42,7 @@ Partial Class 任務情報
         Me.受注中任務.Controls.Add(Me.受注中任務表示)
         Me.受注中任務.Location = New System.Drawing.Point(12, 12)
         Me.受注中任務.Name = "受注中任務"
-        Me.受注中任務.Size = New System.Drawing.Size(360, 134)
+        Me.受注中任務.Size = New System.Drawing.Size(360, 157)
         Me.受注中任務.TabIndex = 1
         Me.受注中任務.TabStop = False
         Me.受注中任務.Text = "受注中"
@@ -59,7 +59,7 @@ Partial Class 任務情報
         Me.受注中任務表示.ReadOnly = True
         Me.受注中任務表示.RowHeadersVisible = False
         Me.受注中任務表示.RowTemplate.Height = 21
-        Me.受注中任務表示.Size = New System.Drawing.Size(354, 116)
+        Me.受注中任務表示.Size = New System.Drawing.Size(354, 139)
         Me.受注中任務表示.TabIndex = 0
         '
         '種類

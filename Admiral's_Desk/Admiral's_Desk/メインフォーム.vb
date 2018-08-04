@@ -44,6 +44,8 @@ Public Class メインフォーム
             オプション.動作速度設定 = 2.5
         End If
 
+        '拡大率の設定
+        オプション.拡大率設定 = (オプション.拡大率調節バー.Value + 1) * 25
 
     End Sub
 
@@ -239,6 +241,10 @@ Public Class メインフォーム
         If MyDataClass.Start.出撃 = True Then
 
         End If
+        '拡大率設定
+        ブラウザ.Document.Body.Style &= ";Zoom:" + オプション.拡大率設定.ToString + "%"
+
+
     End Sub
 
     Private Sub 全艦娘一覧ウインドウ表示_Click(sender As Object, e As EventArgs) Handles 全艦娘一覧ウインドウ表示.Click

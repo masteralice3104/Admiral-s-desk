@@ -22,8 +22,9 @@ Partial Class オプション
     'コード エディターを使って変更しないでください。
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.TabControl1 = New System.Windows.Forms.TabControl()
+        Me.艦これブラウザ設定 = New System.Windows.Forms.TabControl()
         Me.全般設定 = New System.Windows.Forms.TabPage()
+        Me.大破通知 = New System.Windows.Forms.CheckBox()
         Me.保存ファイル名設定 = New System.Windows.Forms.Button()
         Me.保存ファイル名 = New System.Windows.Forms.TextBox()
         Me.入手艦娘記録 = New System.Windows.Forms.CheckBox()
@@ -34,21 +35,28 @@ Partial Class オプション
         Me.動作調整バー = New System.Windows.Forms.TrackBar()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.更新チェック = New System.Windows.Forms.CheckBox()
+        Me.画面設定 = New System.Windows.Forms.TabPage()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.拡大率調節バー = New System.Windows.Forms.TrackBar()
         Me.ドロップ艦娘保存 = New System.Windows.Forms.SaveFileDialog()
-        Me.大破通知 = New System.Windows.Forms.CheckBox()
-        Me.TabControl1.SuspendLayout()
+        Me.艦これブラウザ設定.SuspendLayout()
         Me.全般設定.SuspendLayout()
         CType(Me.動作調整バー, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.画面設定.SuspendLayout()
+        CType(Me.拡大率調節バー, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
-        'TabControl1
+        '艦これブラウザ設定
         '
-        Me.TabControl1.Controls.Add(Me.全般設定)
-        Me.TabControl1.Location = New System.Drawing.Point(12, 12)
-        Me.TabControl1.Name = "TabControl1"
-        Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(260, 237)
-        Me.TabControl1.TabIndex = 0
+        Me.艦これブラウザ設定.Controls.Add(Me.全般設定)
+        Me.艦これブラウザ設定.Controls.Add(Me.画面設定)
+        Me.艦これブラウザ設定.Cursor = System.Windows.Forms.Cursors.Default
+        Me.艦これブラウザ設定.Location = New System.Drawing.Point(12, 12)
+        Me.艦これブラウザ設定.Name = "艦これブラウザ設定"
+        Me.艦これブラウザ設定.SelectedIndex = 0
+        Me.艦これブラウザ設定.Size = New System.Drawing.Size(260, 237)
+        Me.艦これブラウザ設定.TabIndex = 0
         '
         '全般設定
         '
@@ -70,6 +78,19 @@ Partial Class オプション
         Me.全般設定.TabIndex = 0
         Me.全般設定.Text = "全般"
         Me.全般設定.UseVisualStyleBackColor = True
+        '
+        '大破通知
+        '
+        Me.大破通知.AutoSize = True
+        Me.大破通知.Checked = Global.Admiral_s_Desk.My.MySettings.Default.大破通知
+        Me.大破通知.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.大破通知.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.Admiral_s_Desk.My.MySettings.Default, "大破通知", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.大破通知.Location = New System.Drawing.Point(7, 78)
+        Me.大破通知.Name = "大破通知"
+        Me.大破通知.Size = New System.Drawing.Size(158, 16)
+        Me.大破通知.TabIndex = 10
+        Me.大破通知.Text = "戦闘時の大破艦を通知する"
+        Me.大破通知.UseVisualStyleBackColor = True
         '
         '保存ファイル名設定
         '
@@ -173,39 +194,71 @@ Partial Class オプション
         Me.更新チェック.Text = "起動時に更新の確認をする"
         Me.更新チェック.UseVisualStyleBackColor = True
         '
-        '大破通知
+        '画面設定
         '
-        Me.大破通知.AutoSize = True
-        Me.大破通知.Checked = Global.Admiral_s_Desk.My.MySettings.Default.大破通知
-        Me.大破通知.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.大破通知.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.Admiral_s_Desk.My.MySettings.Default, "大破通知", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        Me.大破通知.Location = New System.Drawing.Point(7, 78)
-        Me.大破通知.Name = "大破通知"
-        Me.大破通知.Size = New System.Drawing.Size(158, 16)
-        Me.大破通知.TabIndex = 10
-        Me.大破通知.Text = "戦闘時の大破艦を通知する"
-        Me.大破通知.UseVisualStyleBackColor = True
+        Me.画面設定.Controls.Add(Me.Label7)
+        Me.画面設定.Controls.Add(Me.Label6)
+        Me.画面設定.Controls.Add(Me.拡大率調節バー)
+        Me.画面設定.Location = New System.Drawing.Point(4, 22)
+        Me.画面設定.Name = "画面設定"
+        Me.画面設定.Padding = New System.Windows.Forms.Padding(3)
+        Me.画面設定.Size = New System.Drawing.Size(252, 211)
+        Me.画面設定.TabIndex = 1
+        Me.画面設定.Text = "画面"
+        Me.画面設定.UseVisualStyleBackColor = True
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Location = New System.Drawing.Point(6, 8)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(101, 12)
+        Me.Label7.TabIndex = 2
+        Me.Label7.Text = "メイン画面の拡大率"
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Location = New System.Drawing.Point(7, 55)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(239, 12)
+        Me.Label6.TabIndex = 1
+        Me.Label6.Text = "25%    50%     75%   100%   125%    150%  175%"
+        '
+        '拡大率調節バー
+        '
+        Me.拡大率調節バー.DataBindings.Add(New System.Windows.Forms.Binding("Value", Global.Admiral_s_Desk.My.MySettings.Default, "拡大率", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.拡大率調節バー.LargeChange = 2
+        Me.拡大率調節バー.Location = New System.Drawing.Point(3, 23)
+        Me.拡大率調節バー.Maximum = 6
+        Me.拡大率調節バー.Name = "拡大率調節バー"
+        Me.拡大率調節バー.Size = New System.Drawing.Size(243, 45)
+        Me.拡大率調節バー.TabIndex = 0
+        Me.拡大率調節バー.Value = Global.Admiral_s_Desk.My.MySettings.Default.拡大率
         '
         'オプション
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(284, 261)
-        Me.Controls.Add(Me.TabControl1)
+        Me.Controls.Add(Me.艦これブラウザ設定)
         Me.MaximizeBox = False
         Me.MaximumSize = New System.Drawing.Size(300, 300)
         Me.MinimumSize = New System.Drawing.Size(300, 300)
         Me.Name = "オプション"
         Me.Text = "オプション"
-        Me.TabControl1.ResumeLayout(False)
+        Me.艦これブラウザ設定.ResumeLayout(False)
         Me.全般設定.ResumeLayout(False)
         Me.全般設定.PerformLayout()
         CType(Me.動作調整バー, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.画面設定.ResumeLayout(False)
+        Me.画面設定.PerformLayout()
+        CType(Me.拡大率調節バー, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
     End Sub
 
-    Friend WithEvents TabControl1 As TabControl
+    Friend WithEvents 艦これブラウザ設定 As TabControl
     Friend WithEvents 全般設定 As TabPage
     Friend WithEvents 更新チェック As CheckBox
     Friend WithEvents Label5 As Label
@@ -219,4 +272,8 @@ Partial Class オプション
     Friend WithEvents 入手艦娘記録 As CheckBox
     Friend WithEvents ドロップ艦娘保存 As SaveFileDialog
     Friend WithEvents 大破通知 As CheckBox
+    Friend WithEvents 画面設定 As TabPage
+    Friend WithEvents Label6 As Label
+    Friend WithEvents 拡大率調節バー As TrackBar
+    Friend WithEvents Label7 As Label
 End Class

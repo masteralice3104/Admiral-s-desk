@@ -1,5 +1,7 @@
 ﻿Public Class オプション
     Public Shared 動作速度設定 As Double = 1.0
+    Public Shared 拡大率設定 As Integer = 100
+
     Private Sub 動作調整バー_Scroll(sender As Object, e As EventArgs) Handles 動作調整バー.Scroll
 
         If 動作調整バー.Value = 3 Then
@@ -62,6 +64,12 @@
         If ドロップ艦娘保存.ShowDialog() = DialogResult.OK Then
             保存ファイル名.Text = ドロップ艦娘保存.FileName
         End If
+
+
+    End Sub
+
+    Private Sub 拡大率調節バー_Scroll(sender As Object, e As EventArgs) Handles 拡大率調節バー.Scroll
+        拡大率設定 = (拡大率調節バー.Value + 1) * 25
 
 
     End Sub
