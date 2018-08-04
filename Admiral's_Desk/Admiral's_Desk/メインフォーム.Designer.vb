@@ -50,6 +50,7 @@ Partial Class メインフォーム
         Me.更新URL確認用ブラウザ = New System.Windows.Forms.WebBrowser()
         Me.汎用タイマ = New System.Windows.Forms.Timer(Me.components)
         Me.ブラウザ = New System.Windows.Forms.WebBrowser()
+        Me.通知領域 = New System.Windows.Forms.NotifyIcon(Me.components)
         Me.MenuStrip1.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
@@ -287,7 +288,6 @@ Partial Class メインフォーム
         '
         '汎用タイマ
         '
-        Me.汎用タイマ.Enabled = True
         Me.汎用タイマ.Interval = 1000
         '
         'ブラウザ
@@ -302,6 +302,10 @@ Partial Class メインフォーム
         Me.ブラウザ.TabIndex = 5
         Me.ブラウザ.Url = New System.Uri("http://www.dmm.com/netgame/social/-/gadgets/=/app_id=854854/", System.UriKind.Absolute)
         Me.ブラウザ.WebBrowserShortcutsEnabled = False
+        '
+        '通知領域
+        '
+        Me.通知領域.Text = "Admiral's Desk"
         '
         'メインフォーム
         '
@@ -356,4 +360,5 @@ Partial Class メインフォーム
     Friend WithEvents 戦闘予報アクセス As CheckBox
     Friend WithEvents スクリーンショット撮影 As Button
     Friend WithEvents 遠征支援SToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents 通知領域 As NotifyIcon
 End Class

@@ -163,7 +163,9 @@
         出力ウインドウ.Text = 予報文
     End Sub
 
-
+    Private Sub 戦闘予報_close(sender As Object, e As EventArgs) Handles MyBase.Closed
+        メインフォーム.戦闘予報アクセス.Checked = False
+    End Sub
 
     Private Sub 戦闘予報_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         AddHandler MyDataClass.Events.Info_Refresh, AddressOf 情報更新フラグ

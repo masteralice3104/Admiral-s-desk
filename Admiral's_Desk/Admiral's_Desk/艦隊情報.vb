@@ -7,7 +7,7 @@
 
     '大破通知の準備
     Public Shared 大破艦あり As Boolean = False
-
+    Public Shared 大破艦通知 As Boolean = False
 
 
 
@@ -27,7 +27,7 @@
 
         '大破通知
         If 大破艦あり = True And オプション.大破通知.Checked = True And MyDataClass.Start.出撃 = True Then
-            MessageBox.Show("艦隊に大破している艦娘がいます！", "大破通知", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+            大破艦通知 = True
         End If
     End Sub
 

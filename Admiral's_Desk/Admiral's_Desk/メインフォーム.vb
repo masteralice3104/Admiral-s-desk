@@ -21,7 +21,6 @@ Public Class メインフォーム
         'Nekoxyを使います
         'ここはNekoxyExampleを参考にしてます
 
-
         'とりあえず消す
         Nekoxy.HttpProxy.Shutdown()
 
@@ -31,6 +30,9 @@ Public Class メインフォーム
         'イベントハンドラを設定
         AddHandler Nekoxy.HttpProxy.AfterSessionComplete, AddressOf データ検知
 
+
+        '通知領域の設定
+        通知領域.Icon = SystemIcons.Application
 
 
         '動作速度の設定
@@ -46,6 +48,8 @@ Public Class メインフォーム
 
         '拡大率の設定
         オプション.拡大率設定 = (オプション.拡大率調節バー.Value + 1) * 25
+
+
 
     End Sub
 
@@ -237,10 +241,24 @@ Public Class メインフォーム
             MyDataClass.Start.出力 = False
 
         End If
-        '大破通知
-        If MyDataClass.Start.出撃 = True Then
 
+        '大破艦通知
+        If 艦隊情報.大破艦通知 = True Then
+            通知領域.Visible = True
+            通知領域.ShowBalloonTip(30000, "注意！", "大破した艦がいます", ToolTipIcon.Warning)
+            艦隊情報.大破艦通知 = False
         End If
+
+        '遠征終了通知
+        For cnt = 0 To 遠征情報.遠征終了通知.Count - 1
+            If 遠征情報.遠征終了通知(cnt) = 1 Then
+                通知領域.Visible = True
+                通知領域.ShowBalloonTip(30000, MyDataClass.MyPort(cnt).api_name, "遠征が終了しました", ToolTipIcon.Info)
+                遠征情報.遠征終了通知(cnt) = 2
+            End If
+        Next
+
+
         '拡大率設定
         ブラウザ.Document.Body.Style &= ";Zoom:" + オプション.拡大率設定.ToString + "%"
 
@@ -254,6 +272,8 @@ Public Class メインフォーム
     Private Sub ブラウザ_DocumentCompleted(sender As Object, e As WebBrowserDocumentCompletedEventArgs) Handles ブラウザ.DocumentCompleted
         ブラウザ.ScrollBarsEnabled = False
         ブラウザ.Document.Window.ScrollTo(123, 95)
+
+        汎用タイマ.Enabled = True
 
     End Sub
 

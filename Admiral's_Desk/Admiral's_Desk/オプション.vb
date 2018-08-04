@@ -73,4 +73,9 @@
 
 
     End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        メインフォーム.通知領域.Visible = True
+        メインフォーム.通知領域.ShowBalloonTip(4000, "注意！", "大破した艦がいます", ToolTipIcon.Warning)
+    End Sub
 End Class
