@@ -353,6 +353,18 @@ Namespace My
                 Me("拡大率") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property 遠征終了通知設定() As Boolean
+            Get
+                Return CType(Me("遠征終了通知設定"),Boolean)
+            End Get
+            Set
+                Me("遠征終了通知設定") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

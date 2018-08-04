@@ -49,6 +49,10 @@ Public Class メインフォーム
         '拡大率の設定
         オプション.拡大率設定 = (オプション.拡大率調節バー.Value + 1) * 25
 
+        'ミュートボタンの設定
+        If Component.GetVolume() = 0 Then
+            ミュート切り替え.Text = "ミュート解除"
+        End If
 
 
     End Sub
@@ -251,7 +255,7 @@ Public Class メインフォーム
 
         '遠征終了通知
         For cnt = 0 To 遠征情報.遠征終了通知.Count - 1
-            If 遠征情報.遠征終了通知(cnt) = 1 Then
+            If 遠征情報.遠征終了通知(cnt) = 1 And オプション.遠征終了通知チェック.Checked = True Then
                 通知領域.Visible = True
                 通知領域.ShowBalloonTip(30000, MyDataClass.MyPort(cnt).api_name, "遠征が終了しました", ToolTipIcon.Info)
                 遠征情報.遠征終了通知(cnt) = 2
@@ -329,5 +333,14 @@ Public Class メインフォーム
         遠征支援.Visible = True
     End Sub
 
+    Private Sub ミュート切り替え_Click(sender As Object, e As EventArgs) Handles ミュート切り替え.Click
 
+        If Component.GetVolume <> 0 Then
+            Component.SetVolume(0)
+            ミュート切り替え.Text = "ミュート解除"
+        Else
+            Component.SetVolume(4294967295)
+            ミュート切り替え.Text = "ミュート"
+        End If
+    End Sub
 End Class

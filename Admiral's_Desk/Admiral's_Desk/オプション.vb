@@ -76,6 +76,14 @@
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         メインフォーム.通知領域.Visible = True
-        メインフォーム.通知領域.ShowBalloonTip(4000, "注意！", "大破した艦がいます", ToolTipIcon.Warning)
+        メインフォーム.通知領域.ShowBalloonTip(4000, "通知", "これはテスト通知です", ToolTipIcon.Warning)
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles 音量切替.Click
+        If Component.GetVolume <> 0 Then
+            Component.SetVolume(0)
+        Else
+            Component.SetVolume(4294967295)
+        End If
     End Sub
 End Class

@@ -36,10 +36,6 @@
                         If 遠征終了通知(cnt) = 0 Then
                             遠征終了通知(cnt) = 1
                         End If
-                    Else
-                        If 遠征終了通知(cnt) = 2 Then
-                            遠征終了通知(cnt) = 0
-                        End If
                     End If
 
 
@@ -47,7 +43,10 @@
                     Dim 遠征名称 = Component.KancolleMissionIDSearch(MyDataClass.MyPort(cnt).api_mission(1))
 
                     遠征情報表示.Rows.Add(艦隊名称, 遠征名称, 残り時間表示, String.Format("{0:MM/dd HH:mm:ss}", 帰還時刻))
+                Else
+                    遠征終了通知(cnt) = 0
                 End If
+
             Next
         End If
 

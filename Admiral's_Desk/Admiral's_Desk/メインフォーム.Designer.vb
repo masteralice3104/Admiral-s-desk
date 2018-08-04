@@ -36,6 +36,7 @@ Partial Class メインフォーム
         Me.ヘルプHToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ヘルプHToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.ミュート切り替え = New System.Windows.Forms.Button()
         Me.スクリーンショット撮影 = New System.Windows.Forms.Button()
         Me.戦闘予報アクセス = New System.Windows.Forms.CheckBox()
         Me.全艦娘一覧ウインドウ表示 = New System.Windows.Forms.Button()
@@ -138,6 +139,7 @@ Partial Class メインフォーム
         '
         'Panel1
         '
+        Me.Panel1.Controls.Add(Me.ミュート切り替え)
         Me.Panel1.Controls.Add(Me.スクリーンショット撮影)
         Me.Panel1.Controls.Add(Me.戦闘予報アクセス)
         Me.Panel1.Controls.Add(Me.全艦娘一覧ウインドウ表示)
@@ -153,9 +155,18 @@ Partial Class メインフォーム
         Me.Panel1.Size = New System.Drawing.Size(800, 41)
         Me.Panel1.TabIndex = 2
         '
+        'ミュート切り替え
+        '
+        Me.ミュート切り替え.Location = New System.Drawing.Point(555, 8)
+        Me.ミュート切り替え.Name = "ミュート切り替え"
+        Me.ミュート切り替え.Size = New System.Drawing.Size(75, 23)
+        Me.ミュート切り替え.TabIndex = 10
+        Me.ミュート切り替え.Text = "ミュート"
+        Me.ミュート切り替え.UseVisualStyleBackColor = True
+        '
         'スクリーンショット撮影
         '
-        Me.スクリーンショット撮影.Location = New System.Drawing.Point(627, 8)
+        Me.スクリーンショット撮影.Location = New System.Drawing.Point(636, 8)
         Me.スクリーンショット撮影.Name = "スクリーンショット撮影"
         Me.スクリーンショット撮影.Size = New System.Drawing.Size(75, 23)
         Me.スクリーンショット撮影.TabIndex = 9
@@ -361,4 +372,5 @@ Partial Class メインフォーム
     Friend WithEvents スクリーンショット撮影 As Button
     Friend WithEvents 遠征支援SToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents 通知領域 As NotifyIcon
+    Friend WithEvents ミュート切り替え As Button
 End Class
