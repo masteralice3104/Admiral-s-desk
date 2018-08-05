@@ -20,6 +20,13 @@
         '初期設定
 
 
+        'debugタブを消す
+#If DEBUG Then
+#Else
+        設定.TabPages.Remove(debug)
+#End If
+
+
         '動作速度設定
         If 動作調整バー.Value = 3 Then
             動作速度設定 = 1.0

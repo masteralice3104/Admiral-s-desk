@@ -178,6 +178,7 @@ Partial Class メインフォーム
         Me.戦闘予報アクセス.AutoSize = True
         Me.戦闘予報アクセス.Checked = Global.Admiral_s_Desk.My.MySettings.Default.戦闘予報ウインドウ表示
         Me.戦闘予報アクセス.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.Admiral_s_Desk.My.MySettings.Default, "戦闘予報ウインドウ表示", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.戦闘予報アクセス.Enabled = False
         Me.戦闘予報アクセス.Location = New System.Drawing.Point(363, 16)
         Me.戦闘予報アクセス.Name = "戦闘予報アクセス"
         Me.戦闘予報アクセス.Size = New System.Drawing.Size(72, 16)
