@@ -1,5 +1,7 @@
 ﻿Public Class オプション
     Public Shared 動作速度設定 As Double = 1.0
+    Public Shared 拡大率設定 As Integer = 100
+
     Private Sub 動作調整バー_Scroll(sender As Object, e As EventArgs) Handles 動作調整バー.Scroll
 
         If 動作調整バー.Value = 3 Then
@@ -16,6 +18,13 @@
 
     Private Sub オプション_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         '初期設定
+
+
+        'debugタブを消す
+#If DEBUG Then
+#Else
+        設定.TabPages.Remove(debug)
+#End If
 
 
         '動作速度設定
@@ -64,5 +73,24 @@
         End If
 
 
+    End Sub
+
+    Private Sub 拡大率調節バー_Scroll(sender As Object, e As EventArgs) Handles 拡大率調節バー.Scroll
+        拡大率設定 = (拡大率調節バー.Value + 1) * 25
+
+
+    End Sub
+
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        メインフォーム.通知領域.Visible = True
+        メインフォーム.通知領域.ShowBalloonTip(4000, "通知", "これはテスト通知です", ToolTipIcon.Warning)
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles 音量切替.Click
+        If Component.GetVolume <> 0 Then
+            Component.SetVolume(0)
+        Else
+            Component.SetVolume(4294967295)
+        End If
     End Sub
 End Class

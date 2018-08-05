@@ -1,4 +1,5 @@
 ﻿Public Class Component
+
     '   Public Function KancolleReadJson(oSession As Object, PathString As String)
     '   ■引数
     '       oSession    Nekoxy.Session型のセッションデータ
@@ -917,6 +918,29 @@
     End Structure
 
 
+    '音量ミュート関係
+    ' http://hidensan.blog.shinobi.jp/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0/vb6%20%E9%9F%B3%E9%87%8F%E8%AA%BF%E7%AF%80%E3%81%AE%E4%BB%95%E6%96%B9%E3%80%80wav%20%202
+
+    'こんなAPIわからんからラッパーにする
+    Public Declare Function waveOutGetVolume Lib "winmm.dll" (ByVal wDeviceID As Integer, ByRef dwVolume As UInt32) As Integer
+
+    Public Declare Function waveOutSetVolume Lib "winmm.dll" (ByVal wDeviceID As Integer, ByVal dwVolume As UInt32) As Integer
 
 
+    Public Shared Function GetVolume()
+
+        Dim Def_onryo As UInt32 'このシステムの元の音量
+        Dim CurrentVolLeft As Long       '元の左の音量
+        Dim CurrentVolRight As Long   '元の右の音量
+
+        waveOutGetVolume(0, Def_onryo)
+        CurrentVolLeft = Def_onryo And &HFFFF&
+        CurrentVolRight = ((Def_onryo And &HFFFF0000) / &H10000) And &HFFFF&
+
+        Return (CurrentVolLeft + CurrentVolRight) / 2
+    End Function
+
+    Public Shared Sub SetVolume(ByVal Pub_onryo As UInt32)
+        waveOutSetVolume(0, Pub_onryo)
+    End Sub
 End Class

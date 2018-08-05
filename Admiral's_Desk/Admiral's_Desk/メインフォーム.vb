@@ -1,9 +1,11 @@
-﻿Public Class メインフォーム
+﻿
+
+Public Class メインフォーム
 
     'アップデートに必要な情報
 
     Public Const ソフト名 As String = "Admiral's Desk"
-    Public Const バージョン As String = "0.1.3.2"
+    Public Const バージョン As String = "0.1.4.0"
     Public Const バージョン他表記 As String = "α"
     Dim 更新後URL As String = ""
 
@@ -19,7 +21,6 @@
         'Nekoxyを使います
         'ここはNekoxyExampleを参考にしてます
 
-
         'とりあえず消す
         Nekoxy.HttpProxy.Shutdown()
 
@@ -29,6 +30,9 @@
         'イベントハンドラを設定
         AddHandler Nekoxy.HttpProxy.AfterSessionComplete, AddressOf データ検知
 
+
+        '通知領域の設定
+        通知領域.Icon = SystemIcons.Application
 
 
         '動作速度の設定
@@ -40,6 +44,14 @@
             オプション.動作速度設定 = 2.0
         ElseIf オプション.動作調整バー.Value = 0 Then
             オプション.動作速度設定 = 2.5
+        End If
+
+        '拡大率の設定
+        オプション.拡大率設定 = (オプション.拡大率調節バー.Value + 1) * 25
+
+        'ミュートボタンの設定
+        If Component.GetVolume() = 0 Then
+            ミュート切り替え.Text = "ミュート解除"
         End If
 
 
@@ -233,10 +245,28 @@
             MyDataClass.Start.出力 = False
 
         End If
-        '大破通知
-        If MyDataClass.Start.出撃 = True Then
 
+        '大破艦通知
+        If 艦隊情報.大破艦通知 = True Then
+            通知領域.Visible = True
+            通知領域.ShowBalloonTip(30000, "注意！", "大破した艦がいます", ToolTipIcon.Warning)
+            艦隊情報.大破艦通知 = False
         End If
+
+        '遠征終了通知
+        For cnt = 0 To 遠征情報.遠征終了通知.Count - 1
+            If 遠征情報.遠征終了通知(cnt) = 1 And オプション.遠征終了通知チェック.Checked = True Then
+                通知領域.Visible = True
+                通知領域.ShowBalloonTip(30000, MyDataClass.MyPort(cnt).api_name, "遠征が終了しました", ToolTipIcon.Info)
+                遠征情報.遠征終了通知(cnt) = 2
+            End If
+        Next
+
+
+        '拡大率設定
+        ブラウザ.Document.Body.Style &= ";Zoom:" + オプション.拡大率設定.ToString + "%"
+
+
     End Sub
 
     Private Sub 全艦娘一覧ウインドウ表示_Click(sender As Object, e As EventArgs) Handles 全艦娘一覧ウインドウ表示.Click
@@ -247,6 +277,8 @@
         ブラウザ.ScrollBarsEnabled = False
         ブラウザ.Document.Window.ScrollTo(123, 95)
 
+        汎用タイマ.Enabled = True
+
     End Sub
 
     Private Sub 戦闘予報アクセス_CheckedChanged(sender As Object, e As EventArgs) Handles 戦闘予報アクセス.CheckedChanged
@@ -254,6 +286,61 @@
             戦闘予報.Visible = True
         Else
             戦闘予報.Visible = False
+        End If
+    End Sub
+
+
+
+    Private Declare Function PrintWindow Lib "User32" (ByVal hWnd As IntPtr, ByVal hdcBlt As IntPtr, ByVal nFlags As Integer) As Boolean
+    Private Sub スクリーンショット撮影_Click(sender As Object, e As EventArgs) Handles スクリーンショット撮影.Click
+        'temp画像保存領域
+        Dim imgtemp As New Bitmap(802, 482) '撮影用
+        Dim rectemp As New Bitmap(800, 400) '切抜用
+
+        'ファイル名作成
+        Dim nowTime As DateTimeOffset = Now
+        Dim nowTimeStr As String = nowTime.Year.ToString + nowTime.Month.ToString("00") + nowTime.Day.ToString("00") + nowTime.Hour.ToString("00") + nowTime.Minute.ToString("00") + nowTime.Second.ToString("00") + nowTime.Millisecond.ToString("00")
+        Dim Filename As String = My.Application.Info.DirectoryPath + "\SS\" + nowTimeStr + ".png"
+
+        'フォルダ存在チェック
+        If System.IO.Directory.Exists(My.Application.Info.DirectoryPath + "\SS\") Then
+            'なにもしない
+        Else
+            'フォルダを作る
+            MkDir(My.Application.Info.DirectoryPath + "\SS\")
+        End If
+
+        'webbrowserから画像をコピー
+        Using targetGraphics As Graphics = Graphics.FromImage(imgtemp)
+            Dim hDC As IntPtr = targetGraphics.GetHdc()
+            PrintWindow(ブラウザ.Handle, hDC, 0)
+            targetGraphics.ReleaseHdc(hDC)
+        End Using
+
+        'そして切抜き
+        Dim rect As New Rectangle(1, 1, 800, 480)
+        rectemp = imgtemp.Clone(rect, imgtemp.PixelFormat)
+
+        'ファイルに保存
+        rectemp.Save(Filename, Imaging.ImageFormat.Png)
+
+        '後処理
+        imgtemp.Dispose()
+        rectemp.Dispose()
+    End Sub
+
+    Private Sub 遠征支援SToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 遠征支援SToolStripMenuItem.Click
+        遠征支援.Visible = True
+    End Sub
+
+    Private Sub ミュート切り替え_Click(sender As Object, e As EventArgs) Handles ミュート切り替え.Click
+
+        If Component.GetVolume <> 0 Then
+            Component.SetVolume(0)
+            ミュート切り替え.Text = "ミュート解除"
+        Else
+            Component.SetVolume(4294967295)
+            ミュート切り替え.Text = "ミュート"
         End If
     End Sub
 End Class

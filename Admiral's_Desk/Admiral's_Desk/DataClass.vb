@@ -449,6 +449,7 @@ Public Class URLDataClass
     Public Const ship_deck As String = "/kcsapi/api_get_member/ship_deck"
     Public Const createitem As String = "/kcsapi/api_req_kousyou/createitem"
     Public Const kdock As String = "/kcsapi/api_get_member/kdock"
+    Public Const battle As String = "/kcsapi/api_req_sortie/battle"
 End Class
 
 
@@ -1139,6 +1140,8 @@ Public Class StructureOperationClass
 
                 MyDataClass.Start.出撃 = True
             End If
+
+            '戦闘結果表示時
             If path = URLDataClass.battleresult Then
                 If JsonObject("api_data")("api_get_ship") IsNot Nothing Then
                     If JsonObject("api_data")("api_get_ship")("api_ship_id") IsNot Nothing Then MyDataClass.Start.api_ship_id = JsonObject("api_data")("api_get_ship")("api_ship_id")
@@ -1148,10 +1151,38 @@ Public Class StructureOperationClass
 
                     MyDataClass.Start.出力 = True
                 End If
+
             End If
             If path = URLDataClass.port Then
                 MyDataClass.Start.出撃 = False
             End If
+
+
+            '連合艦隊のデータが来た時変な処理をしそうなのでコメントアウト
+            '戦闘時
+            'If path = URLDataClass.battle Then
+            '    'HPを代入
+            '    If JsonObject("api_data")("api_f_nowhps") IsNot Nothing Then
+            '        '特殊な取扱をする
+            '        '扱い方法：艦隊番号取得→母港配列ID検索→代入
+
+            '        '艦隊番号取得
+            '        Dim 艦隊番号 As Integer = JsonObject("api_data")("api_deck_id")
+
+            '        '艦隊番号は0～3のため1減らす
+            '        艦隊番号 -= 1
+
+
+            '        For count As Integer = 0 To JsonObject("api_data")("api_f_nowhps").Count - 1
+            '            '母港配列ID検索
+            '            Dim 母港配列ID As Integer = Component.KancollePortKanmusuSearch(MyDataClass.MyPort(艦隊番号).api_ship(count))
+
+            '            '代入
+            '            MyDataClass.MyKanmusu(母港配列ID).api_nowhp = JsonObject("api_data")("api_f_nowhps")(count)
+
+            '        Next
+            '    End If
+            'End If
 
 
 

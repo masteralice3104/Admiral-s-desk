@@ -35,13 +35,12 @@ Partial Class 任務情報
         '
         '受注中任務
         '
-        Me.受注中任務.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.受注中任務.AutoSize = True
         Me.受注中任務.Controls.Add(Me.受注中任務表示)
-        Me.受注中任務.Location = New System.Drawing.Point(12, 12)
+        Me.受注中任務.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.受注中任務.Location = New System.Drawing.Point(0, 0)
         Me.受注中任務.Name = "受注中任務"
-        Me.受注中任務.Size = New System.Drawing.Size(360, 157)
+        Me.受注中任務.Size = New System.Drawing.Size(384, 181)
         Me.受注中任務.TabIndex = 1
         Me.受注中任務.TabStop = False
         Me.受注中任務.Text = "受注中"
@@ -58,7 +57,7 @@ Partial Class 任務情報
         Me.受注中任務表示.ReadOnly = True
         Me.受注中任務表示.RowHeadersVisible = False
         Me.受注中任務表示.RowTemplate.Height = 21
-        Me.受注中任務表示.Size = New System.Drawing.Size(354, 139)
+        Me.受注中任務表示.Size = New System.Drawing.Size(378, 163)
         Me.受注中任務表示.TabIndex = 0
         '
         '種類
@@ -97,12 +96,13 @@ Partial Class 任務情報
         Me.DataBindings.Add(New System.Windows.Forms.Binding("Location", Global.Admiral_s_Desk.My.MySettings.Default, "任務情報ウインドウ位置", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.Location = Global.Admiral_s_Desk.My.MySettings.Default.任務情報ウインドウ位置
         Me.MaximumSize = New System.Drawing.Size(400, 220)
-        Me.MinimumSize = New System.Drawing.Size(400, 220)
+        Me.MinimumSize = New System.Drawing.Size(400, 200)
         Me.Name = "任務情報"
         Me.Text = "任務情報"
         Me.受注中任務.ResumeLayout(False)
         CType(Me.受注中任務表示, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
     Friend WithEvents 受注中任務 As GroupBox

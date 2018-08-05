@@ -22,7 +22,7 @@ Partial Class オプション
     'コード エディターを使って変更しないでください。
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Me.TabControl1 = New System.Windows.Forms.TabControl()
+        Me.設定 = New System.Windows.Forms.TabControl()
         Me.全般設定 = New System.Windows.Forms.TabPage()
         Me.保存ファイル名設定 = New System.Windows.Forms.Button()
         Me.保存ファイル名 = New System.Windows.Forms.TextBox()
@@ -34,25 +34,41 @@ Partial Class オプション
         Me.動作調整バー = New System.Windows.Forms.TrackBar()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.更新チェック = New System.Windows.Forms.CheckBox()
-        Me.ドロップ艦娘保存 = New System.Windows.Forms.SaveFileDialog()
+        Me.画面設定 = New System.Windows.Forms.TabPage()
+        Me.Label7 = New System.Windows.Forms.Label()
+        Me.Label6 = New System.Windows.Forms.Label()
+        Me.拡大率調節バー = New System.Windows.Forms.TrackBar()
+        Me.TabPage1 = New System.Windows.Forms.TabPage()
+        Me.遠征終了通知チェック = New System.Windows.Forms.CheckBox()
         Me.大破通知 = New System.Windows.Forms.CheckBox()
-        Me.TabControl1.SuspendLayout()
+        Me.debug = New System.Windows.Forms.TabPage()
+        Me.音量切替 = New System.Windows.Forms.Button()
+        Me.Button1 = New System.Windows.Forms.Button()
+        Me.ドロップ艦娘保存 = New System.Windows.Forms.SaveFileDialog()
+        Me.設定.SuspendLayout()
         Me.全般設定.SuspendLayout()
         CType(Me.動作調整バー, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.画面設定.SuspendLayout()
+        CType(Me.拡大率調節バー, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.TabPage1.SuspendLayout()
+        Me.debug.SuspendLayout()
         Me.SuspendLayout()
         '
-        'TabControl1
+        '設定
         '
-        Me.TabControl1.Controls.Add(Me.全般設定)
-        Me.TabControl1.Location = New System.Drawing.Point(12, 12)
-        Me.TabControl1.Name = "TabControl1"
-        Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(260, 237)
-        Me.TabControl1.TabIndex = 0
+        Me.設定.Controls.Add(Me.全般設定)
+        Me.設定.Controls.Add(Me.画面設定)
+        Me.設定.Controls.Add(Me.TabPage1)
+        Me.設定.Controls.Add(Me.debug)
+        Me.設定.Cursor = System.Windows.Forms.Cursors.Default
+        Me.設定.Location = New System.Drawing.Point(12, 12)
+        Me.設定.Name = "設定"
+        Me.設定.SelectedIndex = 0
+        Me.設定.Size = New System.Drawing.Size(260, 237)
+        Me.設定.TabIndex = 0
         '
         '全般設定
         '
-        Me.全般設定.Controls.Add(Me.大破通知)
         Me.全般設定.Controls.Add(Me.保存ファイル名設定)
         Me.全般設定.Controls.Add(Me.保存ファイル名)
         Me.全般設定.Controls.Add(Me.入手艦娘記録)
@@ -173,39 +189,142 @@ Partial Class オプション
         Me.更新チェック.Text = "起動時に更新の確認をする"
         Me.更新チェック.UseVisualStyleBackColor = True
         '
+        '画面設定
+        '
+        Me.画面設定.Controls.Add(Me.Label7)
+        Me.画面設定.Controls.Add(Me.Label6)
+        Me.画面設定.Controls.Add(Me.拡大率調節バー)
+        Me.画面設定.Location = New System.Drawing.Point(4, 22)
+        Me.画面設定.Name = "画面設定"
+        Me.画面設定.Padding = New System.Windows.Forms.Padding(3)
+        Me.画面設定.Size = New System.Drawing.Size(252, 211)
+        Me.画面設定.TabIndex = 1
+        Me.画面設定.Text = "画面"
+        Me.画面設定.UseVisualStyleBackColor = True
+        '
+        'Label7
+        '
+        Me.Label7.AutoSize = True
+        Me.Label7.Location = New System.Drawing.Point(6, 8)
+        Me.Label7.Name = "Label7"
+        Me.Label7.Size = New System.Drawing.Size(101, 12)
+        Me.Label7.TabIndex = 2
+        Me.Label7.Text = "メイン画面の拡大率"
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Location = New System.Drawing.Point(7, 55)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(239, 12)
+        Me.Label6.TabIndex = 1
+        Me.Label6.Text = "25%    50%     75%   100%   125%    150%  175%"
+        '
+        '拡大率調節バー
+        '
+        Me.拡大率調節バー.DataBindings.Add(New System.Windows.Forms.Binding("Value", Global.Admiral_s_Desk.My.MySettings.Default, "拡大率", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.拡大率調節バー.LargeChange = 2
+        Me.拡大率調節バー.Location = New System.Drawing.Point(3, 23)
+        Me.拡大率調節バー.Maximum = 6
+        Me.拡大率調節バー.Name = "拡大率調節バー"
+        Me.拡大率調節バー.Size = New System.Drawing.Size(243, 45)
+        Me.拡大率調節バー.TabIndex = 0
+        Me.拡大率調節バー.Value = Global.Admiral_s_Desk.My.MySettings.Default.拡大率
+        '
+        'TabPage1
+        '
+        Me.TabPage1.Controls.Add(Me.遠征終了通知チェック)
+        Me.TabPage1.Controls.Add(Me.大破通知)
+        Me.TabPage1.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage1.Name = "TabPage1"
+        Me.TabPage1.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage1.Size = New System.Drawing.Size(252, 211)
+        Me.TabPage1.TabIndex = 2
+        Me.TabPage1.Text = "通知"
+        Me.TabPage1.UseVisualStyleBackColor = True
+        '
+        '遠征終了通知チェック
+        '
+        Me.遠征終了通知チェック.AutoSize = True
+        Me.遠征終了通知チェック.Checked = Global.Admiral_s_Desk.My.MySettings.Default.遠征終了通知設定
+        Me.遠征終了通知チェック.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.遠征終了通知チェック.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.Admiral_s_Desk.My.MySettings.Default, "遠征終了通知設定", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.遠征終了通知チェック.Location = New System.Drawing.Point(6, 28)
+        Me.遠征終了通知チェック.Name = "遠征終了通知チェック"
+        Me.遠征終了通知チェック.Size = New System.Drawing.Size(136, 16)
+        Me.遠征終了通知チェック.TabIndex = 12
+        Me.遠征終了通知チェック.Text = "遠征終了時に通知する"
+        Me.遠征終了通知チェック.UseVisualStyleBackColor = True
+        '
         '大破通知
         '
         Me.大破通知.AutoSize = True
         Me.大破通知.Checked = Global.Admiral_s_Desk.My.MySettings.Default.大破通知
         Me.大破通知.CheckState = System.Windows.Forms.CheckState.Checked
         Me.大破通知.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.Admiral_s_Desk.My.MySettings.Default, "大破通知", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        Me.大破通知.Location = New System.Drawing.Point(7, 78)
+        Me.大破通知.Location = New System.Drawing.Point(6, 6)
         Me.大破通知.Name = "大破通知"
         Me.大破通知.Size = New System.Drawing.Size(158, 16)
-        Me.大破通知.TabIndex = 10
+        Me.大破通知.TabIndex = 11
         Me.大破通知.Text = "戦闘時の大破艦を通知する"
         Me.大破通知.UseVisualStyleBackColor = True
+        '
+        'debug
+        '
+        Me.debug.Controls.Add(Me.音量切替)
+        Me.debug.Controls.Add(Me.Button1)
+        Me.debug.Location = New System.Drawing.Point(4, 22)
+        Me.debug.Name = "debug"
+        Me.debug.Padding = New System.Windows.Forms.Padding(3)
+        Me.debug.Size = New System.Drawing.Size(252, 211)
+        Me.debug.TabIndex = 3
+        Me.debug.Text = "debug"
+        Me.debug.UseVisualStyleBackColor = True
+        '
+        '音量切替
+        '
+        Me.音量切替.Location = New System.Drawing.Point(89, 6)
+        Me.音量切替.Name = "音量切替"
+        Me.音量切替.Size = New System.Drawing.Size(75, 23)
+        Me.音量切替.TabIndex = 1
+        Me.音量切替.Text = "ミュートテスト"
+        Me.音量切替.UseVisualStyleBackColor = True
+        '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(7, 7)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(75, 23)
+        Me.Button1.TabIndex = 0
+        Me.Button1.Text = "通知テスト"
+        Me.Button1.UseVisualStyleBackColor = True
         '
         'オプション
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(284, 261)
-        Me.Controls.Add(Me.TabControl1)
+        Me.Controls.Add(Me.設定)
         Me.MaximizeBox = False
         Me.MaximumSize = New System.Drawing.Size(300, 300)
         Me.MinimumSize = New System.Drawing.Size(300, 300)
         Me.Name = "オプション"
         Me.Text = "オプション"
-        Me.TabControl1.ResumeLayout(False)
+        Me.設定.ResumeLayout(False)
         Me.全般設定.ResumeLayout(False)
         Me.全般設定.PerformLayout()
         CType(Me.動作調整バー, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.画面設定.ResumeLayout(False)
+        Me.画面設定.PerformLayout()
+        CType(Me.拡大率調節バー, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.TabPage1.ResumeLayout(False)
+        Me.TabPage1.PerformLayout()
+        Me.debug.ResumeLayout(False)
         Me.ResumeLayout(False)
 
     End Sub
 
-    Friend WithEvents TabControl1 As TabControl
+    Friend WithEvents 設定 As TabControl
     Friend WithEvents 全般設定 As TabPage
     Friend WithEvents 更新チェック As CheckBox
     Friend WithEvents Label5 As Label
@@ -218,5 +337,14 @@ Partial Class オプション
     Friend WithEvents 保存ファイル名 As TextBox
     Friend WithEvents 入手艦娘記録 As CheckBox
     Friend WithEvents ドロップ艦娘保存 As SaveFileDialog
+    Friend WithEvents 画面設定 As TabPage
+    Friend WithEvents Label6 As Label
+    Friend WithEvents 拡大率調節バー As TrackBar
+    Friend WithEvents Label7 As Label
+    Friend WithEvents TabPage1 As TabPage
     Friend WithEvents 大破通知 As CheckBox
+    Friend WithEvents debug As TabPage
+    Friend WithEvents Button1 As Button
+    Friend WithEvents 遠征終了通知チェック As CheckBox
+    Friend WithEvents 音量切替 As Button
 End Class

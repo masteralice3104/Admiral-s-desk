@@ -31,10 +31,13 @@ Partial Class メインフォーム
         Me.更新ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.中止ToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ツールTToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.遠征支援SToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.オプションoToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ヘルプHToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.ヘルプHToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.ミュート切り替え = New System.Windows.Forms.Button()
+        Me.スクリーンショット撮影 = New System.Windows.Forms.Button()
         Me.戦闘予報アクセス = New System.Windows.Forms.CheckBox()
         Me.全艦娘一覧ウインドウ表示 = New System.Windows.Forms.Button()
         Me.遠征情報アクセス = New System.Windows.Forms.CheckBox()
@@ -48,6 +51,7 @@ Partial Class メインフォーム
         Me.更新URL確認用ブラウザ = New System.Windows.Forms.WebBrowser()
         Me.汎用タイマ = New System.Windows.Forms.Timer(Me.components)
         Me.ブラウザ = New System.Windows.Forms.WebBrowser()
+        Me.通知領域 = New System.Windows.Forms.NotifyIcon(Me.components)
         Me.MenuStrip1.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
@@ -102,15 +106,21 @@ Partial Class メインフォーム
         '
         'ツールTToolStripMenuItem
         '
-        Me.ツールTToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.オプションoToolStripMenuItem})
+        Me.ツールTToolStripMenuItem.DropDownItems.AddRange(New System.Windows.Forms.ToolStripItem() {Me.遠征支援SToolStripMenuItem, Me.オプションoToolStripMenuItem})
         Me.ツールTToolStripMenuItem.Name = "ツールTToolStripMenuItem"
         Me.ツールTToolStripMenuItem.Size = New System.Drawing.Size(60, 20)
         Me.ツールTToolStripMenuItem.Text = "ツール(&T)"
         '
+        '遠征支援SToolStripMenuItem
+        '
+        Me.遠征支援SToolStripMenuItem.Name = "遠征支援SToolStripMenuItem"
+        Me.遠征支援SToolStripMenuItem.Size = New System.Drawing.Size(136, 22)
+        Me.遠征支援SToolStripMenuItem.Text = "遠征支援(&S)"
+        '
         'オプションoToolStripMenuItem
         '
         Me.オプションoToolStripMenuItem.Name = "オプションoToolStripMenuItem"
-        Me.オプションoToolStripMenuItem.Size = New System.Drawing.Size(135, 22)
+        Me.オプションoToolStripMenuItem.Size = New System.Drawing.Size(136, 22)
         Me.オプションoToolStripMenuItem.Text = "オプション(&O)"
         '
         'ヘルプHToolStripMenuItem
@@ -129,6 +139,8 @@ Partial Class メインフォーム
         '
         'Panel1
         '
+        Me.Panel1.Controls.Add(Me.ミュート切り替え)
+        Me.Panel1.Controls.Add(Me.スクリーンショット撮影)
         Me.Panel1.Controls.Add(Me.戦闘予報アクセス)
         Me.Panel1.Controls.Add(Me.全艦娘一覧ウインドウ表示)
         Me.Panel1.Controls.Add(Me.遠征情報アクセス)
@@ -143,11 +155,30 @@ Partial Class メインフォーム
         Me.Panel1.Size = New System.Drawing.Size(800, 41)
         Me.Panel1.TabIndex = 2
         '
+        'ミュート切り替え
+        '
+        Me.ミュート切り替え.Location = New System.Drawing.Point(555, 8)
+        Me.ミュート切り替え.Name = "ミュート切り替え"
+        Me.ミュート切り替え.Size = New System.Drawing.Size(75, 23)
+        Me.ミュート切り替え.TabIndex = 10
+        Me.ミュート切り替え.Text = "ミュート"
+        Me.ミュート切り替え.UseVisualStyleBackColor = True
+        '
+        'スクリーンショット撮影
+        '
+        Me.スクリーンショット撮影.Location = New System.Drawing.Point(636, 8)
+        Me.スクリーンショット撮影.Name = "スクリーンショット撮影"
+        Me.スクリーンショット撮影.Size = New System.Drawing.Size(75, 23)
+        Me.スクリーンショット撮影.TabIndex = 9
+        Me.スクリーンショット撮影.Text = "SS撮影！"
+        Me.スクリーンショット撮影.UseVisualStyleBackColor = True
+        '
         '戦闘予報アクセス
         '
         Me.戦闘予報アクセス.AutoSize = True
         Me.戦闘予報アクセス.Checked = Global.Admiral_s_Desk.My.MySettings.Default.戦闘予報ウインドウ表示
         Me.戦闘予報アクセス.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.Admiral_s_Desk.My.MySettings.Default, "戦闘予報ウインドウ表示", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.戦闘予報アクセス.Enabled = False
         Me.戦闘予報アクセス.Location = New System.Drawing.Point(363, 16)
         Me.戦闘予報アクセス.Name = "戦闘予報アクセス"
         Me.戦闘予報アクセス.Size = New System.Drawing.Size(72, 16)
@@ -269,12 +300,11 @@ Partial Class メインフォーム
         '
         '汎用タイマ
         '
-        Me.汎用タイマ.Enabled = True
         Me.汎用タイマ.Interval = 1000
         '
         'ブラウザ
         '
-        Me.ブラウザ.Location = New System.Drawing.Point(-1, 27)
+        Me.ブラウザ.Location = New System.Drawing.Point(0, 22)
         Me.ブラウザ.MaximumSize = New System.Drawing.Size(802, 482)
         Me.ブラウザ.MinimumSize = New System.Drawing.Size(802, 482)
         Me.ブラウザ.Name = "ブラウザ"
@@ -284,6 +314,10 @@ Partial Class メインフォーム
         Me.ブラウザ.TabIndex = 5
         Me.ブラウザ.Url = New System.Uri("http://www.dmm.com/netgame/social/-/gadgets/=/app_id=854854/", System.UriKind.Absolute)
         Me.ブラウザ.WebBrowserShortcutsEnabled = False
+        '
+        '通知領域
+        '
+        Me.通知領域.Text = "Admiral's Desk"
         '
         'メインフォーム
         '
@@ -336,4 +370,8 @@ Partial Class メインフォーム
     Friend WithEvents 全艦娘一覧ウインドウ表示 As Button
     Friend WithEvents ブラウザ As WebBrowser
     Friend WithEvents 戦闘予報アクセス As CheckBox
+    Friend WithEvents スクリーンショット撮影 As Button
+    Friend WithEvents 遠征支援SToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents 通知領域 As NotifyIcon
+    Friend WithEvents ミュート切り替え As Button
 End Class

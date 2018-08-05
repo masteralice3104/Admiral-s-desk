@@ -1,4 +1,11 @@
 ﻿Public Class 遠征情報
+
+    Public Shared 遠征終了通知() As Integer = {0, 0, 0, 0}
+    '遠征終了通知の意味
+    '   0   通知することは特になし
+    '   1   通知待ち
+    '   2   通知済み
+
     Private Sub 情報ウインドウ_Close() Handles MyBase.Closed
         'ここだけをいじる
         メインフォーム.遠征情報アクセス.Checked = False
@@ -24,6 +31,11 @@
 
                     If 残り時間.Seconds < 0 Then
                         残り時間表示 = "帰還済み"
+
+                        '遠征終了通知をさせるために必要
+                        If 遠征終了通知(cnt) = 0 Then
+                            遠征終了通知(cnt) = 1
+                        End If
                     End If
 
 
@@ -31,7 +43,10 @@
                     Dim 遠征名称 = Component.KancolleMissionIDSearch(MyDataClass.MyPort(cnt).api_mission(1))
 
                     遠征情報表示.Rows.Add(艦隊名称, 遠征名称, 残り時間表示, String.Format("{0:MM/dd HH:mm:ss}", 帰還時刻))
+                Else
+                    遠征終了通知(cnt) = 0
                 End If
+
             Next
         End If
 
@@ -41,4 +56,11 @@
         タイマ.Interval = 1000 * オプション.動作速度設定
     End Sub
 
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        遠征支援.Visible = True
+    End Sub
+
+    Private Sub 遠征情報_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+    End Sub
 End Class

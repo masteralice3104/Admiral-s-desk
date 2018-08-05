@@ -29,6 +29,7 @@ Partial Class 遠征情報
         Me.残り時間 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.帰還時刻 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.タイマ = New System.Windows.Forms.Timer(Me.components)
+        Me.Button1 = New System.Windows.Forms.Button()
         CType(Me.遠征情報表示, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -38,13 +39,13 @@ Partial Class 遠征情報
         Me.遠征情報表示.AllowUserToDeleteRows = False
         Me.遠征情報表示.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.遠征情報表示.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.艦隊名, Me.遠征名, Me.残り時間, Me.帰還時刻})
-        Me.遠征情報表示.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.遠征情報表示.Dock = System.Windows.Forms.DockStyle.Top
         Me.遠征情報表示.Location = New System.Drawing.Point(0, 0)
         Me.遠征情報表示.Name = "遠征情報表示"
         Me.遠征情報表示.ReadOnly = True
         Me.遠征情報表示.RowHeadersVisible = False
         Me.遠征情報表示.RowTemplate.Height = 21
-        Me.遠征情報表示.Size = New System.Drawing.Size(384, 111)
+        Me.遠征情報表示.Size = New System.Drawing.Size(384, 85)
         Me.遠征情報表示.TabIndex = 0
         '
         '艦隊名
@@ -79,12 +80,23 @@ Partial Class 遠征情報
         Me.タイマ.Enabled = True
         Me.タイマ.Interval = 1000
         '
+        'Button1
+        '
+        Me.Button1.Enabled = False
+        Me.Button1.Location = New System.Drawing.Point(307, 87)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(75, 23)
+        Me.Button1.TabIndex = 1
+        Me.Button1.Text = "遠征支援"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
         '遠征情報
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(384, 111)
         Me.ControlBox = False
+        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.遠征情報表示)
         Me.DataBindings.Add(New System.Windows.Forms.Binding("Location", Global.Admiral_s_Desk.My.MySettings.Default, "遠征情報ウインドウ位置", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.Location = Global.Admiral_s_Desk.My.MySettings.Default.遠征情報ウインドウ位置
@@ -105,4 +117,5 @@ Partial Class 遠征情報
     Friend WithEvents 残り時間 As DataGridViewTextBoxColumn
     Friend WithEvents 帰還時刻 As DataGridViewTextBoxColumn
     Friend WithEvents タイマ As Timer
+    Friend WithEvents Button1 As Button
 End Class
