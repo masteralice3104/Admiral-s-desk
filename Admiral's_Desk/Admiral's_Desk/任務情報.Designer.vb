@@ -40,7 +40,7 @@ Partial Class 任務情報
         Me.受注中任務.Dock = System.Windows.Forms.DockStyle.Fill
         Me.受注中任務.Location = New System.Drawing.Point(0, 0)
         Me.受注中任務.Name = "受注中任務"
-        Me.受注中任務.Size = New System.Drawing.Size(384, 161)
+        Me.受注中任務.Size = New System.Drawing.Size(384, 181)
         Me.受注中任務.TabIndex = 1
         Me.受注中任務.TabStop = False
         Me.受注中任務.Text = "受注中"
@@ -57,7 +57,7 @@ Partial Class 任務情報
         Me.受注中任務表示.ReadOnly = True
         Me.受注中任務表示.RowHeadersVisible = False
         Me.受注中任務表示.RowTemplate.Height = 21
-        Me.受注中任務表示.Size = New System.Drawing.Size(378, 143)
+        Me.受注中任務表示.Size = New System.Drawing.Size(378, 163)
         Me.受注中任務表示.TabIndex = 0
         '
         '種類
@@ -90,7 +90,7 @@ Partial Class 任務情報
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(384, 161)
+        Me.ClientSize = New System.Drawing.Size(384, 181)
         Me.ControlBox = False
         Me.Controls.Add(Me.受注中任務)
         Me.DataBindings.Add(New System.Windows.Forms.Binding("Location", Global.Admiral_s_Desk.My.MySettings.Default, "任務情報ウインドウ位置", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))

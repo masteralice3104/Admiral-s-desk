@@ -5,7 +5,7 @@ Public Class メインフォーム
     'アップデートに必要な情報
 
     Public Const ソフト名 As String = "Admiral's Desk"
-    Public Const バージョン As String = "0.1.3.2"
+    Public Const バージョン As String = "0.1.4.0"
     Public Const バージョン他表記 As String = "α"
     Dim 更新後URL As String = ""
 
