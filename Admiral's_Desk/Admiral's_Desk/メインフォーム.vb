@@ -1,38 +1,106 @@
 ﻿
-
 Public Class メインフォーム
 
     'アップデートに必要な情報
-
     Public Const ソフト名 As String = "Admiral's Desk"
-    Public Const バージョン As String = "0.1.4.0"
+    Public Const バージョン As String = "0.2.0.0"
     Public Const バージョン他表記 As String = "α"
     Dim 更新後URL As String = ""
 
 
+    'プロキシ切り替え用
+    Public Const notnekoxy As Boolean = False
 
+    'Titanium用
+    Dim proxyServer As Titanium.Web.Proxy.ProxyServer
+    Dim explicitEndPoint As Titanium.Web.Proxy.Models.ExplicitProxyEndPoint
+
+
+    'レジストリキー用
+    Public regkey As Microsoft.Win32.RegistryKey = Microsoft.Win32.Registry.CurrentUser.CreateSubKey(FEATURE_BROWSER_EMULATION)
+    Public Const FEATURE_BROWSER_EMULATION As String = "Software\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_BROWSER_EMULATION"
+    Public process_name As String = System.Diagnostics.Process.GetCurrentProcess().ProcessName + ".exe"
+    Public process_dbg_name As String = System.Diagnostics.Process.GetCurrentProcess().ProcessName + ".vshost.exe"
+    'ブラウザ制御用
+    'Shared WithEvents Cefbrowser As CefSharp.WinForms.ChromiumWebBrowser
 
     Private Sub メインフォーム_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+        'レジストリキー
+        regkey.SetValue(process_name, 11001, Microsoft.Win32.RegistryValueKind.DWord)
+        'regkey.SetValue(process_dbg_name, 11001, Microsoft.Win32.RegistryValueKind.DWord)
 
         'ウインドウ名だけ変更
         MyBase.Text += " " + バージョン & バージョン他表記
 
 
-        'Nekoxyを使います
-        'ここはNekoxyExampleを参考にしてます
 
-        'とりあえず消す
-        Nekoxy.HttpProxy.Shutdown()
 
-        'プロキシをはじめる
-        Nekoxy.HttpProxy.Startup(12345, False, True)
+        If notnekoxy Then
 
-        'イベントハンドラを設定
-        AddHandler Nekoxy.HttpProxy.AfterSessionComplete, AddressOf データ検知
+            '******************************************************
+            '
+            '　　　　　　　　Titaniumセッティング
+            '
+            '******************************************************
+
+            proxyServer = New Titanium.Web.Proxy.ProxyServer
+
+            AddHandler proxyServer.BeforeResponse, AddressOf データ検知T
+
+
+            explicitEndPoint = New Titanium.Web.Proxy.Models.ExplicitProxyEndPoint(System.Net.IPAddress.Any, 4297)
+
+            proxyServer.AddEndPoint(explicitEndPoint)
+
+            proxyServer.Start()
+
+            Nekoxy.WinInetUtil.SetProxyInProcess("http=127.0.0.1:4297;https=127.0.0.1:4297", "local")
+
+        Else
+            '******************************************************
+            '
+            '　　　　　　　　Nekoxyセッティング
+            '
+            '******************************************************
+            'Nekoxyを使います
+            'ここはNekoxyExampleを参考にしてます
+
+            'とりあえず消す
+            Nekoxy.HttpProxy.Shutdown()
+            'プロキシをはじめる
+            Nekoxy.HttpProxy.Startup(4297, False, True)
+            'イベントハンドラを設定
+            AddHandler Nekoxy.HttpProxy.AfterSessionComplete, AddressOf データ検知
+
+
+
+        End If
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         '通知領域の設定
         通知領域.Icon = SystemIcons.Application
+
+
+
+
+        'テスト用
+        'ブラウザ.Navigate("https://html5test.com")
+
+
+
 
 
         '動作速度の設定
@@ -47,7 +115,7 @@ Public Class メインフォーム
         End If
 
         '拡大率の設定
-        オプション.拡大率設定 = (オプション.拡大率調節バー.Value + 1) * 25
+        'オプション.拡大率設定 = (オプション.拡大率調節バー.Value + 1) * 25
 
         'ミュートボタンの設定
         If Component.GetVolume() = 0 Then
@@ -56,8 +124,7 @@ Public Class メインフォーム
 
 
     End Sub
-
-
+    '
 
     Private Sub データ検知(oSession As Nekoxy.Session)
 
@@ -118,10 +185,70 @@ Public Class メインフォーム
 
     End Sub
 
-    Private Sub メインフォーム_Close(sender As Object, e As EventArgs) Handles MyBase.Closed
 
-        'Nekoxyの終了
-        Nekoxy.HttpProxy.Shutdown()
+    'titanium用
+    Private Async Function データ検知T(ByVal sender As Object, ByVal e As Titanium.Web.Proxy.EventArguments.SessionEventArgs) As Task
+
+        'Dim JSONObject As Object = Component.KancolleReadJson(oSession, URLDataClass.kcsapi)
+
+        'Q: このすぐ上の2行なにやってんの？
+        'A: 受け取ったデータがJsonかどうかを判別してます
+        '   JsonであればNothingにならないはず
+        '   艦これで使われる以外のJsonは想定してないから万が一がありえます
+
+        '以後のデータ処理に必要なパスを出します。/kcsapiのアレです
+        Dim path As String = e.WebSession.Request.Url                   'jsonのパス
+
+        'Uriオブジェクトを作成 
+        Dim u As New Uri(path)
+
+        If Not u.LocalPath.StartsWith(URLDataClass.kcsapi) Then
+            Exit Function
+        End If
+
+
+
+
+#If DEBUG Then
+        'ここからデバッグ用
+
+
+        Dim responseHeaders = e.WebSession.Response.Headers
+
+            If (e.WebSession.Response.StatusCode <> 200) Then
+                Exit Function
+            End If
+
+            Dim Resbody As String = Await e.GetResponseBodyAsString
+
+            Dim JSONData As String = Resbody
+
+            Debug.Listeners.Add(New TextWriterTraceListener(Console.Out))
+            Debug.WriteLine(path)
+        'ここまでデバッグ用
+#End If
+
+
+        'ここから実装
+
+
+    End Function
+
+    Private Sub メインフォーム_Close(sender As Object, e As EventArgs) Handles MyBase.Closed
+        'regkey
+        regkey.DeleteValue(process_name)
+        'regkey.DeleteValue(process_dbg_name)
+        regkey.Close()
+
+
+        If notnekoxy Then
+            'titanium終了
+            proxyServer.Stop()
+        Else
+            'Nekoxyの終了
+            Nekoxy.HttpProxy.Shutdown()
+        End If
+
     End Sub
 
     Private Sub 提督情報アクセス_CheckedChanged(sender As Object, e As EventArgs) Handles 提督情報アクセス.CheckedChanged
@@ -155,12 +282,14 @@ Public Class メインフォーム
         If result = DialogResult.OK Then
             'はい
             ブラウザ.Refresh()
+            'Cefbrowser.GetBrowser.Reload()
         End If
 
     End Sub
 
     Private Sub 中止ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 中止ToolStripMenuItem.Click
         ブラウザ.Stop()
+        'Cefbrowser.GetBrowser.StopLoad()
     End Sub
 
     Private Sub オプションoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles オプションoToolStripMenuItem.Click
@@ -264,7 +393,7 @@ Public Class メインフォーム
 
 
         '拡大率設定
-        ブラウザ.Document.Body.Style &= ";Zoom:" + オプション.拡大率設定.ToString + "%"
+        'ブラウザ.Document.Body.Style &= ";Zoom:" + オプション.拡大率設定.ToString + "%"
 
 
     End Sub
@@ -314,6 +443,7 @@ Public Class メインフォーム
         Using targetGraphics As Graphics = Graphics.FromImage(imgtemp)
             Dim hDC As IntPtr = targetGraphics.GetHdc()
             PrintWindow(ブラウザ.Handle, hDC, 0)
+            'PrintWindow(Cefbrowser.Handle, hDC, 0)
             targetGraphics.ReleaseHdc(hDC)
         End Using
 

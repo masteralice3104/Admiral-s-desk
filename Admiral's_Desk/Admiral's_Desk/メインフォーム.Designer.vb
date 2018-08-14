@@ -150,25 +150,28 @@ Partial Class メインフォーム
         Me.Panel1.Controls.Add(Me.艦隊情報アクセス)
         Me.Panel1.Controls.Add(Me.提督情報アクセス)
         Me.Panel1.Controls.Add(Me.情報アクセスラベル)
-        Me.Panel1.Location = New System.Drawing.Point(0, 510)
+        Me.Panel1.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.Panel1.Location = New System.Drawing.Point(0, 509)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(800, 41)
+        Me.Panel1.Size = New System.Drawing.Size(804, 41)
         Me.Panel1.TabIndex = 2
         '
         'ミュート切り替え
         '
-        Me.ミュート切り替え.Location = New System.Drawing.Point(555, 8)
+        Me.ミュート切り替え.Dock = System.Windows.Forms.DockStyle.Right
+        Me.ミュート切り替え.Location = New System.Drawing.Point(579, 12)
         Me.ミュート切り替え.Name = "ミュート切り替え"
-        Me.ミュート切り替え.Size = New System.Drawing.Size(75, 23)
+        Me.ミュート切り替え.Size = New System.Drawing.Size(75, 29)
         Me.ミュート切り替え.TabIndex = 10
         Me.ミュート切り替え.Text = "ミュート"
         Me.ミュート切り替え.UseVisualStyleBackColor = True
         '
         'スクリーンショット撮影
         '
-        Me.スクリーンショット撮影.Location = New System.Drawing.Point(636, 8)
+        Me.スクリーンショット撮影.Dock = System.Windows.Forms.DockStyle.Right
+        Me.スクリーンショット撮影.Location = New System.Drawing.Point(654, 12)
         Me.スクリーンショット撮影.Name = "スクリーンショット撮影"
-        Me.スクリーンショット撮影.Size = New System.Drawing.Size(75, 23)
+        Me.スクリーンショット撮影.Size = New System.Drawing.Size(75, 29)
         Me.スクリーンショット撮影.TabIndex = 9
         Me.スクリーンショット撮影.Text = "SS撮影！"
         Me.スクリーンショット撮影.UseVisualStyleBackColor = True
@@ -178,19 +181,21 @@ Partial Class メインフォーム
         Me.戦闘予報アクセス.AutoSize = True
         Me.戦闘予報アクセス.Checked = Global.Admiral_s_Desk.My.MySettings.Default.戦闘予報ウインドウ表示
         Me.戦闘予報アクセス.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.Admiral_s_Desk.My.MySettings.Default, "戦闘予報ウインドウ表示", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.戦闘予報アクセス.Dock = System.Windows.Forms.DockStyle.Left
         Me.戦闘予報アクセス.Enabled = False
-        Me.戦闘予報アクセス.Location = New System.Drawing.Point(363, 16)
+        Me.戦闘予報アクセス.Location = New System.Drawing.Point(324, 12)
         Me.戦闘予報アクセス.Name = "戦闘予報アクセス"
-        Me.戦闘予報アクセス.Size = New System.Drawing.Size(72, 16)
+        Me.戦闘予報アクセス.Size = New System.Drawing.Size(72, 29)
         Me.戦闘予報アクセス.TabIndex = 8
         Me.戦闘予報アクセス.Text = "戦闘予報"
         Me.戦闘予報アクセス.UseVisualStyleBackColor = True
         '
         '全艦娘一覧ウインドウ表示
         '
-        Me.全艦娘一覧ウインドウ表示.Location = New System.Drawing.Point(717, 8)
+        Me.全艦娘一覧ウインドウ表示.Dock = System.Windows.Forms.DockStyle.Right
+        Me.全艦娘一覧ウインドウ表示.Location = New System.Drawing.Point(729, 12)
         Me.全艦娘一覧ウインドウ表示.Name = "全艦娘一覧ウインドウ表示"
-        Me.全艦娘一覧ウインドウ表示.Size = New System.Drawing.Size(75, 23)
+        Me.全艦娘一覧ウインドウ表示.Size = New System.Drawing.Size(75, 29)
         Me.全艦娘一覧ウインドウ表示.TabIndex = 7
         Me.全艦娘一覧ウインドウ表示.Text = "全艦娘一覧"
         Me.全艦娘一覧ウインドウ表示.UseVisualStyleBackColor = True
@@ -200,9 +205,10 @@ Partial Class メインフォーム
         Me.遠征情報アクセス.AutoSize = True
         Me.遠征情報アクセス.Checked = Global.Admiral_s_Desk.My.MySettings.Default.遠征ウインドウ表示
         Me.遠征情報アクセス.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.Admiral_s_Desk.My.MySettings.Default, "遠征ウインドウ表示", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        Me.遠征情報アクセス.Location = New System.Drawing.Point(309, 16)
+        Me.遠征情報アクセス.Dock = System.Windows.Forms.DockStyle.Left
+        Me.遠征情報アクセス.Location = New System.Drawing.Point(276, 12)
         Me.遠征情報アクセス.Name = "遠征情報アクセス"
-        Me.遠征情報アクセス.Size = New System.Drawing.Size(48, 16)
+        Me.遠征情報アクセス.Size = New System.Drawing.Size(48, 29)
         Me.遠征情報アクセス.TabIndex = 6
         Me.遠征情報アクセス.Text = "遠征"
         Me.遠征情報アクセス.UseVisualStyleBackColor = True
@@ -212,9 +218,10 @@ Partial Class メインフォーム
         Me.任務情報アクセス.AutoSize = True
         Me.任務情報アクセス.Checked = Global.Admiral_s_Desk.My.MySettings.Default.任務ウインドウ表示
         Me.任務情報アクセス.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.Admiral_s_Desk.My.MySettings.Default, "任務ウインドウ表示", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        Me.任務情報アクセス.Location = New System.Drawing.Point(255, 16)
+        Me.任務情報アクセス.Dock = System.Windows.Forms.DockStyle.Left
+        Me.任務情報アクセス.Location = New System.Drawing.Point(228, 12)
         Me.任務情報アクセス.Name = "任務情報アクセス"
-        Me.任務情報アクセス.Size = New System.Drawing.Size(48, 16)
+        Me.任務情報アクセス.Size = New System.Drawing.Size(48, 29)
         Me.任務情報アクセス.TabIndex = 5
         Me.任務情報アクセス.Text = "任務"
         Me.任務情報アクセス.UseVisualStyleBackColor = True
@@ -224,9 +231,10 @@ Partial Class メインフォーム
         Me.工廠情報アクセス.AutoSize = True
         Me.工廠情報アクセス.Checked = Global.Admiral_s_Desk.My.MySettings.Default.工廠ウインドウ表示
         Me.工廠情報アクセス.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.Admiral_s_Desk.My.MySettings.Default, "工廠ウインドウ表示", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        Me.工廠情報アクセス.Location = New System.Drawing.Point(201, 15)
+        Me.工廠情報アクセス.Dock = System.Windows.Forms.DockStyle.Left
+        Me.工廠情報アクセス.Location = New System.Drawing.Point(180, 12)
         Me.工廠情報アクセス.Name = "工廠情報アクセス"
-        Me.工廠情報アクセス.Size = New System.Drawing.Size(48, 16)
+        Me.工廠情報アクセス.Size = New System.Drawing.Size(48, 29)
         Me.工廠情報アクセス.TabIndex = 4
         Me.工廠情報アクセス.Text = "工廠"
         Me.工廠情報アクセス.UseVisualStyleBackColor = True
@@ -236,10 +244,11 @@ Partial Class メインフォーム
         Me.基地航空隊情報アクセス.AutoSize = True
         Me.基地航空隊情報アクセス.Checked = Global.Admiral_s_Desk.My.MySettings.Default.基地航空隊ウインドウ表示
         Me.基地航空隊情報アクセス.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.Admiral_s_Desk.My.MySettings.Default, "基地航空隊ウインドウ表示", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.基地航空隊情報アクセス.Dock = System.Windows.Forms.DockStyle.Left
         Me.基地航空隊情報アクセス.Enabled = False
-        Me.基地航空隊情報アクセス.Location = New System.Drawing.Point(111, 15)
+        Me.基地航空隊情報アクセス.Location = New System.Drawing.Point(96, 12)
         Me.基地航空隊情報アクセス.Name = "基地航空隊情報アクセス"
-        Me.基地航空隊情報アクセス.Size = New System.Drawing.Size(84, 16)
+        Me.基地航空隊情報アクセス.Size = New System.Drawing.Size(84, 29)
         Me.基地航空隊情報アクセス.TabIndex = 3
         Me.基地航空隊情報アクセス.Text = "基地航空隊"
         Me.基地航空隊情報アクセス.UseVisualStyleBackColor = True
@@ -249,9 +258,10 @@ Partial Class メインフォーム
         Me.艦隊情報アクセス.AutoSize = True
         Me.艦隊情報アクセス.Checked = Global.Admiral_s_Desk.My.MySettings.Default.艦隊ウインドウ表示
         Me.艦隊情報アクセス.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.Admiral_s_Desk.My.MySettings.Default, "艦隊ウインドウ表示", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        Me.艦隊情報アクセス.Location = New System.Drawing.Point(57, 15)
+        Me.艦隊情報アクセス.Dock = System.Windows.Forms.DockStyle.Left
+        Me.艦隊情報アクセス.Location = New System.Drawing.Point(48, 12)
         Me.艦隊情報アクセス.Name = "艦隊情報アクセス"
-        Me.艦隊情報アクセス.Size = New System.Drawing.Size(48, 16)
+        Me.艦隊情報アクセス.Size = New System.Drawing.Size(48, 29)
         Me.艦隊情報アクセス.TabIndex = 2
         Me.艦隊情報アクセス.Text = "艦隊"
         Me.艦隊情報アクセス.UseVisualStyleBackColor = True
@@ -261,9 +271,10 @@ Partial Class メインフォーム
         Me.提督情報アクセス.AutoSize = True
         Me.提督情報アクセス.Checked = Global.Admiral_s_Desk.My.MySettings.Default.提督ウインドウ表示
         Me.提督情報アクセス.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.Admiral_s_Desk.My.MySettings.Default, "提督ウインドウ表示", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        Me.提督情報アクセス.Location = New System.Drawing.Point(3, 16)
+        Me.提督情報アクセス.Dock = System.Windows.Forms.DockStyle.Left
+        Me.提督情報アクセス.Location = New System.Drawing.Point(0, 12)
         Me.提督情報アクセス.Name = "提督情報アクセス"
-        Me.提督情報アクセス.Size = New System.Drawing.Size(48, 16)
+        Me.提督情報アクセス.Size = New System.Drawing.Size(48, 29)
         Me.提督情報アクセス.TabIndex = 1
         Me.提督情報アクセス.Text = "提督"
         Me.提督情報アクセス.UseVisualStyleBackColor = True
@@ -271,7 +282,8 @@ Partial Class メインフォーム
         '情報アクセスラベル
         '
         Me.情報アクセスラベル.AutoSize = True
-        Me.情報アクセスラベル.Location = New System.Drawing.Point(3, 0)
+        Me.情報アクセスラベル.Dock = System.Windows.Forms.DockStyle.Top
+        Me.情報アクセスラベル.Location = New System.Drawing.Point(0, 0)
         Me.情報アクセスラベル.Name = "情報アクセスラベル"
         Me.情報アクセスラベル.Size = New System.Drawing.Size(29, 12)
         Me.情報アクセスラベル.TabIndex = 0
@@ -304,9 +316,10 @@ Partial Class メインフォーム
         '
         'ブラウザ
         '
+        Me.ブラウザ.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ブラウザ.Location = New System.Drawing.Point(0, 22)
-        Me.ブラウザ.MaximumSize = New System.Drawing.Size(802, 482)
-        Me.ブラウザ.MinimumSize = New System.Drawing.Size(802, 482)
         Me.ブラウザ.Name = "ブラウザ"
         Me.ブラウザ.ScriptErrorsSuppressed = True
         Me.ブラウザ.ScrollBarsEnabled = False
@@ -324,16 +337,14 @@ Partial Class メインフォーム
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(804, 550)
+        Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.ブラウザ)
         Me.Controls.Add(Me.更新URL確認用ブラウザ)
         Me.Controls.Add(Me.更新確認ブラウザ)
-        Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.MenuStrip1)
         Me.DataBindings.Add(New System.Windows.Forms.Binding("Location", Global.Admiral_s_Desk.My.MySettings.Default, "KancolleFormLocation", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.Location = Global.Admiral_s_Desk.My.MySettings.Default.KancolleFormLocation
         Me.MaximizeBox = False
-        Me.MaximumSize = New System.Drawing.Size(820, 589)
-        Me.MinimumSize = New System.Drawing.Size(820, 589)
         Me.Name = "メインフォーム"
         Me.Text = "Admiral's desk"
         Me.MenuStrip1.ResumeLayout(False)

@@ -56,7 +56,9 @@
                     任務状態 += "：80％以上達成"
                 End If
 
-
+                If 任務状態 = "" Then
+                    Continue For
+                End If
                 '最後に追加
                 受注中任務表示.Rows.Add(任務種別, 任務名称, 任務状態)
 

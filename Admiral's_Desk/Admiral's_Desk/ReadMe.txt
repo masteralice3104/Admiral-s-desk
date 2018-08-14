@@ -1,7 +1,7 @@
 ﻿■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
 
 　　　　　　「艦隊これくしょん－艦これ－」専用ブラウザ
-　　　　　　　　Admiral's Desk ver0.1.4.0α ReadMe
+　　　　　　　　Admiral's Desk ver0.2.0.0α ReadMe
 
 　　　　　　　by ますたー。 (Twitter:@masteralice3104)
 　　　
@@ -35,8 +35,8 @@
 　　　そのため非常に動作が不安定となっております。その点を了承の上ご利用ください。
 　　　バグや不審な動作、おかしな表現などの異常を発見されましたら、この専用ブラウザのTwitter(@Admiral_s_Desk)または作者Twitter(@masteralice3104)までご一報ください。
 
-　　　2018年夏の艦これ1期→2期への移行については順次仕様変更へ対応する予定です。
-　　　ただし当バージョンでは2期への対応はいたしません。バージョンアップをお待ち下さい。
+　　　2018年夏の艦これ1期→2期への移行については順次仕様変更へ対応しております。
+　　　ただし当バージョンでは2期Block-1以外の対応はいたしません。バージョンアップをお待ち下さい。
 　　　また深刻なバグが発生する可能性があります。十分注意の上ご利用ください。
 
 
@@ -53,7 +53,7 @@
 　　　起動には.NET Framework 4.6.2が必要です。
 　　　起動できなかった場合はインストールされているかどうかを確認してください。
 　　　
-　　　Windows10　バージョン1803での動作を確認しています。
+　　　Windows10　バージョン1803 64bitでの動作を確認しています。
 　　　Windows7以降のWindowsで起動できるかと思いますが、Windows8以上が推奨となっております。
 
 
@@ -66,7 +66,7 @@
 
 
 【３－２．技術的(簡易)解説】
-　　　ソフトウエア上にありますWebbrowserコントロールにてIEと同様に艦これが動作しています。
+　　　ソフトウエア上にありますWebbrowserコンポーネントにおいてIEと同様に艦これが動作しています。
 　　　ウインドウにはページの一部分だけを切り取って表示されていますので、flashの抽出は行っていません。
 　　　（弊害としてログインページでのスクロールができない状況になっています）
 　　　その上でHTTPローカルプロキシが艦これのサーバからの「ダウンロード」通信のみを傍受しております。
@@ -171,6 +171,9 @@
 　　　　　Ａ：画面を移動させない仕様により課金画面に（たぶん）たどり着けません。やめましょう。
 　　　　　　　また無理やりこの仕様を回避する方法は（一応）存在しますが正しく課金されない可能性もあるので絶対にやめてください。
 
+　　　Ｑ：どのポート使ってるの？
+　　　　　Ａ：4297番です。
+
 　　　Ｑ：アンインストールしたいんだけど
 　　　　　Ａ：Admiral_s_Desk.exeが入ったフォルダごと削除してください。
 　　　　　　　また、完全に削除するためには５．で示されているソフトウエア設定の初期化を行うとゴミがなくなります。
@@ -178,12 +181,14 @@
 　　　Ｑ：ソースコードってどこにあるの
 　　　　　Ａ：https://github.com/masteralice3104/Admiral-s-desk
 　　　　　　　ここにあります。ひどいソースコードですがどうぞ。
+　　　　　　　あとみんなC#だと思っているみたいですが実はVB.netです。ほぼ互換性あるしね！
 
 　　　Ｑ：艦これの通信データ形式について解説して
 　　　　　Ａ：そのうちやるかもしれません
 
 　　　Ｑ：ソースコードを使って派生ソフトウエアを作っていい？
-　　　　　Ａ：チート機能やマクロなど特に厳重に禁止されている行為を行わないソフトである限り、ソースコードは自由に使ってください。
+　　　　　Ａ：チート機能やマクロなど特に厳重に禁止されている行為を行わないソフトである限り、ソースコードは自由に使ってくださいという建前ですが、
+　　　　　　　実運用上ではMITを適用しておいてください。
 　　　
 　　　Ｑ：再配布していい？
 　　　　　Ａ：ソフトウエア本体(.exe)の再配布は基本的にはだめです。
@@ -203,6 +208,16 @@
 
 【７．更新ログ】
 
+2018/08/15 Admiral's Desk ver 0.2.0.0α
+　　　[対応]艦これ2期Block-1への暫定対応
+
+　　　[変更]ブラウザ部分をIE7コンポーネントからIE11コンポーネントへ暫定変更
+　　　　　　→Cefsharpコンポーネントの利用を検討したものの、ログイン関係での異常動作を起こすことが判明したためです。
+　　　　　　　解決策などが見つかるまで暫定的対応とします。
+
+
+
+
 2018/08/05 Admiral's Desk ver 0.1.4.0α
 　　　[修正]大破艦通知機能の修正(バルーンまたはトースト通知への変更)
 
@@ -211,7 +226,6 @@
 　　　[追加]艦これウインドウのミュート機能を追加
 
 　　　[追加]遠征終了通知機能の追加
-
 
 2018/05/01 Admiral's Desk ver 0.1.3.2bα
 　　　[修正]33式索敵スコア表示欄が正しく表示されない問題の修正
@@ -698,3 +712,27 @@ HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTIO
 CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+
+<Titanium Web Proxy>(　←依存：ソフト本体　)
+
+The MIT License (MIT)
+
+Copyright (c) 2015 titanium007
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

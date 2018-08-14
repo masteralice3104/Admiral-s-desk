@@ -75,11 +75,7 @@
 
     End Sub
 
-    Private Sub 拡大率調節バー_Scroll(sender As Object, e As EventArgs) Handles 拡大率調節バー.Scroll
-        拡大率設定 = (拡大率調節バー.Value + 1) * 25
 
-
-    End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
         メインフォーム.通知領域.Visible = True
