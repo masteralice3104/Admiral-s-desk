@@ -49,7 +49,7 @@ Public Class メインフォーム
             AddHandler proxyServer.BeforeResponse, AddressOf データ検知T
 
 
-            explicitEndPoint = New Titanium.Web.Proxy.Models.ExplicitProxyEndPoint(System.Net.IPAddress.Any, 4297)
+            explicitEndPoint = New Titanium.Web.Proxy.Models.ExplicitProxyEndPoint(System.Net.IPAddress.Loopback, 4297)
 
             proxyServer.AddEndPoint(explicitEndPoint)
 
