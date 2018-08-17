@@ -24,10 +24,10 @@
                 If MyDataClass.MyPort(cnt).api_mission(0).Equals(1) Then
 
                     'unixタイムスタンプからの変更
-                    Dim 現在時刻 = DateTimeOffset.Now
-                    Dim 帰還時刻 = DateTimeOffset.FromUnixTimeSeconds(MyDataClass.MyPort(cnt).api_mission(2) / 1000).ToLocalTime
-                    Dim 残り時間 = 帰還時刻 - 現在時刻
-                    Dim 残り時間表示 As String = 残り時間.ToString("hh\:mm") + ":" + (残り時間.Seconds Mod 60).ToString("00")
+                    Dim 現在時刻 As DateTimeOffset = DateTimeOffset.Now
+                    Dim 帰還時刻 As DateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(MyDataClass.MyPort(cnt).api_mission(2) / 1000).ToLocalTime
+                    Dim 残り時間 As TimeSpan = 帰還時刻 - 現在時刻
+                    Dim 残り時間表示 As String = 残り時間.Hours.ToString("00") + ":" + 残り時間.Minutes.ToString("00") + ":" + (残り時間.Seconds Mod 60).ToString("00")
 
                     If 残り時間.Seconds < 0 Then
                         残り時間表示 = "帰還済み"

@@ -2,7 +2,7 @@
 
 　　　　　　「艦隊これくしょん－艦これ－」専用ブラウザ
 　　　　　　　　Admiral's Desk ver0.2.0.0α ReadMe
-
+　　　　　　　　　　　　緊急リリース版
 　　　　　　　by ますたー。 (Twitter:@masteralice3104)
 　　　
 ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
@@ -37,7 +37,7 @@
 
 　　　2018年夏の艦これ1期→2期への移行については順次仕様変更へ対応しております。
 　　　ただし当バージョンでは2期Block-1以外の対応はいたしません。バージョンアップをお待ち下さい。
-　　　また深刻なバグが発生する可能性があります。十分注意の上ご利用ください。
+　　　またデバッグ不足により深刻なバグが発生する可能性があります。十分注意の上ご利用ください。
 
 
 
@@ -92,7 +92,7 @@
 　　　　　　　　　　　　　　　　　　必要最小限の機能しかないウインドウですが、各機能にアクセスするためのチェックボックスが設置されています。
 　　　　　　　　　　　　　　　　　　ここからウインドウ表示/終了操作を行います。
 
-　　　　　　　　　　　　　　　　　　【SS(スクリーンショット)撮影について】
+　　　　　　　　　　　　　　　　　　【SS(スクリーンショット)撮影について】(封印中)
 　　　　　　　　　　　　　　　　　　艦これの画面を設定無し・ボタンひと押しで簡単に撮影することができます。
 　　　　　　　　　　　　　　　　　　画像は\SS\フォルダ内に作成され、ファイル名は「撮影時間.png」に自動で命名されます。
 　　　　　　　　　　　　　　　　　　あくまでお手軽撮影機能ですので、凝った撮影をしたい場合は「艦これ一覧めいかー改二」などの他のスクリーンショットソフトをご利用ください。
@@ -135,7 +135,7 @@
 　　　　　　　　　　　　　　　　　　　　なお、この設定の結果はメインウインドウに影響を及ぼしません。
 
 　　　　○拡大率設定（試験的）・・・・・メインウインドウのブラウザ部分の拡大率を設定できます。
-　　　　　　　　　　　　　　　　　　　　間違って拡大してしまった時などにご活用ください。
+　　　　　　　　　　　　　　　　　　　　間違って拡大してしまった時などにご活用ください。(封印中)
 
 　　　　○大破艦通知設定(戦闘時)・・・・データ更新時に艦隊に大破艦がいるとトースト通知またはバルーン通知で通知されます。
 　　　　　　　　　　　　　　　　　　　　通知がしつこいのは仕様です。
@@ -208,14 +208,14 @@
 
 【７．更新ログ】
 
-2018/08/15 Admiral's Desk ver 0.2.0.0α
+2018/08/18 Admiral's Desk ver 0.2.0.0α
 　　　[対応]艦これ2期Block-1への暫定対応
 
-　　　[変更]ブラウザ部分をIE7コンポーネントからIE11コンポーネントへ暫定変更
-　　　　　　→Cefsharpコンポーネントの利用を検討したものの、ログイン関係での異常動作を起こすことが判明したためです。
-　　　　　　　解決策などが見つかるまで暫定的対応とします。
+　　　[変更]ブラウザ部分をIE7コンポーネントからCefsharpコンポーネントへ変更
 
+　　　[変更]うまく動作しない部分を一部封印
 
+　　　[バグ]Cefsharpが暴走する模様
 
 
 2018/08/05 Admiral's Desk ver 0.1.4.0α
@@ -736,3 +736,36 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+
+< Cefsharp >(　←依存：ソフト本体　)
+// Copyright © 2010-2017 The CefSharp Authors. All rights reserved.
+//
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions are
+// met:
+//
+//    * Redistributions of source code must retain the above copyright
+//      notice, this list of conditions and the following disclaimer.
+//
+//    * Redistributions in binary form must reproduce the above
+//      copyright notice, this list of conditions and the following disclaimer
+//      in the documentation and/or other materials provided with the
+//      distribution.
+//
+//    * Neither the name of Google Inc. nor the name Chromium Embedded
+//      Framework nor the name CefSharp nor the names of its contributors
+//      may be used to endorse or promote products derived from this software
+//      without specific prior written permission.
+//
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+// "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+// LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+// A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+// OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+// SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+// LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+// DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+// THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+// (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+// OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.

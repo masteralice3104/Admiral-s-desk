@@ -12,9 +12,11 @@ Public Class メインフォーム
     Public Const notnekoxy As Boolean = False
 
     'Titanium用
-    Dim proxyServer As Titanium.Web.Proxy.ProxyServer
-    Dim explicitEndPoint As Titanium.Web.Proxy.Models.ExplicitProxyEndPoint
+    ' Dim proxyServer As Titanium.Web.Proxy.ProxyServer
+    ' Dim explicitEndPoint As Titanium.Web.Proxy.Models.ExplicitProxyEndPoint
 
+    'Cefsharp移行？
+    Public Const cef As Boolean = True
 
     'レジストリキー用
     Public regkey As Microsoft.Win32.RegistryKey = Microsoft.Win32.Registry.CurrentUser.CreateSubKey(FEATURE_BROWSER_EMULATION)
@@ -34,7 +36,7 @@ Public Class メインフォーム
         MyBase.Text += " " + バージョン & バージョン他表記
 
 
-
+        CefSharp.Cef.Shutdown()
 
         If notnekoxy Then
 
@@ -44,18 +46,18 @@ Public Class メインフォーム
             '
             '******************************************************
 
-            proxyServer = New Titanium.Web.Proxy.ProxyServer
+            'proxyServer = New Titanium.Web.Proxy.ProxyServer
 
-            AddHandler proxyServer.BeforeResponse, AddressOf データ検知T
+            '           AddHandler proxyServer.BeforeResponse, AddressOf データ検知T
 
 
-            explicitEndPoint = New Titanium.Web.Proxy.Models.ExplicitProxyEndPoint(System.Net.IPAddress.Loopback, 4297)
+            'explicitEndPoint = New Titanium.Web.Proxy.Models.ExplicitProxyEndPoint(System.Net.IPAddress.Loopback, 4297)
 
-            proxyServer.AddEndPoint(explicitEndPoint)
+            '            proxyServer.AddEndPoint(explicitEndPoint)
 
-            proxyServer.Start()
+            'proxyServer.Start()
 
-            Nekoxy.WinInetUtil.SetProxyInProcess("http=127.0.0.1:4297;https=127.0.0.1:4297", "local")
+            'Nekoxy.WinInetUtil.SetProxyInProcess("http=127.0.0.1:4297;https=127.0.0.1:4297", "local")
 
         Else
             '******************************************************
@@ -79,7 +81,28 @@ Public Class メインフォーム
 
 
 
+        'Cefsharpの設定
+        Dim settings As CefSharp.CefSettings = New CefSharp.CefSettings
 
+        'これ入れるとhttpキャプチャができる
+        settings.CefCommandLineArgs.Add("proxy-server", "127.0.0.1:4297")
+
+        'キャッシュ設定
+        settings.CachePath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\CEF"
+        settings.CefCommandLineArgs.Add("disable-gpu", "1")
+
+        'リセット
+        CefSharp.Cef.Initialize(settings)
+
+
+
+        'Cefsharpのコントロール作成
+
+        Dim CefBrowser = New CefSharp.WinForms.ChromiumWebBrowser("http://www.dmm.com/netgame/social/-/gadgets/=/app_id=854854/")
+
+        Controls.Add(CefBrowser)
+        CefBrowser.Visible = True
+        CefBrowser.Dock = DockStyle.Fill
 
 
 
@@ -92,15 +115,6 @@ Public Class メインフォーム
 
         '通知領域の設定
         通知領域.Icon = SystemIcons.Application
-
-
-
-
-        'テスト用
-        'ブラウザ.Navigate("https://html5test.com")
-
-
-
 
 
         '動作速度の設定
@@ -186,68 +200,47 @@ Public Class メインフォーム
     End Sub
 
 
-    'titanium用
-    Private Async Function データ検知T(ByVal sender As Object, ByVal e As Titanium.Web.Proxy.EventArguments.SessionEventArgs) As Task
+    '  'titanium用
+    ' Private Async Function データ検知T(ByVal sender As Object, ByVal e As Titanium.Web.Proxy.EventArguments.SessionEventArgs) As Task
 
-        'Dim JSONObject As Object = Component.KancolleReadJson(oSession, URLDataClass.kcsapi)
+    'Dim JSONObject As Object = Component.KancolleReadJson(oSession, URLDataClass.kcsapi)
 
-        'Q: このすぐ上の2行なにやってんの？
-        'A: 受け取ったデータがJsonかどうかを判別してます
-        '   JsonであればNothingにならないはず
-        '   艦これで使われる以外のJsonは想定してないから万が一がありえます
+    'Q: このすぐ上の2行なにやってんの？
+    'A: 受け取ったデータがJsonかどうかを判別してます
+    '   JsonであればNothingにならないはず
+    '   艦これで使われる以外のJsonは想定してないから万が一がありえます
 
-        '以後のデータ処理に必要なパスを出します。/kcsapiのアレです
-        Dim path As String = e.WebSession.Request.Url                   'jsonのパス
+    '以後のデータ処理に必要なパスを出します。/kcsapiのアレです
+    '     Dim path As String = e.WebSession.Request.Url                   'jsonのパス
 
-        'Uriオブジェクトを作成 
-        Dim u As New Uri(path)
-
-        If Not u.LocalPath.StartsWith(URLDataClass.kcsapi) Then
-            Exit Function
-        End If
-
-
+    'Uriオブジェクトを作成 
+    'Dim u As New Uri(path)
+    '
+    'If Not u.LocalPath.StartsWith(URLDataClass.kcsapi) Then
+    'Exit Function
+    'End If
 
 
-#If DEBUG Then
-        'ここからデバッグ用
 
 
-        Dim responseHeaders = e.WebSession.Response.Headers
 
-            If (e.WebSession.Response.StatusCode <> 200) Then
-                Exit Function
-            End If
-
-            Dim Resbody As String = Await e.GetResponseBodyAsString
-
-            Dim JSONData As String = Resbody
-
-            Debug.Listeners.Add(New TextWriterTraceListener(Console.Out))
-            Debug.WriteLine(path)
-        'ここまでデバッグ用
-#End If
+    'ここから実装
 
 
-        'ここから実装
+    'End Function
 
-
-    End Function
-
-    Private Sub メインフォーム_Close(sender As Object, e As EventArgs) Handles MyBase.Closed
+    Private Sub メインフォーム_Close() Handles MyBase.Closed
         'regkey
         regkey.DeleteValue(process_name)
         'regkey.DeleteValue(process_dbg_name)
         regkey.Close()
 
+        'cefbrowser.Dispose()
 
-        If notnekoxy Then
-            'titanium終了
-            proxyServer.Stop()
-        Else
-            'Nekoxyの終了
-            Nekoxy.HttpProxy.Shutdown()
-        End If
+        Nekoxy.HttpProxy.Shutdown()
+        CefSharp.Cef.Shutdown()
+
+
 
     End Sub
 
@@ -281,15 +274,15 @@ Public Class メインフォーム
 
         If result = DialogResult.OK Then
             'はい
-            ブラウザ.Refresh()
-            'Cefbrowser.GetBrowser.Reload()
+            'ブラウザ.Refresh()
+            'CefBrowser.GetBrowser.Reload()
         End If
 
     End Sub
 
     Private Sub 中止ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 中止ToolStripMenuItem.Click
-        ブラウザ.Stop()
-        'Cefbrowser.GetBrowser.StopLoad()
+        'ブラウザ.Stop()
+        ' CefBrowser.GetBrowser.StopLoad()
     End Sub
 
     Private Sub オプションoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles オプションoToolStripMenuItem.Click
@@ -402,9 +395,9 @@ Public Class メインフォーム
         全艦娘一覧.Visible = True
     End Sub
 
-    Private Sub ブラウザ_DocumentCompleted(sender As Object, e As WebBrowserDocumentCompletedEventArgs) Handles ブラウザ.DocumentCompleted
-        ブラウザ.ScrollBarsEnabled = False
-        ブラウザ.Document.Window.ScrollTo(123, 95)
+    Private Sub ブラウザ_DocumentCompleted(sender As Object, e As WebBrowserDocumentCompletedEventArgs)
+        'ブラウザ.ScrollBarsEnabled = False
+        'ブラウザ.Document.Window.ScrollTo(123, 95)
 
         汎用タイマ.Enabled = True
 
@@ -442,7 +435,7 @@ Public Class メインフォーム
         'webbrowserから画像をコピー
         Using targetGraphics As Graphics = Graphics.FromImage(imgtemp)
             Dim hDC As IntPtr = targetGraphics.GetHdc()
-            PrintWindow(ブラウザ.Handle, hDC, 0)
+            'PrintWindow(ブラウザ.Handle, hDC, 0)
             'PrintWindow(Cefbrowser.Handle, hDC, 0)
             targetGraphics.ReleaseHdc(hDC)
         End Using

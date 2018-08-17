@@ -50,7 +50,6 @@ Partial Class メインフォーム
         Me.更新確認ブラウザ = New System.Windows.Forms.WebBrowser()
         Me.更新URL確認用ブラウザ = New System.Windows.Forms.WebBrowser()
         Me.汎用タイマ = New System.Windows.Forms.Timer(Me.components)
-        Me.ブラウザ = New System.Windows.Forms.WebBrowser()
         Me.通知領域 = New System.Windows.Forms.NotifyIcon(Me.components)
         Me.MenuStrip1.SuspendLayout()
         Me.Panel1.SuspendLayout()
@@ -169,6 +168,7 @@ Partial Class メインフォーム
         'スクリーンショット撮影
         '
         Me.スクリーンショット撮影.Dock = System.Windows.Forms.DockStyle.Right
+        Me.スクリーンショット撮影.Enabled = False
         Me.スクリーンショット撮影.Location = New System.Drawing.Point(654, 12)
         Me.スクリーンショット撮影.Name = "スクリーンショット撮影"
         Me.スクリーンショット撮影.Size = New System.Drawing.Size(75, 29)
@@ -314,20 +314,6 @@ Partial Class メインフォーム
         '
         Me.汎用タイマ.Interval = 1000
         '
-        'ブラウザ
-        '
-        Me.ブラウザ.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ブラウザ.Location = New System.Drawing.Point(0, 22)
-        Me.ブラウザ.Name = "ブラウザ"
-        Me.ブラウザ.ScriptErrorsSuppressed = True
-        Me.ブラウザ.ScrollBarsEnabled = False
-        Me.ブラウザ.Size = New System.Drawing.Size(802, 482)
-        Me.ブラウザ.TabIndex = 5
-        Me.ブラウザ.Url = New System.Uri("http://www.dmm.com/netgame/social/-/gadgets/=/app_id=854854/", System.UriKind.Absolute)
-        Me.ブラウザ.WebBrowserShortcutsEnabled = False
-        '
         '通知領域
         '
         Me.通知領域.Text = "Admiral's Desk"
@@ -338,13 +324,11 @@ Partial Class メインフォーム
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(804, 550)
         Me.Controls.Add(Me.Panel1)
-        Me.Controls.Add(Me.ブラウザ)
         Me.Controls.Add(Me.更新URL確認用ブラウザ)
         Me.Controls.Add(Me.更新確認ブラウザ)
         Me.Controls.Add(Me.MenuStrip1)
         Me.DataBindings.Add(New System.Windows.Forms.Binding("Location", Global.Admiral_s_Desk.My.MySettings.Default, "KancolleFormLocation", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
         Me.Location = Global.Admiral_s_Desk.My.MySettings.Default.KancolleFormLocation
-        Me.MaximizeBox = False
         Me.Name = "メインフォーム"
         Me.Text = "Admiral's desk"
         Me.MenuStrip1.ResumeLayout(False)
@@ -379,7 +363,6 @@ Partial Class メインフォーム
     Friend WithEvents 更新URL確認用ブラウザ As WebBrowser
     Friend WithEvents 汎用タイマ As Timer
     Friend WithEvents 全艦娘一覧ウインドウ表示 As Button
-    Friend WithEvents ブラウザ As WebBrowser
     Friend WithEvents 戦闘予報アクセス As CheckBox
     Friend WithEvents スクリーンショット撮影 As Button
     Friend WithEvents 遠征支援SToolStripMenuItem As ToolStripMenuItem
