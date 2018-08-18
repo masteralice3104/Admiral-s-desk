@@ -59,6 +59,8 @@
         Next
 
 
+        '疲労回復タイマー用
+        Dim low_cond As Long = 100
 
         'まずDataGridViewの項目全消し
         一艦隊情報.Rows.Clear()
@@ -216,6 +218,8 @@
                         Component.艦これ索敵スコア.出撃艦数 += 1
 
 
+
+
                         'ここで出力！
                         '艦隊情報
                         一艦隊情報.Rows.Add(艦種, 艦娘名, Lv, HP, cond, 燃料, 弾薬, 装備(0), 装備(1), 装備(2), 装備(3), 装備(4), 装備(5))
@@ -307,6 +311,9 @@
                 大破艦あり = False
             End If
 
+
+
+
             'デバッグ用
             'DebugWindow.Text = "分岐点係数" + Component.艦これ索敵スコア.分岐点係数.ToString + "装備単体索敵値総和" + Component.艦これ索敵スコア.装備単体索敵値総和.ToString + "艦娘索敵値平方根総和" + Component.艦これ索敵スコア.艦娘索敵値平方根総和.ToString + "司令部レベル" + Component.艦これ索敵スコア.司令部レベル.ToString + "出撃艦数" + Component.艦これ索敵スコア.出撃艦数.ToString
         End If
@@ -334,9 +341,24 @@
         End If
         '動作速度設定
         艦隊情報更新フラグ管理用タイマ.Interval = 250 * オプション.動作速度設定
+
+        '疲労抜きタイマー
+        If MyDataClass.MyPort(選択艦隊).noapi_condtimer = 1 Then
+            Dim 残り時間 As TimeSpan = MyDataClass.MyPort(選択艦隊).noapi_condtime - DateTimeOffset.Now
+            Dim 残り時間表示 As String = 残り時間.Hours.ToString("00") + ":" + 残り時間.Minutes.ToString("00") + ":" + (残り時間.Seconds Mod 60).ToString("00")
+
+            疲労回復タイマー.Text = "疲労回復まで残り" + 残り時間表示
+        ElseIf MyDataClass.MyPort(選択艦隊).noapi_condtimer = 0 Then
+            疲労回復タイマー.Text = "疲労はありません"
+        ElseIf MyDataClass.MyPort(選択艦隊).noapi_condtimer = 5 Then
+            疲労回復タイマー.Text = "出撃中です"
+
+        End If
+
     End Sub
 
     Private Sub 分岐点係数_TextChanged(sender As Object, e As EventArgs) Handles 分岐点係数.TextChanged
         艦隊情報更新()
     End Sub
+
 End Class

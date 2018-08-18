@@ -218,6 +218,8 @@ Public Structure DataClass
             'api_luckyは必ず初期化時にReDimしてサイズを2にしなければならない!
             Public api_locked As Long        'ロックの有無
             Public api_locked_equip As Long  'ロック装備の有無
+
+
         End Structure
 
         '装備情報
@@ -240,6 +242,15 @@ Public Structure DataClass
             Public api_flagship As Long     '旗艦?
             Public api_ship() As Long       '艦隊に所属している艦娘の番号
             'api_shipは必ず初期化時にReDimしてサイズを6にしなければならない！
+
+
+            'ここからapiには存在しないもの
+            Public noapi_condtime As DateTimeOffset 'コンディション回復に必要な時間。
+            Public noapi_condtimer As Long 'コンディションの回復タイマーが動いてるかとか
+            ' 0 動いてない
+            ' 1 動いてる
+            ' 2 おわった
+            ' 5 出撃中
         End Structure
 
         'マップ情報

@@ -413,6 +413,18 @@ Namespace My
                 Me("プロキシポート設定") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
+        Public Property 疲労回復通知() As Boolean
+            Get
+                Return CType(Me("疲労回復通知"),Boolean)
+            End Get
+            Set
+                Me("疲労回復通知") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

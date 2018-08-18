@@ -37,7 +37,7 @@
                 If Kanmusu.api_taisen IsNot Nothing Then 対潜 = Kanmusu.api_taisen(0)
                 If Kanmusu.api_lucky.ToString IsNot Nothing Then 運 = Kanmusu.api_lucky(0)
                 夜戦火力 = Kanmusu.api_karyoku(0) + Kanmusu.api_raisou(0)
-                For cnt As Integer = 0 To Kanmusu.api_slot.Count - 1
+                For cnt As Integer = 0 To Kanmusu.api_slot.length - 1
                     装備(cnt) = Component.KancolleEquipmentNameSearch(Kanmusu.api_slot(cnt))
                 Next
                 If Component.KancolleEquipmentNameSearch(Kanmusu.api_slot_ex) IsNot Nothing Then

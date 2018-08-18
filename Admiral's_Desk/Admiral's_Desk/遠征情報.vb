@@ -60,7 +60,5 @@
         遠征支援.Visible = True
     End Sub
 
-    Private Sub 遠征情報_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
-    End Sub
 End Class
