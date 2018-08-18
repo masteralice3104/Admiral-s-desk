@@ -8,12 +8,40 @@
     '       艦これのデータ時はNewtonsoft.Json.Linq.JObject型のJSONオブジェクトデータ
     '       異常値及び艦これのデータではないと判別したときは何も返さない
     '   
-    Public Shared Function KancolleReadJson(oSession As Object, PathString As String)
+    'Public Shared Function KancolleReadJson(oSession As Object, PathString As String)
+    '    'とりあえずNekoxyからパスを受け取る
+    '    Dim path As String = oSession.Request.PathAndQuery
+
+    '    'JSONのデータもぶち込む
+    '    Dim JSONtemporaryData As String = oSession.Response.BodyAsString
+    '    If (path.StartsWith(PathString)) Then
+    '        'JSONの先頭にある余計な文字を取り除く
+    '        Dim JSONData As String = JSONtemporaryData.Substring(7)
+
+
+    '        'JSON文字列→JSON形式データに復元
+    '        Dim JSONObject As Newtonsoft.Json.Linq.JObject = Newtonsoft.Json.JsonConvert.DeserializeObject(JSONData)
+    '        Return JSONObject
+    '    Else
+    '        Return Nothing
+    '    End If
+    'End Function
+
+    '   Public Function KancolleReadJson2(oSession As Object, PathString As String)
+    '   ■引数
+    '       oSession    Nekoxy.Session型のセッションデータ
+    '       PathString  String型のURLの部分データ。/kcsapiから始まるやつ
+    '   ■返値
+    '       艦これのデータ時はNewtonsoft.Json.Linq.JObject型のJSONオブジェクトデータ
+    '       異常値及び艦これのデータではないと判別したときは何も返さない
+    '   
+    Public Shared Function KancolleReadJson2(Json As String, p As String, PathString As String)
         'とりあえずNekoxyからパスを受け取る
-        Dim path As String = oSession.Request.PathAndQuery
+        Dim path As String = p
 
         'JSONのデータもぶち込む
-        Dim JSONtemporaryData As String = oSession.Response.BodyAsString
+        Dim JSONtemporaryData As String = Json
+
         If (path.StartsWith(PathString)) Then
             'JSONの先頭にある余計な文字を取り除く
             Dim JSONData As String = JSONtemporaryData.Substring(7)
@@ -26,8 +54,6 @@
             Return Nothing
         End If
     End Function
-
-
     '陣形の数値データを名称で返す
     Public Shared Function FormationNameString(ByVal no As Long)
         If no = 1 Then

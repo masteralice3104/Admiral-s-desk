@@ -365,6 +365,54 @@ Namespace My
                 Me("遠征終了通知設定") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("1")>  _
+        Public Property ズーム率() As Integer
+            Get
+                Return CType(Me("ズーム率"),Integer)
+            End Get
+            Set
+                Me("ズーム率") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property プロキシ利用() As Boolean
+            Get
+                Return CType(Me("プロキシ利用"),Boolean)
+            End Get
+            Set
+                Me("プロキシ利用") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property プロキシ利用設定() As String
+            Get
+                Return CType(Me("プロキシ利用設定"),String)
+            End Get
+            Set
+                Me("プロキシ利用設定") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property プロキシポート設定() As String
+            Get
+                Return CType(Me("プロキシポート設定"),String)
+            End Get
+            Set
+                Me("プロキシポート設定") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

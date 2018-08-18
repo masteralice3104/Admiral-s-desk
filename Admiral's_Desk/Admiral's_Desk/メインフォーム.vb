@@ -3,7 +3,7 @@ Public Class メインフォーム
 
     'アップデートに必要な情報
     Public Const ソフト名 As String = "Admiral's Desk"
-    Public Const バージョン As String = "0.2.0.0"
+    Public Const バージョン As String = "0.2.0.1"
     Public Const バージョン他表記 As String = "α"
     Dim 更新後URL As String = ""
 
@@ -12,25 +12,16 @@ Public Class メインフォーム
     Public Const notnekoxy As Boolean = False
 
     'Titanium用
-    ' Dim proxyServer As Titanium.Web.Proxy.ProxyServer
-    ' Dim explicitEndPoint As Titanium.Web.Proxy.Models.ExplicitProxyEndPoint
+    Dim proxyServer As Titanium.Web.Proxy.ProxyServer
+    Dim explicitEndPoint As Titanium.Web.Proxy.Models.ExplicitProxyEndPoint
 
     'Cefsharp移行？
     Public Const cef As Boolean = True
 
-    'レジストリキー用
-    Public regkey As Microsoft.Win32.RegistryKey = Microsoft.Win32.Registry.CurrentUser.CreateSubKey(FEATURE_BROWSER_EMULATION)
-    Public Const FEATURE_BROWSER_EMULATION As String = "Software\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_BROWSER_EMULATION"
-    Public process_name As String = System.Diagnostics.Process.GetCurrentProcess().ProcessName + ".exe"
-    Public process_dbg_name As String = System.Diagnostics.Process.GetCurrentProcess().ProcessName + ".vshost.exe"
     'ブラウザ制御用
-    'Shared WithEvents Cefbrowser As CefSharp.WinForms.ChromiumWebBrowser
+    Shared WithEvents Cefbrowser As CefSharp.WinForms.ChromiumWebBrowser
 
     Private Sub メインフォーム_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
-        'レジストリキー
-        regkey.SetValue(process_name, 11001, Microsoft.Win32.RegistryValueKind.DWord)
-        'regkey.SetValue(process_dbg_name, 11001, Microsoft.Win32.RegistryValueKind.DWord)
 
         'ウインドウ名だけ変更
         MyBase.Text += " " + バージョン & バージョン他表記
@@ -38,46 +29,30 @@ Public Class メインフォーム
 
         CefSharp.Cef.Shutdown()
 
-        If notnekoxy Then
+        '******************************************************
+        '
+        '　　　　　　　　Titaniumセッティング
+        '
+        '******************************************************
 
-            '******************************************************
-            '
-            '　　　　　　　　Titaniumセッティング
-            '
-            '******************************************************
+        proxyServer = New Titanium.Web.Proxy.ProxyServer
 
-            'proxyServer = New Titanium.Web.Proxy.ProxyServer
-
-            '           AddHandler proxyServer.BeforeResponse, AddressOf データ検知T
+        AddHandler proxyServer.BeforeResponse, AddressOf データ検知T
 
 
-            'explicitEndPoint = New Titanium.Web.Proxy.Models.ExplicitProxyEndPoint(System.Net.IPAddress.Loopback, 4297)
-
-            '            proxyServer.AddEndPoint(explicitEndPoint)
-
-            'proxyServer.Start()
-
-            'Nekoxy.WinInetUtil.SetProxyInProcess("http=127.0.0.1:4297;https=127.0.0.1:4297", "local")
-
-        Else
-            '******************************************************
-            '
-            '　　　　　　　　Nekoxyセッティング
-            '
-            '******************************************************
-            'Nekoxyを使います
-            'ここはNekoxyExampleを参考にしてます
-
-            'とりあえず消す
-            Nekoxy.HttpProxy.Shutdown()
-            'プロキシをはじめる
-            Nekoxy.HttpProxy.Startup(4297, False, True)
-            'イベントハンドラを設定
-            AddHandler Nekoxy.HttpProxy.AfterSessionComplete, AddressOf データ検知
-
-
-
+        '上流プロキシ設定
+        If オプション.プロキシ利用.Checked = True And オプション.プロキシ設定_host.Text <> "" And オプション.port.Text <> "" Then
+            proxyServer.UpStreamHttpProxy = New Titanium.Web.Proxy.Models.ExternalProxy()
+            proxyServer.UpStreamHttpProxy.HostName = オプション.プロキシ設定_host.Text
+            proxyServer.UpStreamHttpProxy.Port = オプション.port.Text
         End If
+
+        explicitEndPoint = New Titanium.Web.Proxy.Models.ExplicitProxyEndPoint(System.Net.IPAddress.Loopback, 4297)
+
+        proxyServer.AddEndPoint(explicitEndPoint)
+
+        proxyServer.Start()
+
 
 
 
@@ -89,7 +64,10 @@ Public Class メインフォーム
 
         'キャッシュ設定
         settings.CachePath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\CEF"
-        settings.CefCommandLineArgs.Add("disable-gpu", "1")
+
+
+
+
 
         'リセット
         CefSharp.Cef.Initialize(settings)
@@ -98,19 +76,16 @@ Public Class メインフォーム
 
         'Cefsharpのコントロール作成
 
-        Dim CefBrowser = New CefSharp.WinForms.ChromiumWebBrowser("http://www.dmm.com/netgame/social/-/gadgets/=/app_id=854854/")
+        Cefbrowser = New CefSharp.WinForms.ChromiumWebBrowser("http://www.dmm.com/netgame/social/-/gadgets/=/app_id=854854/")
 
-        Controls.Add(CefBrowser)
-        CefBrowser.Visible = True
-        CefBrowser.Dock = DockStyle.Fill
-
-
-
+        bp.Controls.Add(Cefbrowser)
+        Cefbrowser.Visible = True
+        Cefbrowser.Dock = System.Windows.Forms.DockStyle.Fill
+        AddHandler Cefbrowser.FrameLoadEnd, AddressOf 読込終了時
 
 
 
-
-
+        '
 
 
         '通知領域の設定
@@ -129,7 +104,15 @@ Public Class メインフォーム
         End If
 
         '拡大率の設定
-        'オプション.拡大率設定 = (オプション.拡大率調節バー.Value + 1) * 25
+        If オプション.ズーム.Value = 0 Then
+            オプション.拡大率設定 = 0.66
+            Me.MaximumSize = New Size(820, 589)
+            Me.MinimumSize = New Size(820, 589)
+            Me.bp.MaximumSize = New Size(804, 485)
+            Me.bp.MinimumSize = New Size(804, 485)
+        ElseIf オプション.ズーム.Value = 1 Then
+            オプション.拡大率設定 = 1.0
+        End If
 
         'ミュートボタンの設定
         If Component.GetVolume() = 0 Then
@@ -137,110 +120,86 @@ Public Class メインフォーム
         End If
 
 
+
     End Sub
-    '
 
-    Private Sub データ検知(oSession As Nekoxy.Session)
+    Private Sub 読込終了時(sender As Object, args As CefSharp.FrameLoadEndEventArgs)
+        args.Browser.MainFrame.ExecuteJavaScriptAsync("document.body.style.overflow = 'hidden'")
+        args.Browser.MainFrame.ExecuteJavaScriptAsync("document.getElementById('main-ntg').scrollIntoView(true)")
 
-        Dim JSONObject As Object = Component.KancolleReadJson(oSession, URLDataClass.kcsapi)
-        If JSONObject IsNot Nothing Then
-            'Q: このすぐ上の2行なにやってんの？
-            'A: 受け取ったデータがJsonかどうかを判別してます
-            '   JsonであればNothingにならないはず
-            '   艦これで使われる以外のJsonは想定してないから万が一がありえます
-
-            '以後のデータ処理に必要なパスを出します。/kcsapiのアレです
-            Dim path As String = oSession.Request.PathAndQuery                   'jsonのパス
-
-
-
-#If DEBUG Then
-            'ここからデバッグ用
-
-            'デバッグに必要なデータをつくる
-            Dim JSONData As String = oSession.Response.BodyAsString.Substring(7) 'JSON生データ
-
-
-            'デバッグコンソール見てね！
-            Debug.Listeners.Add(New TextWriterTraceListener(Console.Out))
-            Debug.WriteLine("艦これのデータを検知しました")
-
-            If JSONObject("api_result") IsNot Nothing Then
-                Debug.WriteLine("api_result:{0}", JSONObject("api_result"))
-            End If
-            Debug.WriteLine(path)
-
-            Static number As Long
-            number += 1
-
-            Dim filePath As String = String.Format("C:\test\{0}.json", number)
-            Dim enc As System.Text.Encoding = System.Text.Encoding.GetEncoding("shift_jis")
-            Dim URLfilepath As String = "C:\test\URL.txt"
-
-
-            IO.File.WriteAllText(filePath, JSONData, enc)
-            IO.File.AppendAllText(URLfilepath, Format("{0}", number) & path & vbCrLf, enc)
-            'ここまでデバッグ用
-#End If
-
-
-            'ここから実装
-
-            '共通データの取得関数
-            StructureOperationClass.KancolleCommonDataReset(oSession)
-
-            '構造体に代入する関数
-            StructureOperationClass.JsonDataInputToStructure(JSONObject, path)
-
-
-
-
+        If オプション.拡大率設定 = 0.66 Then
+            args.Browser.MainFrame.ExecuteJavaScriptAsync("$('#game_frame').css({ 'transform' : 'scale(0.666666666666)'});")
+            args.Browser.MainFrame.ExecuteJavaScriptAsync("window.scrollTo(200,210);")
+            args.Browser.MainFrame.ExecuteJavaScriptAsync("var removeElem = document.getElementById('ntg-recommend');removeElem.parentNode.removeChild(removeElem);")
+        ElseIf オプション.拡大率設定 = 1.0 Then
+            args.Browser.MainFrame.ExecuteJavaScriptAsync("$('#game_frame').css({ 'transform' : 'scale(1.0)'});")
+            '1200x720時
+            'args.Browser.MainFrame.ExecuteJavaScriptAsync("window.scrollBy(0,-15);")
+            args.Browser.MainFrame.ExecuteJavaScriptAsync("window.scrollBy(0,11);")
         End If
 
+
     End Sub
+    'メインフォームはもともと800x480
+    '820, 589
+    'ブラウザはもともと
+    '804, 485
 
 
-    '  'titanium用
-    ' Private Async Function データ検知T(ByVal sender As Object, ByVal e As Titanium.Web.Proxy.EventArguments.SessionEventArgs) As Task
-
-    'Dim JSONObject As Object = Component.KancolleReadJson(oSession, URLDataClass.kcsapi)
-
-    'Q: このすぐ上の2行なにやってんの？
-    'A: 受け取ったデータがJsonかどうかを判別してます
-    '   JsonであればNothingにならないはず
-    '   艦これで使われる以外のJsonは想定してないから万が一がありえます
-
-    '以後のデータ処理に必要なパスを出します。/kcsapiのアレです
-    '     Dim path As String = e.WebSession.Request.Url                   'jsonのパス
-
-    'Uriオブジェクトを作成 
-    'Dim u As New Uri(path)
-    '
-    'If Not u.LocalPath.StartsWith(URLDataClass.kcsapi) Then
-    'Exit Function
-    'End If
+    'titanium用
+    Private Async Function データ検知T(ByVal sender As Object, ByVal e As Titanium.Web.Proxy.EventArguments.SessionEventArgs) As Task
 
 
 
+        'Q:      このすぐ上の2行なにやってんの？
+        '    A:  受け取ったデータがJsonかどうかを判別してます
+        '        JsonであればNothingにならないはず
+        '        艦これで使われる以外のJsonは想定してないから万が一がありえます
+
+        '        以後のデータ処理に必要なパスを出します。/kcsapiのアレです
+        '         Dim path As String = e.WebSession.Request.Url                   'jsonのパス
+
+        '        Uriオブジェクトを作成
+        Dim responseHeaders = e.WebSession.Response.Headers
+
+        If (e.WebSession.Response.StatusCode <> 200) Then
+            Exit Function
+        End If
+
+        Dim Resbody As String = Await e.GetResponseBodyAsString
+
+        Dim url As String = e.WebSession.Request.Url
 
 
-    'ここから実装
+
+        Dim path As String = url
+        Dim JSONData As String = Resbody
+        Dim u As New Uri(path)
+
+        If u.LocalPath.StartsWith(URLDataClass.kcsapi) Then
+
+            'ここから実装
+            Dim JSONObject As Object = Component.KancolleReadJson2(JSONData, u.LocalPath, URLDataClass.kcsapi)
+
+            '共通データの取得関数
+            StructureOperationClass.KancolleCommonDataReset(JSONData, u.LocalPath)
+
+            '構造体に代入する関数
+            StructureOperationClass.JsonDataInputToStructure(JSONObject, u.LocalPath)
+        End If
 
 
-    'End Function
+
+
+
+
+
+    End Function
 
     Private Sub メインフォーム_Close() Handles MyBase.Closed
-        'regkey
-        regkey.DeleteValue(process_name)
-        'regkey.DeleteValue(process_dbg_name)
-        regkey.Close()
 
-        'cefbrowser.Dispose()
-
-        Nekoxy.HttpProxy.Shutdown()
+        proxyServer.Stop()
         CefSharp.Cef.Shutdown()
-
-
 
     End Sub
 
@@ -275,14 +234,14 @@ Public Class メインフォーム
         If result = DialogResult.OK Then
             'はい
             'ブラウザ.Refresh()
-            'CefBrowser.GetBrowser.Reload()
+            Cefbrowser.GetBrowser.Reload()
         End If
 
     End Sub
 
     Private Sub 中止ToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 中止ToolStripMenuItem.Click
         'ブラウザ.Stop()
-        ' CefBrowser.GetBrowser.StopLoad()
+        Cefbrowser.GetBrowser.StopLoad()
     End Sub
 
     Private Sub オプションoToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles オプションoToolStripMenuItem.Click

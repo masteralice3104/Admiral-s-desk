@@ -460,12 +460,12 @@ Public Class StructureOperationClass
     '艦これの共通データ更新
     'これは1回しか起こらないはず
     '無論更新した場合は除く
-    Public Shared Sub KancolleCommonDataReset(oSession As Nekoxy.Session)
+    Public Shared Sub KancolleCommonDataReset(Json As String, uri As String)
         'api_start2のjsonであることを確認する
-        If Component.KancolleReadJson(oSession, URLDataClass.api_start2) IsNot Nothing Then
+        If Component.KancolleReadJson2(Json, uri, URLDataClass.api_start2) IsNot Nothing Then
 
             'JSONをメモリに保存する
-            Dim JsonData As Newtonsoft.Json.Linq.JObject = Component.KancolleReadJson(oSession, URLDataClass.api_start2)
+            Dim JsonData As Newtonsoft.Json.Linq.JObject = Component.KancolleReadJson2(Json, uri, URLDataClass.api_start2)
 
 
             '艦娘数を元に配列の調整
@@ -501,7 +501,7 @@ Public Class StructureOperationClass
 
 
             'JsonObjectの準備
-            Dim JsonObject As Object = Component.KancolleReadJson(oSession, URLDataClass.api_start2)
+            Dim JsonObject As Object = Component.KancolleReadJson2(Json, uri, URLDataClass.api_start2)
 
             'ここで実際の艦娘データの読み込み
             If JsonObject("api_data")("api_mst_ship")(0) IsNot Nothing Then

@@ -1,6 +1,6 @@
 ﻿Public Class オプション
     Public Shared 動作速度設定 As Double = 1.0
-    Public Shared 拡大率設定 As Integer = 100
+    Public Shared 拡大率設定 As Double = 1.0
 
     Private Sub 動作調整バー_Scroll(sender As Object, e As EventArgs) Handles 動作調整バー.Scroll
 
@@ -46,6 +46,12 @@
             保存ファイル名.Enabled = False
             保存ファイル名設定.Enabled = False
         End If
+
+        'プロキシ利用設定
+        プロキシ設定_host.Enabled = プロキシ利用.Checked
+        port.Enabled = プロキシ利用.Checked
+
+
     End Sub
 
     Private Sub 入手艦娘記録_CheckedChanged(sender As Object, e As EventArgs) Handles 入手艦娘記録.CheckedChanged
@@ -88,5 +94,31 @@
         Else
             Component.SetVolume(4294967295)
         End If
+    End Sub
+
+    Private Sub ズーム_Scroll(sender As Object, e As EventArgs) Handles ズーム.Scroll
+        If ズーム.Value = 0 Then
+            拡大率設定 = 0.66
+            メインフォーム.MaximumSize = New Size(820, 589)
+            メインフォーム.MinimumSize = New Size(820, 589)
+            メインフォーム.bp.MaximumSize = New Size(804, 485)
+            メインフォーム.bp.MinimumSize = New Size(804, 485)
+
+        ElseIf ズーム.Value = 1 Then
+            拡大率設定 = 1.0
+            メインフォーム.MaximumSize = New Size(1220, 829)
+            メインフォーム.MinimumSize = New Size(1220, 829)
+            メインフォーム.bp.MaximumSize = New Size(1204, 725)
+            メインフォーム.bp.MinimumSize = New Size(1204, 725)
+        End If
+    End Sub
+
+    Private Sub Button2_Click_1(sender As Object, e As EventArgs) Handles Button2.Click
+
+    End Sub
+
+    Private Sub プロキシ利用_CheckedChanged(sender As Object, e As EventArgs)
+        プロキシ設定_host.Enabled = プロキシ利用.Checked
+        port.Enabled = プロキシ利用.Checked
     End Sub
 End Class
