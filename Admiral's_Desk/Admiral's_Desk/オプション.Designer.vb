@@ -24,6 +24,8 @@ Partial Class オプション
     Private Sub InitializeComponent()
         Me.ドロップ艦娘保存 = New System.Windows.Forms.SaveFileDialog()
         Me.debug = New System.Windows.Forms.TabPage()
+        Me.Label9 = New System.Windows.Forms.Label()
+        Me.Label8 = New System.Windows.Forms.Label()
         Me.Button2 = New System.Windows.Forms.Button()
         Me.音量切替 = New System.Windows.Forms.Button()
         Me.Button1 = New System.Windows.Forms.Button()
@@ -44,14 +46,13 @@ Partial Class オプション
         Me.入手艦娘記録 = New System.Windows.Forms.CheckBox()
         Me.動作調整バー = New System.Windows.Forms.TrackBar()
         Me.更新チェック = New System.Windows.Forms.CheckBox()
+        Me.疲労回復通知 = New System.Windows.Forms.CheckBox()
         Me.遠征終了通知チェック = New System.Windows.Forms.CheckBox()
         Me.大破通知 = New System.Windows.Forms.CheckBox()
-        Me.ズーム = New System.Windows.Forms.TrackBar()
         Me.port = New System.Windows.Forms.TextBox()
-        Me.Label9 = New System.Windows.Forms.Label()
-        Me.Label8 = New System.Windows.Forms.Label()
         Me.プロキシ設定_host = New System.Windows.Forms.TextBox()
         Me.プロキシ利用 = New System.Windows.Forms.CheckBox()
+        Me.ズーム = New System.Windows.Forms.TrackBar()
         Me.debug.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.全般設定.SuspendLayout()
@@ -67,11 +68,11 @@ Partial Class オプション
         Me.debug.Controls.Add(Me.port)
         Me.debug.Controls.Add(Me.Label9)
         Me.debug.Controls.Add(Me.Label8)
-        Me.debug.Controls.Add(Me.プロキシ設定_host)
-        Me.debug.Controls.Add(Me.プロキシ利用)
         Me.debug.Controls.Add(Me.Button2)
         Me.debug.Controls.Add(Me.音量切替)
         Me.debug.Controls.Add(Me.Button1)
+        Me.debug.Controls.Add(Me.プロキシ設定_host)
+        Me.debug.Controls.Add(Me.プロキシ利用)
         Me.debug.Location = New System.Drawing.Point(4, 22)
         Me.debug.Name = "debug"
         Me.debug.Padding = New System.Windows.Forms.Padding(3)
@@ -79,6 +80,24 @@ Partial Class オプション
         Me.debug.TabIndex = 3
         Me.debug.Text = "debug"
         Me.debug.UseVisualStyleBackColor = True
+        '
+        'Label9
+        '
+        Me.Label9.AutoSize = True
+        Me.Label9.Location = New System.Drawing.Point(157, 110)
+        Me.Label9.Name = "Label9"
+        Me.Label9.Size = New System.Drawing.Size(25, 12)
+        Me.Label9.TabIndex = 9
+        Me.Label9.Text = "port"
+        '
+        'Label8
+        '
+        Me.Label8.AutoSize = True
+        Me.Label8.Location = New System.Drawing.Point(22, 110)
+        Me.Label8.Name = "Label8"
+        Me.Label8.Size = New System.Drawing.Size(27, 12)
+        Me.Label8.TabIndex = 8
+        Me.Label8.Text = "host"
         '
         'Button2
         '
@@ -109,6 +128,7 @@ Partial Class オプション
         '
         'TabPage1
         '
+        Me.TabPage1.Controls.Add(Me.疲労回復通知)
         Me.TabPage1.Controls.Add(Me.遠征終了通知チェック)
         Me.TabPage1.Controls.Add(Me.大破通知)
         Me.TabPage1.Location = New System.Drawing.Point(4, 22)
@@ -295,6 +315,19 @@ Partial Class オプション
         Me.更新チェック.Text = "起動時に更新の確認をする"
         Me.更新チェック.UseVisualStyleBackColor = True
         '
+        '疲労回復通知
+        '
+        Me.疲労回復通知.AutoSize = True
+        Me.疲労回復通知.Checked = Global.Admiral_s_Desk.My.MySettings.Default.疲労回復通知
+        Me.疲労回復通知.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.疲労回復通知.DataBindings.Add(New System.Windows.Forms.Binding("Checked", Global.Admiral_s_Desk.My.MySettings.Default, "疲労回復通知", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.疲労回復通知.Location = New System.Drawing.Point(6, 50)
+        Me.疲労回復通知.Name = "疲労回復通知"
+        Me.疲労回復通知.Size = New System.Drawing.Size(160, 16)
+        Me.疲労回復通知.TabIndex = 13
+        Me.疲労回復通知.Text = "疲労回復終了時に通知する"
+        Me.疲労回復通知.UseVisualStyleBackColor = True
+        '
         '遠征終了通知チェック
         '
         Me.遠征終了通知チェック.AutoSize = True
@@ -321,17 +354,6 @@ Partial Class オプション
         Me.大破通知.Text = "戦闘時の大破艦を通知する"
         Me.大破通知.UseVisualStyleBackColor = True
         '
-        'ズーム
-        '
-        Me.ズーム.DataBindings.Add(New System.Windows.Forms.Binding("Value", Global.Admiral_s_Desk.My.MySettings.Default, "ズーム率", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
-        Me.ズーム.LargeChange = 1
-        Me.ズーム.Location = New System.Drawing.Point(7, 19)
-        Me.ズーム.Maximum = 1
-        Me.ズーム.Name = "ズーム"
-        Me.ズーム.Size = New System.Drawing.Size(229, 45)
-        Me.ズーム.TabIndex = 0
-        Me.ズーム.Value = Global.Admiral_s_Desk.My.MySettings.Default.ズーム率
-        '
         'port
         '
         Me.port.DataBindings.Add(New System.Windows.Forms.Binding("Text", Global.Admiral_s_Desk.My.MySettings.Default, "プロキシポート設定", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
@@ -341,24 +363,6 @@ Partial Class オプション
         Me.port.Size = New System.Drawing.Size(61, 19)
         Me.port.TabIndex = 10
         Me.port.Text = Global.Admiral_s_Desk.My.MySettings.Default.プロキシポート設定
-        '
-        'Label9
-        '
-        Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(157, 110)
-        Me.Label9.Name = "Label9"
-        Me.Label9.Size = New System.Drawing.Size(25, 12)
-        Me.Label9.TabIndex = 9
-        Me.Label9.Text = "port"
-        '
-        'Label8
-        '
-        Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(22, 110)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(27, 12)
-        Me.Label8.TabIndex = 8
-        Me.Label8.Text = "host"
         '
         'プロキシ設定_host
         '
@@ -381,6 +385,17 @@ Partial Class オプション
         Me.プロキシ利用.TabIndex = 6
         Me.プロキシ利用.Text = "上流プロキシを使用する(http)"
         Me.プロキシ利用.UseVisualStyleBackColor = True
+        '
+        'ズーム
+        '
+        Me.ズーム.DataBindings.Add(New System.Windows.Forms.Binding("Value", Global.Admiral_s_Desk.My.MySettings.Default, "ズーム率", True, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged))
+        Me.ズーム.LargeChange = 1
+        Me.ズーム.Location = New System.Drawing.Point(7, 19)
+        Me.ズーム.Maximum = 1
+        Me.ズーム.Name = "ズーム"
+        Me.ズーム.Size = New System.Drawing.Size(229, 45)
+        Me.ズーム.TabIndex = 0
+        Me.ズーム.Value = Global.Admiral_s_Desk.My.MySettings.Default.ズーム率
         '
         'オプション
         '
@@ -438,4 +453,5 @@ Partial Class オプション
     Friend WithEvents Label8 As Label
     Friend WithEvents プロキシ設定_host As TextBox
     Friend WithEvents プロキシ利用 As CheckBox
+    Friend WithEvents 疲労回復通知 As CheckBox
 End Class

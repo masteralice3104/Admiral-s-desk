@@ -3,7 +3,7 @@ Public Class メインフォーム
 
     'アップデートに必要な情報
     Public Const ソフト名 As String = "Admiral's Desk"
-    Public Const バージョン As String = "0.2.0.1"
+    Public Const バージョン As String = "0.2.0.2"
     Public Const バージョン他表記 As String = "α"
     Dim 更新後URL As String = ""
 
@@ -129,16 +129,16 @@ Public Class メインフォーム
 
         If オプション.拡大率設定 = 0.66 Then
             args.Browser.MainFrame.ExecuteJavaScriptAsync("$('#game_frame').css({ 'transform' : 'scale(0.666666666666)'});")
-            args.Browser.MainFrame.ExecuteJavaScriptAsync("window.scrollTo(200,210);")
             args.Browser.MainFrame.ExecuteJavaScriptAsync("var removeElem = document.getElementById('ntg-recommend');removeElem.parentNode.removeChild(removeElem);")
+            args.Browser.MainFrame.ExecuteJavaScriptAsync("if(location.href==='http://www.dmm.com/netgame/social/-/gadgets/=/app_id=854854/'){window.scrollTo(200,210);}")
         ElseIf オプション.拡大率設定 = 1.0 Then
             args.Browser.MainFrame.ExecuteJavaScriptAsync("$('#game_frame').css({ 'transform' : 'scale(1.0)'});")
             '1200x720時
             'args.Browser.MainFrame.ExecuteJavaScriptAsync("window.scrollBy(0,-15);")
-            args.Browser.MainFrame.ExecuteJavaScriptAsync("window.scrollBy(0,11);")
+            args.Browser.MainFrame.ExecuteJavaScriptAsync("if(location.href==='http://www.dmm.com/netgame/social/-/gadgets/=/app_id=854854/'){window.scrollBy(0,11);}")
         End If
 
-
+        汎用タイマ.Enabled = True
     End Sub
     'メインフォームはもともと800x480
     '820, 589
@@ -343,23 +343,106 @@ Public Class メインフォーム
             End If
         Next
 
+        If MyDataClass.MyPort(1).api_mission IsNot Nothing Then
+            For cnt = 0 To 3
+                If MyDataClass.MyPort(cnt).api_mission(0).Equals(1) Then
 
-        '拡大率設定
-        'ブラウザ.Document.Body.Style &= ";Zoom:" + オプション.拡大率設定.ToString + "%"
+                    'unixタイムスタンプからの変更
+                    Dim 現在時刻 As DateTimeOffset = DateTimeOffset.Now
+                    Dim 帰還時刻 As DateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(MyDataClass.MyPort(cnt).api_mission(2) / 1000).ToLocalTime
+                    Dim 残り時間 As TimeSpan = 帰還時刻 - 現在時刻
+                    Dim 残り時間表示 As String = 残り時間.Hours.ToString("00") + ":" + 残り時間.Minutes.ToString("00") + ":" + (残り時間.Seconds Mod 60).ToString("00")
+
+                    If 残り時間.Seconds < 0 Then
+                        残り時間表示 = "帰還済み"
+
+                        '遠征終了通知をさせるために必要
+                        If 遠征情報.遠征終了通知(cnt) = 0 Then
+                            遠征情報.遠征終了通知(cnt) = 1
+                        End If
+                    End If
 
 
+                    Dim 艦隊名称 = MyDataClass.MyPort(cnt).api_name
+                    Dim 遠征名称 = Component.KancolleMissionIDSearch(MyDataClass.MyPort(cnt).api_mission(1))
+
+                Else
+                    遠征情報.遠征終了通知(cnt) = 0
+                End If
+
+            Next
+        End If
+
+
+        '疲労回復タイマー
+        For cnt = 0 To MyDataClass.MyPort.Length - 1
+            Dim 最悪cond As Integer = 100
+            Dim 回復時間 As DateTimeOffset = DateTimeOffset.Now
+            If MyDataClass.MyPort(cnt).api_ship IsNot Nothing Then
+                For Each ship In MyDataClass.MyPort(cnt).api_ship
+                    If Component.KancollePortKanmusuSearch(ship) IsNot Nothing Then
+                        Dim 母港配列ID As Integer = Component.KancollePortKanmusuSearch(ship)
+
+
+                        '最悪だったら代入
+                        If 最悪cond > MyDataClass.MyKanmusu(母港配列ID).api_cond Then
+                            最悪cond = MyDataClass.MyKanmusu(母港配列ID).api_cond
+                            If 最悪cond < 49 Then
+                                Dim ts As New TimeSpan(0, 49 - 最悪cond, 0)
+                                回復時間 = DateTimeOffset.Now + ts
+                            End If
+                        End If
+                    End If
+                Next
+
+
+                '出撃中はOFFにしておく
+                If MyDataClass.Start.出撃 = True Then
+                    MyDataClass.MyPort(cnt).noapi_condtimer = 5
+                End If
+
+                '0なら記録
+                If 最悪cond < 49 And MyDataClass.MyPort(cnt).noapi_condtimer = 0 Then
+                    MyDataClass.MyPort(cnt).noapi_condtime = 回復時間
+                    MyDataClass.MyPort(cnt).noapi_condtimer = 1
+                End If
+
+                '早まった場合
+                If 最悪cond < 49 And MyDataClass.MyPort(cnt).noapi_condtimer = 1 And (回復時間 - MyDataClass.MyPort(cnt).noapi_condtime).Seconds < 0 Then
+                    MyDataClass.MyPort(cnt).noapi_condtime = 回復時間
+                    MyDataClass.MyPort(cnt).noapi_condtimer = 1
+                End If
+
+
+                '終わった場合
+                If MyDataClass.MyPort(cnt).noapi_condtimer = 1 And (MyDataClass.MyPort(cnt).noapi_condtime - DateTimeOffset.Now).Seconds < 0 Then
+                    If オプション.疲労回復通知.Checked = True Then
+                        '通知する
+                        通知領域.Visible = True
+                        通知領域.ShowBalloonTip(30000, MyDataClass.MyPort(cnt).api_name, "疲労が回復しました", ToolTipIcon.Info)
+                    End If
+                    MyDataClass.MyPort(cnt).noapi_condtimer = 0
+                End If
+
+                '伊良湖とか使った場合
+                If MyDataClass.MyPort(cnt).noapi_condtimer = 1 And 最悪cond >= 49 Then
+                    MyDataClass.MyPort(cnt).noapi_condtimer = 0
+                End If
+
+            End If
+
+
+                Debug.WriteLine("cnt :" + cnt.ToString)
+            Debug.WriteLine("co  :" + MyDataClass.MyPort(cnt).noapi_condtime.ToString)
+            Debug.WriteLine("回  :" + 回復時間.ToString)
+            Debug.WriteLine("ti  :" + MyDataClass.MyPort(cnt).noapi_condtimer.ToString)
+
+
+        Next
     End Sub
 
     Private Sub 全艦娘一覧ウインドウ表示_Click(sender As Object, e As EventArgs) Handles 全艦娘一覧ウインドウ表示.Click
         全艦娘一覧.Visible = True
-    End Sub
-
-    Private Sub ブラウザ_DocumentCompleted(sender As Object, e As WebBrowserDocumentCompletedEventArgs)
-        'ブラウザ.ScrollBarsEnabled = False
-        'ブラウザ.Document.Window.ScrollTo(123, 95)
-
-        汎用タイマ.Enabled = True
-
     End Sub
 
     Private Sub 戦闘予報アクセス_CheckedChanged(sender As Object, e As EventArgs) Handles 戦闘予報アクセス.CheckedChanged

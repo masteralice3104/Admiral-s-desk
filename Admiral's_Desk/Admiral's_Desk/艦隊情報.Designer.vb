@@ -46,7 +46,9 @@ Partial Class 艦隊情報
         Me.ラベル03 = New System.Windows.Forms.Label()
         Me.艦隊情報更新フラグ管理用タイマ = New System.Windows.Forms.Timer(Me.components)
         Me.Panel1 = New System.Windows.Forms.Panel()
+        Me.疲労回復タイマー = New System.Windows.Forms.Label()
         CType(Me.一艦隊情報, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
         '
         '艦隊選択
@@ -225,11 +227,21 @@ Partial Class 艦隊情報
         '
         'Panel1
         '
+        Me.Panel1.Controls.Add(Me.疲労回復タイマー)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.Panel1.Location = New System.Drawing.Point(0, 0)
         Me.Panel1.Name = "Panel1"
         Me.Panel1.Size = New System.Drawing.Size(884, 212)
         Me.Panel1.TabIndex = 8
+        '
+        '疲労回復タイマー
+        '
+        Me.疲労回復タイマー.AutoSize = True
+        Me.疲労回復タイマー.Location = New System.Drawing.Point(451, 16)
+        Me.疲労回復タイマー.Name = "疲労回復タイマー"
+        Me.疲労回復タイマー.Size = New System.Drawing.Size(86, 12)
+        Me.疲労回復タイマー.TabIndex = 0
+        Me.疲労回復タイマー.Text = "疲労はありません"
         '
         '艦隊情報
         '
@@ -254,6 +266,8 @@ Partial Class 艦隊情報
         Me.Name = "艦隊情報"
         Me.Text = "艦隊情報"
         CType(Me.一艦隊情報, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.Panel1.ResumeLayout(False)
+        Me.Panel1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -282,4 +296,5 @@ Partial Class 艦隊情報
     Friend WithEvents ラベル03 As Label
     Friend WithEvents 艦隊情報更新フラグ管理用タイマ As Timer
     Friend WithEvents Panel1 As Panel
+    Friend WithEvents 疲労回復タイマー As Label
 End Class

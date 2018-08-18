@@ -318,6 +318,7 @@ Partial Class メインフォーム
         '通知領域
         '
         Me.通知領域.Text = "Admiral's Desk"
+        Me.通知領域.Visible = True
         '
         'bp
         '
@@ -378,7 +379,7 @@ Partial Class メインフォーム
     Friend WithEvents 戦闘予報アクセス As CheckBox
     Friend WithEvents スクリーンショット撮影 As Button
     Friend WithEvents 遠征支援SToolStripMenuItem As ToolStripMenuItem
-    Friend WithEvents 通知領域 As NotifyIcon
     Friend WithEvents ミュート切り替え As Button
     Friend WithEvents bp As Panel
+    Public WithEvents 通知領域 As NotifyIcon
 End Class

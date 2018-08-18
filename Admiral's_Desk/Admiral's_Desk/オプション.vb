@@ -121,4 +121,6 @@
         プロキシ設定_host.Enabled = プロキシ利用.Checked
         port.Enabled = プロキシ利用.Checked
     End Sub
+
+
 End Class
