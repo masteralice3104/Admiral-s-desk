@@ -51,6 +51,7 @@ Partial Class メインフォーム
         Me.更新URL確認用ブラウザ = New System.Windows.Forms.WebBrowser()
         Me.汎用タイマ = New System.Windows.Forms.Timer(Me.components)
         Me.通知領域 = New System.Windows.Forms.NotifyIcon(Me.components)
+        Me.bp = New System.Windows.Forms.Panel()
         Me.MenuStrip1.SuspendLayout()
         Me.Panel1.SuspendLayout()
         Me.SuspendLayout()
@@ -60,7 +61,7 @@ Partial Class メインフォーム
         Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ファイルFToolStripMenuItem, Me.表示VToolStripMenuItem, Me.ツールTToolStripMenuItem, Me.ヘルプHToolStripMenuItem})
         Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
         Me.MenuStrip1.Name = "MenuStrip1"
-        Me.MenuStrip1.Size = New System.Drawing.Size(804, 24)
+        Me.MenuStrip1.Size = New System.Drawing.Size(1204, 24)
         Me.MenuStrip1.TabIndex = 0
         Me.MenuStrip1.Text = "MenuStrip1"
         '
@@ -150,15 +151,15 @@ Partial Class メインフォーム
         Me.Panel1.Controls.Add(Me.提督情報アクセス)
         Me.Panel1.Controls.Add(Me.情報アクセスラベル)
         Me.Panel1.Dock = System.Windows.Forms.DockStyle.Bottom
-        Me.Panel1.Location = New System.Drawing.Point(0, 509)
+        Me.Panel1.Location = New System.Drawing.Point(0, 749)
         Me.Panel1.Name = "Panel1"
-        Me.Panel1.Size = New System.Drawing.Size(804, 41)
+        Me.Panel1.Size = New System.Drawing.Size(1204, 41)
         Me.Panel1.TabIndex = 2
         '
         'ミュート切り替え
         '
         Me.ミュート切り替え.Dock = System.Windows.Forms.DockStyle.Right
-        Me.ミュート切り替え.Location = New System.Drawing.Point(579, 12)
+        Me.ミュート切り替え.Location = New System.Drawing.Point(979, 12)
         Me.ミュート切り替え.Name = "ミュート切り替え"
         Me.ミュート切り替え.Size = New System.Drawing.Size(75, 29)
         Me.ミュート切り替え.TabIndex = 10
@@ -169,7 +170,7 @@ Partial Class メインフォーム
         '
         Me.スクリーンショット撮影.Dock = System.Windows.Forms.DockStyle.Right
         Me.スクリーンショット撮影.Enabled = False
-        Me.スクリーンショット撮影.Location = New System.Drawing.Point(654, 12)
+        Me.スクリーンショット撮影.Location = New System.Drawing.Point(1054, 12)
         Me.スクリーンショット撮影.Name = "スクリーンショット撮影"
         Me.スクリーンショット撮影.Size = New System.Drawing.Size(75, 29)
         Me.スクリーンショット撮影.TabIndex = 9
@@ -193,7 +194,7 @@ Partial Class メインフォーム
         '全艦娘一覧ウインドウ表示
         '
         Me.全艦娘一覧ウインドウ表示.Dock = System.Windows.Forms.DockStyle.Right
-        Me.全艦娘一覧ウインドウ表示.Location = New System.Drawing.Point(729, 12)
+        Me.全艦娘一覧ウインドウ表示.Location = New System.Drawing.Point(1129, 12)
         Me.全艦娘一覧ウインドウ表示.Name = "全艦娘一覧ウインドウ表示"
         Me.全艦娘一覧ウインドウ表示.Size = New System.Drawing.Size(75, 29)
         Me.全艦娘一覧ウインドウ表示.TabIndex = 7
@@ -318,11 +319,22 @@ Partial Class メインフォーム
         '
         Me.通知領域.Text = "Admiral's Desk"
         '
+        'bp
+        '
+        Me.bp.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.bp.Location = New System.Drawing.Point(0, 24)
+        Me.bp.MaximumSize = New System.Drawing.Size(1204, 725)
+        Me.bp.MinimumSize = New System.Drawing.Size(1204, 725)
+        Me.bp.Name = "bp"
+        Me.bp.Size = New System.Drawing.Size(1204, 725)
+        Me.bp.TabIndex = 5
+        '
         'メインフォーム
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 12.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(804, 550)
+        Me.ClientSize = New System.Drawing.Size(1204, 790)
+        Me.Controls.Add(Me.bp)
         Me.Controls.Add(Me.Panel1)
         Me.Controls.Add(Me.更新URL確認用ブラウザ)
         Me.Controls.Add(Me.更新確認ブラウザ)
@@ -368,4 +380,5 @@ Partial Class メインフォーム
     Friend WithEvents 遠征支援SToolStripMenuItem As ToolStripMenuItem
     Friend WithEvents 通知領域 As NotifyIcon
     Friend WithEvents ミュート切り替え As Button
+    Friend WithEvents bp As Panel
 End Class

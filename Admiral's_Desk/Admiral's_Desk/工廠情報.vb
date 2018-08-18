@@ -19,7 +19,7 @@
                 Dim 終了時刻_long As Long = CType(Repair.api_complete_time / 1000, Long)
                 Dim 終了時刻 = DateTimeOffset.FromUnixTimeSeconds(終了時刻_long).ToLocalTime
                 Dim 残り時間 = 終了時刻 - 現在時刻
-                Dim 残り時間表示 As String = 残り時間.ToString("hh\:mm") + ":" + (残り時間.Seconds Mod 60).ToString("00")
+                Dim 残り時間表示 As String = 残り時間.Hours.ToString("00") + ":" + 残り時間.Minutes.ToString("00") + ":" + (残り時間.Seconds Mod 60).ToString("00")
 
                 If 残り時間.Seconds < 0 Then
                     残り時間表示 = "終了済み"
@@ -71,7 +71,7 @@
                 Dim 終了時刻_long As Long = CType(develop.api_complete_time / 1000, Long)
                 Dim 終了時刻 = DateTimeOffset.FromUnixTimeSeconds(終了時刻_long).ToLocalTime
                 Dim 残り時間 = 終了時刻 - 現在時刻
-                Dim 残り時間表示 As String = 残り時間.ToString("hh\:mm") + ":" + (残り時間.Seconds Mod 60).ToString("00")
+                Dim 残り時間表示 As String = 残り時間.Hours.ToString("00") + ":" + 残り時間.Minutes.ToString("00") + ":" + (残り時間.Seconds Mod 60).ToString("00")
                 Dim 終了時刻表示 As String = String.Format("{0:MM/dd HH:mm:ss}", 終了時刻)
 
 
