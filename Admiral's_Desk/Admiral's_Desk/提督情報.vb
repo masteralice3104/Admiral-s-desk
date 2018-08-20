@@ -12,6 +12,7 @@
         'ハンドラを設定
         AddHandler MyDataClass.Events.Info_Refresh, AddressOf 情報更新
 
+
     End Sub
 
     Private Sub 情報更新()

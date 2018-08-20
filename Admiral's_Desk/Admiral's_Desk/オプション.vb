@@ -1,6 +1,9 @@
 ﻿Public Class オプション
     Public Shared 動作速度設定 As Double = 1.0
     Public Shared 拡大率設定 As Double = 1.0
+    Public Shared ブラウザ座標X出力 As Double = 200
+    Public Shared ブラウザ座標Y出力 As Double = 210
+    Public Shared javascriptcall As Boolean = False
 
     Private Sub 動作調整バー_Scroll(sender As Object, e As EventArgs) Handles 動作調整バー.Scroll
 
@@ -52,6 +55,9 @@
         port.Enabled = プロキシ利用.Checked
 
 
+
+
+
     End Sub
 
     Private Sub 入手艦娘記録_CheckedChanged(sender As Object, e As EventArgs) Handles 入手艦娘記録.CheckedChanged
@@ -96,31 +102,72 @@
         End If
     End Sub
 
-    Private Sub ズーム_Scroll(sender As Object, e As EventArgs) Handles ズーム.Scroll
-        If ズーム.Value = 0 Then
-            拡大率設定 = 0.66
-            メインフォーム.MaximumSize = New Size(820, 589)
-            メインフォーム.MinimumSize = New Size(820, 589)
-            メインフォーム.bp.MaximumSize = New Size(804, 485)
-            メインフォーム.bp.MinimumSize = New Size(804, 485)
-
-        ElseIf ズーム.Value = 1 Then
-            拡大率設定 = 1.0
-            メインフォーム.MaximumSize = New Size(1220, 829)
-            メインフォーム.MinimumSize = New Size(1220, 829)
-            メインフォーム.bp.MaximumSize = New Size(1204, 725)
-            メインフォーム.bp.MinimumSize = New Size(1204, 725)
-        End If
-    End Sub
 
     Private Sub Button2_Click_1(sender As Object, e As EventArgs) Handles Button2.Click
 
     End Sub
 
-    Private Sub プロキシ利用_CheckedChanged(sender As Object, e As EventArgs)
+
+    Private Sub プロキシ利用_CheckedChanged_1(sender As Object, e As EventArgs)
         プロキシ設定_host.Enabled = プロキシ利用.Checked
         port.Enabled = プロキシ利用.Checked
     End Sub
 
+    Private Sub 画面設定適用_Click(sender As Object, e As EventArgs) Handles 画面設定適用.Click
+        Dim パーセント拡大率 As Double = 100
+        If ブラウザ拡大率.Text <> "" And Double.TryParse(ブラウザ拡大率.Text, パーセント拡大率) Then
 
+            Dim 拡大率 As Double = Double.Parse(ブラウザ拡大率.Text)
+            If 拡大率 > 0 Then
+                拡大率設定 = パーセント拡大率 / 100
+                Dim bpsize = New Size(1200 * 拡大率設定, 720 * 拡大率設定 + 24)
+                Dim mainsize = New Size(1200 * 拡大率設定 + 20, 720 * 拡大率設定 + 41 + 63)
+
+
+
+                メインフォーム.Panel1.Size = New Size(1200 * 拡大率設定 + 4, 41)
+
+                メインフォーム.bp.MaximumSize = bpsize
+                メインフォーム.bp.MinimumSize = bpsize
+                メインフォーム.bp.Size = bpsize
+                メインフォーム.bp.SendToBack()
+                メインフォーム.MaximumSize = mainsize
+                メインフォーム.MinimumSize = mainsize
+
+                Double.TryParse(ブラウザ座標X.Text, ブラウザ座標X出力)
+                Double.TryParse(ブラウザ座標Y.Text, ブラウザ座標Y出力)
+
+
+                javascriptcall = True
+
+            End If
+        End If
+
+    End Sub
+
+    Private Sub 三分の二モード_Click(sender As Object, e As EventArgs) Handles 三分の二モード.Click
+
+
+
+        ブラウザ拡大率.Text = 66.6666666666666
+        ブラウザ座標X.Text = 200
+        ブラウザ座標Y.Text = 191
+
+        画面設定適用.PerformClick()
+    End Sub
+
+    Private Sub 等倍モード_Click(sender As Object, e As EventArgs) Handles 等倍モード.Click
+
+        ブラウザ拡大率.Text = 100.0
+        ブラウザ座標X.Text = 199
+        ブラウザ座標Y.Text = 53
+
+        画面設定適用.PerformClick()
+    End Sub
+
+    Private Sub プロキシ利用_CheckedChanged(sender As Object, e As EventArgs) Handles プロキシ利用.CheckedChanged
+        プロキシ設定_host.Enabled = プロキシ利用.Checked
+        port.Enabled = プロキシ利用.Checked
+
+    End Sub
 End Class

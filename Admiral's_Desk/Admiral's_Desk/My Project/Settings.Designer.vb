@@ -425,6 +425,54 @@ Namespace My
                 Me("疲労回復通知") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property ハードウェアアクセラレーション() As Boolean
+            Get
+                Return CType(Me("ハードウェアアクセラレーション"),Boolean)
+            End Get
+            Set
+                Me("ハードウェアアクセラレーション") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("100")>  _
+        Public Property ブラウザ拡大率() As String
+            Get
+                Return CType(Me("ブラウザ拡大率"),String)
+            End Get
+            Set
+                Me("ブラウザ拡大率") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("199")>  _
+        Public Property ブラウザ座標X() As String
+            Get
+                Return CType(Me("ブラウザ座標X"),String)
+            End Get
+            Set
+                Me("ブラウザ座標X") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("53")>  _
+        Public Property ブラウザ座標Y() As String
+            Get
+                Return CType(Me("ブラウザ座標Y"),String)
+            End Get
+            Set
+                Me("ブラウザ座標Y") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

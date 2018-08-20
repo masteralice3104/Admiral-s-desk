@@ -95,5 +95,17 @@
     <Setting Name="疲労回復通知" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="ハードウェアアクセラレーション" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="ブラウザ拡大率" Type="System.String" Scope="User">
+      <Value Profile="(Default)">100</Value>
+    </Setting>
+    <Setting Name="ブラウザ座標X" Type="System.String" Scope="User">
+      <Value Profile="(Default)">199</Value>
+    </Setting>
+    <Setting Name="ブラウザ座標Y" Type="System.String" Scope="User">
+      <Value Profile="(Default)">53</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

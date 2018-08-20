@@ -113,6 +113,7 @@ Partial Class メインフォーム
         '
         '遠征支援SToolStripMenuItem
         '
+        Me.遠征支援SToolStripMenuItem.Enabled = False
         Me.遠征支援SToolStripMenuItem.Name = "遠征支援SToolStripMenuItem"
         Me.遠征支援SToolStripMenuItem.Size = New System.Drawing.Size(136, 22)
         Me.遠征支援SToolStripMenuItem.Text = "遠征支援(&S)"
@@ -169,7 +170,6 @@ Partial Class メインフォーム
         'スクリーンショット撮影
         '
         Me.スクリーンショット撮影.Dock = System.Windows.Forms.DockStyle.Right
-        Me.スクリーンショット撮影.Enabled = False
         Me.スクリーンショット撮影.Location = New System.Drawing.Point(1054, 12)
         Me.スクリーンショット撮影.Name = "スクリーンショット撮影"
         Me.スクリーンショット撮影.Size = New System.Drawing.Size(75, 29)
