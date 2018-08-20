@@ -3,7 +3,7 @@ Public Class メインフォーム
 
     'アップデートに必要な情報
     Public Const ソフト名 As String = "Admiral's Desk"
-    Public Const バージョン As String = "0.2.0.2"
+    Public Const バージョン As String = "0.2.0.3"
     Public Const バージョン他表記 As String = "α"
     Dim 更新後URL As String = ""
 
@@ -26,6 +26,15 @@ Public Class メインフォーム
         'ウインドウ名だけ変更
         MyBase.Text += " " + バージョン & バージョン他表記
 
+        'フォーム所有設定
+        Me.AddOwnedForm(遠征情報)
+        Me.AddOwnedForm(艦隊情報)
+        Me.AddOwnedForm(提督情報)
+        Me.AddOwnedForm(工廠情報)
+        Me.AddOwnedForm(任務情報)
+        'Me.AddOwnedForm()
+        'Me.AddOwnedForm()
+
 
         CefSharp.Cef.Shutdown()
 
@@ -44,7 +53,7 @@ Public Class メインフォーム
         If オプション.プロキシ利用.Checked = True And オプション.プロキシ設定_host.Text <> "" And オプション.port.Text <> "" Then
             proxyServer.UpStreamHttpProxy = New Titanium.Web.Proxy.Models.ExternalProxy()
             proxyServer.UpStreamHttpProxy.HostName = オプション.プロキシ設定_host.Text
-            proxyServer.UpStreamHttpProxy.Port = オプション.port.Text
+            proxyServer.UpStreamHttpProxy.Port = Integer.Parse(オプション.port.Text)
         End If
 
         explicitEndPoint = New Titanium.Web.Proxy.Models.ExplicitProxyEndPoint(System.Net.IPAddress.Loopback, 4297)
@@ -65,9 +74,13 @@ Public Class メインフォーム
         'キャッシュ設定
         settings.CachePath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\CEF"
 
+        'ハードウェアアクセラレーション
+        If オプション.ハードウェアアクセラレーション.Checked = True Then
+            settings.CefCommandLineArgs.Add("disable-gpu", "disable-gpu")
+        End If
 
-
-
+        'サブプロセスを殺せ
+        CefSharp.CefSharpSettings.SubprocessExitIfParentProcessClosed = True
 
         'リセット
         CefSharp.Cef.Initialize(settings)
@@ -104,15 +117,42 @@ Public Class メインフォーム
         End If
 
         '拡大率の設定
-        If オプション.ズーム.Value = 0 Then
-            オプション.拡大率設定 = 0.66
-            Me.MaximumSize = New Size(820, 589)
-            Me.MinimumSize = New Size(820, 589)
-            Me.bp.MaximumSize = New Size(804, 485)
-            Me.bp.MinimumSize = New Size(804, 485)
-        ElseIf オプション.ズーム.Value = 1 Then
+        Dim パーセント拡大率 As Double = 100
+        If Double.TryParse(オプション.ブラウザ拡大率.Text, パーセント拡大率) Then
+            オプション.拡大率設定 = パーセント拡大率 / 100
+            Me.Panel1.Size = New Size(1200 * オプション.拡大率設定 + 4, 41)
+            Dim bpsize = New Size(1200 * オプション.拡大率設定 + 2, 720 * オプション.拡大率設定 + 24)
+            Dim mainsize = New Size(1200 * オプション.拡大率設定 + 20, 720 * オプション.拡大率設定 + 41 + 63)
+
+            Me.bp.MaximumSize = bpsize
+            Me.bp.MinimumSize = bpsize
+            Me.bp.Size = bpsize
+            Me.bp.SendToBack()
+            Me.MaximumSize = mainsize
+            Me.MinimumSize = mainsize
+
+        Else
             オプション.拡大率設定 = 1.0
+
+
+            Me.Panel1.Size = New Size(1200 * オプション.拡大率設定 + 4, 41)
+            Dim bpsize = New Size(1200 * オプション.拡大率設定, 720 * オプション.拡大率設定 + 24)
+            Dim mainsize = New Size(1200 * オプション.拡大率設定 + 20, 720 * オプション.拡大率設定 + 41 + 63)
+
+            Me.bp.MaximumSize = bpsize
+            Me.bp.MinimumSize = bpsize
+            Me.bp.Size = bpsize
+            Me.bp.SendToBack()
+            Me.MaximumSize = mainsize
+            Me.MinimumSize = mainsize
+
         End If
+
+        If Double.TryParse(オプション.ブラウザ座標X.Text, オプション.ブラウザ座標X出力) _
+            And Double.TryParse(オプション.ブラウザ座標Y.Text, オプション.ブラウザ座標Y出力) Then
+
+        End If
+
 
         'ミュートボタンの設定
         If Component.GetVolume() = 0 Then
@@ -124,20 +164,13 @@ Public Class メインフォーム
     End Sub
 
     Private Sub 読込終了時(sender As Object, args As CefSharp.FrameLoadEndEventArgs)
-        args.Browser.MainFrame.ExecuteJavaScriptAsync("document.body.style.overflow = 'hidden'")
-        args.Browser.MainFrame.ExecuteJavaScriptAsync("document.getElementById('main-ntg').scrollIntoView(true)")
-
-        If オプション.拡大率設定 = 0.66 Then
-            args.Browser.MainFrame.ExecuteJavaScriptAsync("$('#game_frame').css({ 'transform' : 'scale(0.666666666666)'});")
-            args.Browser.MainFrame.ExecuteJavaScriptAsync("var removeElem = document.getElementById('ntg-recommend');removeElem.parentNode.removeChild(removeElem);")
-            args.Browser.MainFrame.ExecuteJavaScriptAsync("if(location.href==='http://www.dmm.com/netgame/social/-/gadgets/=/app_id=854854/'){window.scrollTo(200,210);}")
-        ElseIf オプション.拡大率設定 = 1.0 Then
-            args.Browser.MainFrame.ExecuteJavaScriptAsync("$('#game_frame').css({ 'transform' : 'scale(1.0)'});")
-            '1200x720時
-            'args.Browser.MainFrame.ExecuteJavaScriptAsync("window.scrollBy(0,-15);")
-            args.Browser.MainFrame.ExecuteJavaScriptAsync("if(location.href==='http://www.dmm.com/netgame/social/-/gadgets/=/app_id=854854/'){window.scrollBy(0,11);}")
-        End If
-
+        ' args.Browser.MainFrame.ExecuteJavaScriptAsync("var removeelem = document.getelementbyid('ntg-recommend');removeelem.parentNode.removechild(removeelem);")
+        'args.Browser.MainFrame.ExecuteJavaScriptAsync("document.getelementbyid('ntg-recommend').remove();")
+        args.Browser.MainFrame.ExecuteJavaScriptAsync("if(location.href==='http://www.dmm.com/netgame/social/-/gadgets/=/app_id=854854/'){document.body.style.overflow = 'hidden';}")
+        args.Browser.MainFrame.ExecuteJavaScriptAsync("$('#game_frame').css({ 'transform' : 'scale(" + オプション.拡大率設定.ToString + ")'});")
+        args.Browser.MainFrame.ExecuteJavaScriptAsync("if(location.href==='http://www.dmm.com/netgame/social/-/gadgets/=/app_id=854854/'){window.scrollTo(" + オプション.ブラウザ座標X出力.ToString + "," + オプション.ブラウザ座標Y出力.ToString + ");}")
+        args.Browser.MainFrame.ExecuteJavaScriptAsync("if(location.href==='http://www.dmm.com/netgame/social/-/gadgets/=/app_id=854854/'){recommend_area.removeClass('show');}")
+        オプション.javascriptcall = True
         汎用タイマ.Enabled = True
     End Sub
     'メインフォームはもともと800x480
@@ -191,13 +224,14 @@ Public Class メインフォーム
 
 
 
+        オプション.javascriptcall = True
 
 
 
     End Function
 
     Private Sub メインフォーム_Close() Handles MyBase.Closed
-
+        オプション.javascriptcall = False
         proxyServer.Stop()
         CefSharp.Cef.Shutdown()
 
@@ -400,6 +434,10 @@ Public Class メインフォーム
                 If MyDataClass.Start.出撃 = True Then
                     MyDataClass.MyPort(cnt).noapi_condtimer = 5
                 End If
+                If MyDataClass.Start.出撃 = False And MyDataClass.MyPort(cnt).noapi_condtimer = 5 Then
+                    MyDataClass.MyPort(cnt).noapi_condtimer = 0
+                End If
+
 
                 '0なら記録
                 If 最悪cond < 49 And MyDataClass.MyPort(cnt).noapi_condtimer = 0 Then
@@ -437,6 +475,13 @@ Public Class メインフォーム
             Debug.WriteLine("回  :" + 回復時間.ToString)
             Debug.WriteLine("ti  :" + MyDataClass.MyPort(cnt).noapi_condtimer.ToString)
 
+            '画面処理
+            If オプション.javascriptcall = True Then
+                Cefbrowser.GetBrowser.MainFrame.ExecuteJavaScriptAsync("if(location.href==='http://www.dmm.com/netgame/social/-/gadgets/=/app_id=854854/'){document.body.style.overflow = 'hidden';}")
+                Cefbrowser.GetBrowser.MainFrame.ExecuteJavaScriptAsync("$('#game_frame').css({ 'transform' : 'scale(" + オプション.拡大率設定.ToString + ")'});")
+                Cefbrowser.GetBrowser.MainFrame.ExecuteJavaScriptAsync("if(location.href==='http://www.dmm.com/netgame/social/-/gadgets/=/app_id=854854/'){window.scrollTo(" + オプション.ブラウザ座標X出力.ToString + "," + オプション.ブラウザ座標Y出力.ToString + ");}")
+                オプション.javascriptcall = False
+            End If
 
         Next
     End Sub
@@ -457,9 +502,9 @@ Public Class メインフォーム
 
     Private Declare Function PrintWindow Lib "User32" (ByVal hWnd As IntPtr, ByVal hdcBlt As IntPtr, ByVal nFlags As Integer) As Boolean
     Private Sub スクリーンショット撮影_Click(sender As Object, e As EventArgs) Handles スクリーンショット撮影.Click
-        'temp画像保存領域
-        Dim imgtemp As New Bitmap(802, 482) '撮影用
-        Dim rectemp As New Bitmap(800, 400) '切抜用
+        ''temp画像保存領域
+        'Dim imgtemp As New Bitmap(802, 482) '撮影用
+        'Dim rectemp As New Bitmap(800, 400) '切抜用
 
         'ファイル名作成
         Dim nowTime As DateTimeOffset = Now
@@ -474,24 +519,38 @@ Public Class メインフォーム
             MkDir(My.Application.Info.DirectoryPath + "\SS\")
         End If
 
-        'webbrowserから画像をコピー
-        Using targetGraphics As Graphics = Graphics.FromImage(imgtemp)
-            Dim hDC As IntPtr = targetGraphics.GetHdc()
-            'PrintWindow(ブラウザ.Handle, hDC, 0)
-            'PrintWindow(Cefbrowser.Handle, hDC, 0)
-            targetGraphics.ReleaseHdc(hDC)
-        End Using
+        ''webbrowserから画像をコピー
+        'Using targetGraphics As Graphics = Graphics.FromImage(imgtemp)
+        '    Dim hDC As IntPtr = targetGraphics.GetHdc()
+        '    'PrintWindow(ブラウザ.Handle, hDC, 0)
+        '    PrintWindow(Cefbrowser.Handle, hDC, 0)
+        '    targetGraphics.ReleaseHdc(hDC)
+        'End Using
 
-        'そして切抜き
-        Dim rect As New Rectangle(1, 1, 800, 480)
-        rectemp = imgtemp.Clone(rect, imgtemp.PixelFormat)
+        ''そして切抜き
+        'Dim rect As New Rectangle(1, 1, 800, 480)
+        'rectemp = imgtemp.Clone(rect, imgtemp.PixelFormat)
 
-        'ファイルに保存
-        rectemp.Save(Filename, Imaging.ImageFormat.Png)
+        ''ファイルに保存
+        'rectemp.Save(Filename, Imaging.ImageFormat.Png)
 
-        '後処理
-        imgtemp.Dispose()
-        rectemp.Dispose()
+        ''後処理
+        'imgtemp.Dispose()
+        'rectemp.Dispose()
+
+
+
+        'Bitmapの作成
+        Dim bmp As New Bitmap(bp.Width - 2, bp.Height - 24)
+        'Graphicsの作成
+        Dim g As Graphics = Graphics.FromImage(bmp)
+        '画面全体をコピーする
+        g.CopyFromScreen(Me.PointToScreen(New Point(0, 24)), New Point(0, 0), bmp.Size)
+        '解放
+        g.Dispose()
+
+        bmp.Save(Filename, Imaging.ImageFormat.Png)
+
     End Sub
 
     Private Sub 遠征支援SToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles 遠征支援SToolStripMenuItem.Click

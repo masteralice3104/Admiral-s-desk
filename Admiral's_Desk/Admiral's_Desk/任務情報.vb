@@ -4,6 +4,7 @@
 
 
     Private Sub 任務情報_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
         AddHandler MyDataClass.Events.Info_Refresh, AddressOf 任務更新フラグ更新
     End Sub
 
