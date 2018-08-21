@@ -470,7 +470,7 @@ Public Class メインフォーム
             End If
 
 
-                Debug.WriteLine("cnt :" + cnt.ToString)
+            Debug.WriteLine("cnt :" + cnt.ToString)
             Debug.WriteLine("co  :" + MyDataClass.MyPort(cnt).noapi_condtime.ToString)
             Debug.WriteLine("回  :" + 回復時間.ToString)
             Debug.WriteLine("ti  :" + MyDataClass.MyPort(cnt).noapi_condtimer.ToString)

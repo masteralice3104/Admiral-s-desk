@@ -109,7 +109,6 @@ Partial Class 提督情報
         '
         'Panel1
         '
-        Me.Panel1.Controls.Add(Me.装備数)
         Me.Panel1.Controls.Add(Me.表示ラベル02)
         Me.Panel1.Controls.Add(Me.表示ラベル01)
         Me.Panel1.Controls.Add(Me.母港収容状況)
@@ -121,7 +120,7 @@ Partial Class 提督情報
         '装備数
         '
         Me.装備数.AutoSize = True
-        Me.装備数.Location = New System.Drawing.Point(219, 0)
+        Me.装備数.Location = New System.Drawing.Point(114, 42)
         Me.装備数.Name = "装備数"
         Me.装備数.Size = New System.Drawing.Size(23, 12)
         Me.装備数.TabIndex = 4
@@ -130,7 +129,7 @@ Partial Class 提督情報
         '表示ラベル02
         '
         Me.表示ラベル02.AutoSize = True
-        Me.表示ラベル02.Location = New System.Drawing.Point(184, 0)
+        Me.表示ラベル02.Location = New System.Drawing.Point(67, 0)
         Me.表示ラベル02.Name = "表示ラベル02"
         Me.表示ラベル02.Size = New System.Drawing.Size(29, 12)
         Me.表示ラベル02.TabIndex = 3
@@ -242,6 +241,7 @@ Partial Class 提督情報
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(354, 301)
         Me.ControlBox = False
+        Me.Controls.Add(Me.装備数)
         Me.Controls.Add(Me.攻略中マップ一覧)
         Me.Controls.Add(Me.現在資材状況)
         Me.Controls.Add(Me.Panel2)
@@ -262,6 +262,7 @@ Partial Class 提督情報
         Me.攻略中マップ一覧.ResumeLayout(False)
         CType(Me.マップ状態, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
 
