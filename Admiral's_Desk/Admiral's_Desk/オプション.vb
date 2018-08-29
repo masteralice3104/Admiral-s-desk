@@ -1,9 +1,11 @@
 ﻿Public Class オプション
+    Friend Shared ReadOnly 疲労回復通知保存 As Boolean
     Public Shared 動作速度設定 As Double = 1.0
     Public Shared 拡大率設定 As Double = 1.0
     Public Shared ブラウザ座標X出力 As Double = 200
     Public Shared ブラウザ座標Y出力 As Double = 210
     Public Shared javascriptcall As Boolean = False
+
 
     Private Sub 動作調整バー_Scroll(sender As Object, e As EventArgs) Handles 動作調整バー.Scroll
 
@@ -26,7 +28,6 @@
         'debugタブを消す
 #If DEBUG Then
 #Else
-        設定.TabPages.Remove(debug)
 #End If
 
 
@@ -54,9 +55,14 @@
         プロキシ設定_host.Enabled = プロキシ利用.Checked
         port.Enabled = プロキシ利用.Checked
 
+        '通知設定
+        通知秒.Enabled = 遠征終了通知チェック.Checked
+        Integer.TryParse(通知秒.Text, メインフォーム.オプション設定_遠征通知通知秒)
+        メインフォーム.オプション設定_疲労回復通知 = 疲労回復通知チェック.Checked
 
-
-
+        '通知用SE設定
+        遠征終了時SEファイルパス.Enabled = 遠征終了時SE.Checked
+        遠征終了時SEファイル名選択.Enabled = 遠征終了時SE.Checked
 
     End Sub
 
@@ -89,12 +95,12 @@
 
 
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+    Private Sub Button1_Click(sender As Object, e As EventArgs)
         メインフォーム.通知領域.Visible = True
         メインフォーム.通知領域.ShowBalloonTip(4000, "通知", "これはテスト通知です", ToolTipIcon.Warning)
     End Sub
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles 音量切替.Click
+    Private Sub Button2_Click(sender As Object, e As EventArgs)
         If Component.GetVolume <> 0 Then
             Component.SetVolume(0)
         Else
@@ -103,7 +109,7 @@
     End Sub
 
 
-    Private Sub Button2_Click_1(sender As Object, e As EventArgs) Handles Button2.Click
+    Private Sub Button2_Click_1(sender As Object, e As EventArgs)
 
     End Sub
 
@@ -168,6 +174,38 @@
     Private Sub プロキシ利用_CheckedChanged(sender As Object, e As EventArgs) Handles プロキシ利用.CheckedChanged
         プロキシ設定_host.Enabled = プロキシ利用.Checked
         port.Enabled = プロキシ利用.Checked
+    End Sub
 
+    Private Sub 遠征終了通知チェック_CheckedChanged(sender As Object, e As EventArgs) Handles 遠征終了通知チェック.CheckedChanged
+        通知秒.Enabled = 遠征終了通知チェック.Checked
+        メインフォーム.オプション設定_遠征通知 = 遠征終了通知チェック.Checked
+        Integer.TryParse(通知秒.Text, メインフォーム.オプション設定_遠征通知通知秒)
+        通知秒設定適用.Enabled = 遠征終了通知チェック.Checked
+    End Sub
+
+    Private Sub 疲労回復通知チェック_CheckedChanged(sender As Object, e As EventArgs) Handles 疲労回復通知チェック.CheckedChanged
+        メインフォーム.オプション設定_疲労回復通知 = 疲労回復通知チェック.Checked
+    End Sub
+
+    Private Sub 遠征終了時SE_CheckedChanged(sender As Object, e As EventArgs) Handles 遠征終了時SE.CheckedChanged
+        遠征終了時SEファイルパス.Enabled = 遠征終了時SE.Checked
+        遠征終了時SEファイル名選択.Enabled = 遠征終了時SE.Checked
+    End Sub
+
+    Private Sub 遠征終了時SEファイル名選択_Click(sender As Object, e As EventArgs) Handles 遠征終了時SEファイル名選択.Click
+        遠征終了時SEファイル名.FileName = "se.wav"
+        遠征終了時SEファイル名.Filter = "WAVファイル(*.wav)|*.wav|すべてのファイル(*.*)|*.*"
+        遠征終了時SEファイル名.FilterIndex = 1
+        遠征終了時SEファイル名.Title = "ファイルを選択して下さい"
+        遠征終了時SEファイル名.RestoreDirectory = True
+        If 遠征終了時SEファイル名.ShowDialog() = DialogResult.OK Then
+            'OKボタンがクリックされたとき
+            遠征終了時SEファイルパス.Text = 遠征終了時SEファイル名.FileName
+        End If
+    End Sub
+
+    Private Sub 通知秒設定適用_Click(sender As Object, e As EventArgs) Handles 通知秒設定適用.Click
+        メインフォーム.オプション設定_遠征通知 = 遠征終了通知チェック.Checked
+        Integer.TryParse(通知秒.Text, メインフォーム.オプション設定_遠征通知通知秒)
     End Sub
 End Class

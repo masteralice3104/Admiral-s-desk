@@ -21,6 +21,13 @@ Public Class メインフォーム
     'ブラウザ制御用
     Shared WithEvents Cefbrowser As CefSharp.WinForms.ChromiumWebBrowser
 
+
+
+    'グローバル変数
+    Public Shared オプション設定_遠征通知 As Boolean = True
+    Public Shared オプション設定_遠征通知通知秒 As Integer = 40
+    Public Shared オプション設定_疲労回復通知 As Boolean = False
+
     Private Sub メインフォーム_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
         'ウインドウ名だけ変更
@@ -82,6 +89,8 @@ Public Class メインフォーム
         'サブプロセスを殺せ
         CefSharp.CefSharpSettings.SubprocessExitIfParentProcessClosed = True
 
+
+
         'リセット
         CefSharp.Cef.Initialize(settings)
 
@@ -96,9 +105,11 @@ Public Class メインフォーム
         Cefbrowser.Dock = System.Windows.Forms.DockStyle.Fill
         AddHandler Cefbrowser.FrameLoadEnd, AddressOf 読込終了時
 
-
-
+        '右クリックメニュー削除
+        '        AddHandler Cefbrowser.MouseDown, AddressOf ブラウザ右クリックメニュー削除
+        'AddHandler Cefbrowser.MouseUp, AddressOf ブラウザ右クリックメニュー削除
         '
+
 
 
         '通知領域の設定
@@ -159,7 +170,19 @@ Public Class メインフォーム
             ミュート切り替え.Text = "ミュート解除"
         End If
 
+        オプション.Hide()
+        オプション.WindowState = FormWindowState.Minimized
+        オプション.Show()
+        オプション.Hide()
+        オプション.WindowState = FormWindowState.Normal
 
+        '通知設定
+        Integer.TryParse(オプション.通知秒.Text, オプション設定_遠征通知通知秒)
+
+        オプション設定_疲労回復通知 = オプション.疲労回復通知チェック.Checked
+
+        Debug.WriteLine("オプション設定_疲労回復通知:" + オプション設定_疲労回復通知.ToString)
+        Debug.WriteLine("オプション設定_遠征通知:" + オプション.遠征終了通知チェック.Checked.ToString)
 
     End Sub
 
@@ -225,6 +248,7 @@ Public Class メインフォーム
 
 
         オプション.javascriptcall = True
+
 
 
 
@@ -345,6 +369,7 @@ Public Class メインフォーム
 
     Private Sub 汎用タイマ_Tick(sender As Object, e As EventArgs) Handles 汎用タイマ.Tick
 
+        Debug.WriteLine("オプション設定_疲労回復通知0:" + オプション設定_疲労回復通知.ToString)
         'ドロップ艦娘保存
         If MyDataClass.Start.出力 = True Then
 
@@ -360,6 +385,7 @@ Public Class メインフォーム
             MyDataClass.Start.出力 = False
 
         End If
+        Debug.WriteLine("オプション設定_疲労回復通知1:" + オプション設定_疲労回復通知.ToString)
 
         '大破艦通知
         If 艦隊情報.大破艦通知 = True Then
@@ -367,18 +393,31 @@ Public Class メインフォーム
             通知領域.ShowBalloonTip(30000, "注意！", "大破した艦がいます", ToolTipIcon.Warning)
             艦隊情報.大破艦通知 = False
         End If
+        Debug.WriteLine("オプション設定_疲労回復通知2:" + オプション設定_疲労回復通知.ToString)
 
+        Debug.WriteLine("オプション設定_疲労回復通知2a:" + オプション設定_疲労回復通知.ToString)
         '遠征終了通知
         For cnt = 0 To 遠征情報.遠征終了通知.Count - 1
+            Debug.WriteLine("オプション設定_疲労回復通知2a:" + オプション設定_疲労回復通知.ToString)
             If 遠征情報.遠征終了通知(cnt) = 1 And オプション.遠征終了通知チェック.Checked = True Then
+
                 通知領域.Visible = True
                 通知領域.ShowBalloonTip(30000, MyDataClass.MyPort(cnt).api_name, "遠征が終了しました", ToolTipIcon.Info)
                 遠征情報.遠征終了通知(cnt) = 2
+
+                If オプション.遠征終了時SE.Checked = True And System.IO.File.Exists(オプション.遠征終了時SEファイルパス.Text) Then
+                    My.Computer.Audio.Play(オプション.遠征終了時SEファイルパス.Text, AudioPlayMode.Background)
+                End If
+
             End If
+            オプション設定_疲労回復通知 = オプション.疲労回復通知チェック.Checked
+            Debug.WriteLine("オプション設定_疲労回復通知2b:" + オプション設定_疲労回復通知.ToString)
         Next
+        オプション設定_疲労回復通知 = オプション.疲労回復通知チェック.Checked
+        Debug.WriteLine("オプション設定_疲労回復通知3:" + オプション設定_疲労回復通知.ToString)
 
         If MyDataClass.MyPort(1).api_mission IsNot Nothing Then
-            For cnt = 0 To 3
+            For cnt = 0 To MyDataClass.MyPort.Length - 1
                 If MyDataClass.MyPort(cnt).api_mission(0).Equals(1) Then
 
                     'unixタイムスタンプからの変更
@@ -387,9 +426,7 @@ Public Class メインフォーム
                     Dim 残り時間 As TimeSpan = 帰還時刻 - 現在時刻
                     Dim 残り時間表示 As String = 残り時間.Hours.ToString("00") + ":" + 残り時間.Minutes.ToString("00") + ":" + (残り時間.Seconds Mod 60).ToString("00")
 
-                    If 残り時間.Seconds < 0 Then
-                        残り時間表示 = "帰還済み"
-
+                    If 残り時間.Seconds < オプション設定_遠征通知通知秒 Then
                         '遠征終了通知をさせるために必要
                         If 遠征情報.遠征終了通知(cnt) = 0 Then
                             遠征情報.遠征終了通知(cnt) = 1
@@ -406,6 +443,7 @@ Public Class メインフォーム
 
             Next
         End If
+        Debug.WriteLine("オプション設定_疲労回復通知4:" + オプション設定_疲労回復通知.ToString)
 
 
         '疲労回復タイマー
@@ -451,29 +489,28 @@ Public Class メインフォーム
                     MyDataClass.MyPort(cnt).noapi_condtimer = 1
                 End If
 
-
+                Debug.WriteLine("オプション設定_疲労回復通知:" + オプション設定_疲労回復通知.ToString)
                 '終わった場合
                 If MyDataClass.MyPort(cnt).noapi_condtimer = 1 And (MyDataClass.MyPort(cnt).noapi_condtime - DateTimeOffset.Now).Seconds < 0 Then
-                    If オプション.疲労回復通知.Checked = True Then
+                    If オプション設定_疲労回復通知 Then
                         '通知する
                         通知領域.Visible = True
                         通知領域.ShowBalloonTip(30000, MyDataClass.MyPort(cnt).api_name, "疲労が回復しました", ToolTipIcon.Info)
                     End If
-                    MyDataClass.MyPort(cnt).noapi_condtimer = 0
+                    MyDataClass.MyPort(cnt).noapi_condtimer = 2
                 End If
 
                 '伊良湖とか使った場合
                 If MyDataClass.MyPort(cnt).noapi_condtimer = 1 And 最悪cond >= 49 Then
-                    MyDataClass.MyPort(cnt).noapi_condtimer = 0
+                    MyDataClass.MyPort(cnt).noapi_condtimer = 2
                 End If
 
+                '戻すとき
+                If MyDataClass.MyPort(cnt).noapi_condtimer = 2 And 最悪cond >= 49 Then
+                    MyDataClass.MyPort(cnt).noapi_condtimer = 0
+                End If
             End If
 
-
-            Debug.WriteLine("cnt :" + cnt.ToString)
-            Debug.WriteLine("co  :" + MyDataClass.MyPort(cnt).noapi_condtime.ToString)
-            Debug.WriteLine("回  :" + 回復時間.ToString)
-            Debug.WriteLine("ti  :" + MyDataClass.MyPort(cnt).noapi_condtimer.ToString)
 
             '画面処理
             If オプション.javascriptcall = True Then
@@ -482,6 +519,7 @@ Public Class メインフォーム
                 Cefbrowser.GetBrowser.MainFrame.ExecuteJavaScriptAsync("if(location.href==='http://www.dmm.com/netgame/social/-/gadgets/=/app_id=854854/'){window.scrollTo(" + オプション.ブラウザ座標X出力.ToString + "," + オプション.ブラウザ座標Y出力.ToString + ");}")
                 オプション.javascriptcall = False
             End If
+
 
         Next
     End Sub
@@ -500,11 +538,14 @@ Public Class メインフォーム
 
 
 
-    Private Declare Function PrintWindow Lib "User32" (ByVal hWnd As IntPtr, ByVal hdcBlt As IntPtr, ByVal nFlags As Integer) As Boolean
+    'Private Declare Function PrintWindow Lib "User32" (ByVal hWnd As IntPtr, ByVal hdcBlt As IntPtr, ByVal nFlags As Integer) As Boolean
+
+    Private Declare Function GetDeviceCaps Lib "Gdi32" (ByVal hDC As Integer, ByVal nIndex As Integer) As Integer
+    Private Declare Function GetDC Lib "User32" (ByVal hwnd As Integer) As Integer
+    Private Declare Function GetDesktopWindow Lib "User32" () As Integer
+
+
     Private Sub スクリーンショット撮影_Click(sender As Object, e As EventArgs) Handles スクリーンショット撮影.Click
-        ''temp画像保存領域
-        'Dim imgtemp As New Bitmap(802, 482) '撮影用
-        'Dim rectemp As New Bitmap(800, 400) '切抜用
 
         'ファイル名作成
         Dim nowTime As DateTimeOffset = Now
@@ -519,6 +560,9 @@ Public Class メインフォーム
             MkDir(My.Application.Info.DirectoryPath + "\SS\")
         End If
 
+        ''temp画像保存領域
+        'Dim imgtemp As New Bitmap(802, 482) '撮影用
+        'Dim rectemp As New Bitmap(800, 400) '切抜用
         ''webbrowserから画像をコピー
         'Using targetGraphics As Graphics = Graphics.FromImage(imgtemp)
         '    Dim hDC As IntPtr = targetGraphics.GetHdc()
@@ -540,8 +584,21 @@ Public Class メインフォーム
 
 
 
+
+        'スクリーンの解像度取得
+        DskhWnd = GetDesktopWindow
+        Dim ScreenHdc As IntPtr = GetDC(Me.Handle)
+        Dim dpi_X As Integer = GetDeviceCaps(ScreenHdc, 88) '88は1インチあたりの水平方向px数
+        Dim dpi_Y As Integer = GetDeviceCaps(ScreenHdc, 90) '90は1インチあたりの垂直方向px数
+
+        Debug.WriteLine("dpi:" + dpi_X.ToString)
+
+
+
         'Bitmapの作成
-        Dim bmp As New Bitmap(bp.Width - 2, bp.Height - 24)
+        Dim width As Integer = bp.Width - 2 * (96 / dpi_X)
+        Dim high As Integer = bp.Height - 24 * (96 / dpi_Y)
+        Dim bmp As New Bitmap(width, high)
         'Graphicsの作成
         Dim g As Graphics = Graphics.FromImage(bmp)
         '画面全体をコピーする
@@ -567,4 +624,12 @@ Public Class メインフォーム
             ミュート切り替え.Text = "ミュート"
         End If
     End Sub
+
+
+    Private Sub メインフォーム_Closing(sender As Object, e As System.Windows.Forms.FormClosingEventArgs) Handles Me.Closing
+        If MessageBox.Show("ソフトウェアを終了しますか？", "確認", MessageBoxButtons.YesNo) = DialogResult.No Then
+            e.Cancel = True
+        End If
+    End Sub
+
 End Class

@@ -417,12 +417,12 @@ Namespace My
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.DefaultSettingValueAttribute("True")>  _
-        Public Property 疲労回復通知() As Boolean
+        Public Property 疲労回復通知保存() As Boolean
             Get
-                Return CType(Me("疲労回復通知"),Boolean)
+                Return CType(Me("疲労回復通知保存"),Boolean)
             End Get
             Set
-                Me("疲労回復通知") = value
+                Me("疲労回復通知保存") = value
             End Set
         End Property
         
@@ -471,6 +471,42 @@ Namespace My
             End Get
             Set
                 Me("ブラウザ座標Y") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("40")>  _
+        Public Property 通知秒数() As String
+            Get
+                Return CType(Me("通知秒数"),String)
+            End Get
+            Set
+                Me("通知秒数") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("False")>  _
+        Public Property 遠征完了時SE() As Boolean
+            Get
+                Return CType(Me("遠征完了時SE"),Boolean)
+            End Get
+            Set
+                Me("遠征完了時SE") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property 遠征完了時SEファイルパス() As String
+            Get
+                Return CType(Me("遠征完了時SEファイルパス"),String)
+            End Get
+            Set
+                Me("遠征完了時SEファイルパス") = value
             End Set
         End Property
     End Class

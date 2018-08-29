@@ -32,10 +32,6 @@
                     If 残り時間.Seconds < 0 Then
                         残り時間表示 = "帰還済み"
 
-                        '遠征終了通知をさせるために必要
-                        If 遠征終了通知(cnt) = 0 Then
-                            遠征終了通知(cnt) = 1
-                        End If
                     End If
 
 

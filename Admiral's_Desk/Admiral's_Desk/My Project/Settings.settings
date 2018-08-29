@@ -92,7 +92,7 @@
     <Setting Name="プロキシポート設定" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="疲労回復通知" Type="System.Boolean" Scope="User">
+    <Setting Name="疲労回復通知保存" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="ハードウェアアクセラレーション" Type="System.Boolean" Scope="User">
@@ -106,6 +106,15 @@
     </Setting>
     <Setting Name="ブラウザ座標Y" Type="System.String" Scope="User">
       <Value Profile="(Default)">53</Value>
+    </Setting>
+    <Setting Name="通知秒数" Type="System.String" Scope="User">
+      <Value Profile="(Default)">40</Value>
+    </Setting>
+    <Setting Name="遠征完了時SE" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="遠征完了時SEファイルパス" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
     </Setting>
   </Settings>
 </SettingsFile>
